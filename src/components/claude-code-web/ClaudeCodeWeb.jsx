@@ -4,8 +4,8 @@ import { RepositorySelector } from './RepositorySelector';
 export function ClaudeCodeWeb({ children }) {
   // Extract children by type for proper placement
   const childArray = Array.isArray(children) ? children : [children];
-  const sessions = childArray.find(child => child?.type?.name === 'Sessions');
-  const mainChat = childArray.find(child => child?.type?.name === 'MainChat');
+  const sessions = childArray.find(child => child?.type?.displayName === 'Sessions');
+  const mainChat = childArray.find(child => child?.type?.displayName === 'MainChat');
 
   return (
     <div className="flex h-full w-full bg-claude-bg text-claude-text">

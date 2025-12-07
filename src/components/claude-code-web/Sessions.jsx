@@ -11,3 +11,5 @@ export function Sessions({ children }) {
     </div>
   );
 }
+
+Sessions.displayName = 'Sessions';

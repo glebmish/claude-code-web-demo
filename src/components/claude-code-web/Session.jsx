@@ -1,8 +1,8 @@
 export function Session({ selected, children }) {
   // Extract Name and Footer from children
   const childArray = Array.isArray(children) ? children : [children];
-  const name = childArray.find(child => child?.type?.name === 'Name');
-  const footer = childArray.find(child => child?.type?.name === 'Footer');
+  const name = childArray.find(child => child?.type?.displayName === 'Name');
+  const footer = childArray.find(child => child?.type?.displayName === 'Footer');
 
   return (
     <div className={`px-4 py-2.5 cursor-pointer transition-colors relative ${

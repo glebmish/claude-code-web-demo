@@ -16,3 +16,5 @@ export function MainChat({ children }) {
     </>
   );
 }
+
+MainChat.displayName = 'MainChat';
