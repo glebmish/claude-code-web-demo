@@ -1,5 +1,6 @@
 import { Slide, Note } from '../components/navigation';
 import { ClaudeCodeWeb } from '../components/claude-code-web/ClaudeCodeWeb';
+import { RepositorySelector } from '../components/claude-code-web/RepositorySelector';
 import { Sessions } from '../components/claude-code-web/Sessions';
 import { Session, Name, Footer } from '../components/claude-code-web/Session';
 import { MainChat } from '../components/claude-code-web/MainChat';
@@ -12,6 +13,8 @@ export function Slide1() {
     <Slide>
       <Note>Initial state: Active sessions and user request</Note>
       <ClaudeCodeWeb>
+        <RepositorySelector>glebmish/rewrite-claude-assisted</RepositorySelector>
+
         <Sessions>
           <Session selected>
             <Name>Analyze test runs with session evaluator</Name>

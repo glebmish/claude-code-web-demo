@@ -1,5 +1,6 @@
 import { Slide, Note, Highlight } from '../components/navigation';
 import { ClaudeCodeWeb } from '../components/claude-code-web/ClaudeCodeWeb';
+import { EnvSelect } from '../components/claude-code-web/EnvSelect';
 import { Sessions } from '../components/claude-code-web/Sessions';
 import { Session, Name, Footer } from '../components/claude-code-web/Session';
 import { MainChat } from '../components/claude-code-web/MainChat';
@@ -13,6 +14,8 @@ export function Slide2() {
     <Slide>
       <Note>Claude responds and executes bash commands to set up the environment</Note>
       <ClaudeCodeWeb>
+        <EnvSelect>Production</EnvSelect>
+
         <Sessions>
           <Session selected>
             <Name>Analyze test runs with session evaluator</Name>
