@@ -1,7 +1,12 @@
-export function MainChatTextField() {
+export function MainChatTextField({ children }) {
+  // Extract autocomplete from children
+  const childArray = Array.isArray(children) ? children : [children];
+  const autocomplete = childArray.find(child => child?.type?.displayName === 'AutocompletePopup');
+
   return (
     <div className="border-t border-claude-border px-6 py-4 bg-claude-bg">
-      <div className="flex items-end gap-3">
+      <div className="flex items-end gap-3 relative">
+        {autocomplete}
         <div className="flex-1 bg-claude-input-bg border border-claude-border rounded-lg overflow-hidden">
           <textarea
             placeholder="Reply..."

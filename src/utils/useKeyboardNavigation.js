@@ -5,10 +5,12 @@ export function useKeyboardNavigation(currentSlide, totalSlides, setSlide) {
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         e.preventDefault();
-        setSlide((prev) => Math.min(prev + 1, totalSlides - 1));
+        const nextSlide = Math.min(currentSlide + 1, totalSlides - 1);
+        setSlide(nextSlide);
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault();
-        setSlide((prev) => Math.max(prev - 1, 0));
+        const prevSlide = Math.max(currentSlide - 1, 0);
+        setSlide(prevSlide);
       }
     };
 

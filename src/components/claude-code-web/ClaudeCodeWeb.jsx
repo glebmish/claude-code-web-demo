@@ -8,6 +8,7 @@ export function ClaudeCodeWeb({ children }) {
   const mainChat = childArray.find(child => child?.type?.displayName === 'MainChat');
   const repositorySelector = childArray.find(child => child?.type?.displayName === 'RepositorySelector');
   const envSelect = childArray.find(child => child?.type?.displayName === 'EnvSelect');
+  const newSessionInput = childArray.find(child => child?.type?.displayName === 'NewSessionInput');
 
   return (
     <div className="flex h-full w-full bg-claude-bg text-claude-text">
@@ -17,15 +18,17 @@ export function ClaudeCodeWeb({ children }) {
 
         {/* Horizontal selector row */}
         <div className="flex border-b border-claude-border">
-          <div className={`flex-1 ${envSelect ? 'border-r border-claude-border' : ''}`}>
+          <div className={`flex-[3] ${envSelect ? 'border-r border-claude-border' : ''}`}>
             {repositorySelector || <RepositorySelector />}
           </div>
           {envSelect && (
-            <div className="flex-1">
+            <div className="flex-[1]">
               {envSelect}
             </div>
           )}
         </div>
+
+        {newSessionInput}
 
         {sessions}
       </div>
