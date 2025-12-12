@@ -1,11 +1,14 @@
-export function SidebarHeader() {
+export function SidebarHeader({ newSessionInput }) {
+  const placeholder = newSessionInput?.props?.children || "Find a small todo in the codebase and do it";
+  const placeholderColor = newSessionInput ? "placeholder-black" : "placeholder-claude-text-dim";
+
   return (
     <div className="p-4 border-b border-claude-border">
       <h1 className="text-base font-semibold mb-4">Claude Code</h1>
       <div className="relative">
         <textarea
-          placeholder="Find a small todo in the codebase and do it"
-          className="w-full bg-claude-input-bg border border-claude-border rounded-lg px-4 py-3 text-sm placeholder-claude-text-dim focus:outline-none focus:ring-1 focus:ring-claude-accent resize-none"
+          placeholder={placeholder}
+          className={`w-full bg-claude-input-bg border border-claude-border rounded-lg px-4 py-3 text-sm ${placeholderColor} focus:outline-none focus:ring-1 focus:ring-claude-accent resize-none`}
           rows={3}
           readOnly
         />

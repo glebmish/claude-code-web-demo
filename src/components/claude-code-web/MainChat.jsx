@@ -9,8 +9,10 @@ export function MainChat({ children }) {
   return (
     <>
       {header}
-      <div className="flex-1 overflow-y-auto px-6 py-4">
-        {messages}
+      <div className="flex-1 px-6 py-4 flex flex-col justify-end overflow-hidden">
+        <div className="flex flex-col gap-4">
+          {messages}
+        </div>
       </div>
       {textField}
     </>

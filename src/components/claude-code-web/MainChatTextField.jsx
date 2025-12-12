@@ -3,6 +3,9 @@ export function MainChatTextField({ children }) {
   const childArray = Array.isArray(children) ? children : [children];
   const autocomplete = childArray.find(child => child?.type?.displayName === 'AutocompletePopup');
 
+  // Get text content (non-component children)
+  const textContent = childArray.find(child => typeof child === 'string' || typeof child === 'number');
+
   return (
     <div className="border-t border-claude-border px-6 py-4 bg-claude-bg">
       <div className="flex items-end gap-3 relative">
@@ -10,7 +13,8 @@ export function MainChatTextField({ children }) {
         <div className="flex-1 bg-claude-input-bg border border-claude-border rounded-lg overflow-hidden">
           <textarea
             placeholder="Reply..."
-            className="w-full bg-transparent px-4 py-3 outline-none resize-none text-sm placeholder-claude-text-dim focus:outline-none"
+            value={textContent || ''}
+            className={`w-full bg-transparent px-4 py-3 outline-none resize-none text-sm focus:outline-none ${textContent ? 'text-black' : 'placeholder-claude-text-dim'}`}
             rows={1}
             readOnly
           />
@@ -23,7 +27,7 @@ export function MainChatTextField({ children }) {
       </div>
       <div className="flex items-center gap-4 mt-3 text-xs text-claude-text-dim">
         <button className="flex items-center gap-1 hover:text-claude-text transition-colors">
-          <span>claude/analyze-test-runs-011f...</span>
+          <span>claude/explore-repository</span>
         </button>
         <button className="flex items-center gap-1 hover:text-claude-text transition-colors">
           <span>Create PR</span>

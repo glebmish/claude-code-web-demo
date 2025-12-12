@@ -1,8 +1,10 @@
 import { Slide, Note, Highlight } from '../components/navigation';
 import { ClaudeCodeWeb } from '../components/claude-code-web/ClaudeCodeWeb';
+import { RepositorySelector } from '../components/claude-code-web/RepositorySelector';
 import { EnvSelect } from '../components/claude-code-web/EnvSelect';
+import { NewSessionInput } from '../components/claude-code-web/NewSessionInput';
 import { Sessions } from '../components/claude-code-web/Sessions';
-import { Session, Name, Footer } from '../components/claude-code-web/Session';
+import { Session, Name, Footer, Subsession, AutocompletePopup, AutocompleteHeader, AutocompleteItem } from '../components/claude-code-web/Session';
 import { MainChat } from '../components/claude-code-web/MainChat';
 import { MainChatHeader } from '../components/claude-code-web/MainChatHeader';
 import { Message, Response } from '../components/claude-code-web/Message';
@@ -12,72 +14,48 @@ import { MainChatTextField } from '../components/claude-code-web/MainChatTextFie
 export function Slide2() {
   return (
     <Slide>
-      <Note>Claude responds and executes bash commands to set up the environment</Note>
+      <Note>
+          Step 1: Subagent tabs (Web)<br/>
+          Subagent is shown like usual in the main chat
+      </Note>
       <ClaudeCodeWeb>
-        <EnvSelect>Production</EnvSelect>
+        <RepositorySelector>glebmish/rewrite-claude-assisted</RepositorySelector>
+        <EnvSelect>Default</EnvSelect>
 
         <Sessions>
           <Session selected>
-            <Name>Analyze test runs with session evaluator</Name>
+            <Name>Working on rewrite-claude-assisted codebase</Name>
             <Footer>glebmish/rewrite-claude-assisted</Footer>
           </Session>
-          <Session>
-            <Name>Analyze workflow fix commits and cleanup</Name>
-            <Footer>glebmish/rewrite-claude-assisted</Footer>
-          </Session>
+          <Subsession color="green">a493ccdb - <b>Explore</b></Subsession>
         </Sessions>
 
         <MainChat>
-          <MainChatHeader>Analyze test runs with session evaluator</MainChatHeader>
+          <MainChatHeader>Working on rewrite-claude-assisted codebase</MainChatHeader>
 
           <Message from="user">
-start with git fetch git checkout tmp-results
-
-locate test runs in tmp (there are 4). Use session-evaluator subagent to analyze each one separately. Tell agent that the instructions it has are partially outdated and it should use its best judgement and deep expertise and be thorough and detailed. It must pay most of its attention to the workflow corretness and smoothness, not the efficiency of the resulting openrewrite recipe. For each of the runs there's an older run in eval-checkpoints/2025-11-17-sonnet-only for comparison
+              Explore the project and give a brief overview before the main task starts
           </Message>
+          <Response>
+              I'll explore the project to give you a brief overview.
+          </Response>
 
           <Highlight>
-            <Response>
-I'll help you analyze the test runs. Let me start by fetching and checking out the branch, then locating the test runs.
-            </Response>
+              <ToolUse>
+                  <ToolName>Explore</ToolName>
+                  <Command>Explore project structure and purpose</Command>
+                  <Result>
+                      Done (21 tool uses · 46.1k tokens · 60s)
+                  </Result>
+              </ToolUse>
           </Highlight>
+          <Response>
+{`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
 
-          <Highlight>
-            <ToolUse>
-              <ToolName>Bash</ToolName>
-              <Command>git fetch origin</Command>
-              <Result>
-{`   * [new branch]      main        -> origin/main
- * [new branch]      mcp         -> origin/mcp
- * [new branch]      tmp-results -> origin/tmp-results
-... +4 lines`}
-              </Result>
-            </ToolUse>
-          </Highlight>
+Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
+          </Response>
 
-          <Highlight>
-            <ToolUse>
-              <ToolName>Bash</ToolName>
-              <Command>git checkout tmp-results</Command>
-              <Result>
-{`branch 'tmp-results' set up to track 'origin/tmp-results'.
-Switched to a new branch 'tmp-results'`}
-              </Result>
-            </ToolUse>
-          </Highlight>
-
-          <ToolUse>
-            <ToolName>Bash</ToolName>
-            <Command>ls -la /home/user/rewrite-claude-assisted/tmp</Command>
-            <Result>
-{`drwxr-xr-x 2 root root  4096 Nov 23 11:28 1-run1-run-metadata
-drwxr-xr-x 4 root root  4096 Nov 23 11:28 2-run1-run-metadata
-drwxr-xr-x 4 root root  4096 Nov 23 11:28 3-run1-run-metadata
-... +4 lines`}
-            </Result>
-          </ToolUse>
-
-          <MainChatTextField />
+          <MainChatTextField/>
         </MainChat>
       </ClaudeCodeWeb>
     </Slide>

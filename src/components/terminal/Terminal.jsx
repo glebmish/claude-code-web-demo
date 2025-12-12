@@ -1,6 +1,7 @@
 export function ClaudeCodeTerminal({ children }) {
-  // Extract MainTerminalWindow, Input, and Footer from children
   const childArray = Array.isArray(children) ? children : [children];
+
+  const clawd = childArray.find(child => child?.type?.displayName === 'Clawd');
   const tabs = childArray.find(child => child?.type?.displayName === 'TerminalTabs');
   const mainWindow = childArray.find(child => child?.type?.displayName === 'MainTerminalWindow');
   const input = childArray.find(child => child?.type?.displayName === 'Input');
@@ -8,6 +9,7 @@ export function ClaudeCodeTerminal({ children }) {
 
   return (
     <div className="absolute top-[10%] left-[10%] z-30 w-[700px] h-[450px] bg-[#1e1e1e] border border-[#3e3e3e] rounded-lg shadow-2xl overflow-hidden flex flex-col">
+      {clawd}
       {tabs}
       {mainWindow}
       {input}
@@ -22,7 +24,7 @@ export function MainTerminalWindow({ children }) {
   // Filter children by displayName
   const childArray = Array.isArray(children) ? children : [children];
   const messages = childArray.filter(child =>
-    ['Message', 'Response', 'ToolUse', 'Highlight'].includes(child?.type?.displayName)
+    ['Message', 'Response', 'ToolUse'].includes(child?.type?.displayName)
   );
 
   return (

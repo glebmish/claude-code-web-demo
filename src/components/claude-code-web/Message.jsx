@@ -1,4 +1,6 @@
-export function Message({ from, children }) {
+import { Colored } from '../terminal';
+
+export function Message({ from, fromColor, children }) {
   const isUser = from === 'user';
   const isAssistant = from === 'assistant';
 
@@ -19,7 +21,11 @@ export function Message({ from, children }) {
     <div className="mb-6">
       <div className={`${backgroundClass} ${paddingClass}`}>
         <div className="text-xs text-claude-text-dim mb-2 font-medium uppercase tracking-wide">
-          {from}
+          {fromColor ? (
+            <Colored color={fromColor}>{from}</Colored>
+          ) : (
+            from
+          )}
         </div>
         <div className="text-sm leading-relaxed whitespace-pre-wrap text-claude-text">
           {children}

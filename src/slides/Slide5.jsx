@@ -1,39 +1,62 @@
-import { Slide, Note, MermaidDiagram } from '../components/navigation';
+import { Slide, Note, Highlight } from '../components/navigation';
+import {
+  ClaudeCodeTerminal,
+  MainTerminalWindow,
+  TerminalUserMessage,
+  TerminalResponse,
+  TerminalToolUse,
+  TerminalInput,
+  TerminalFooter,
+  AgentSection,
+  Colored,
+  TerminalTabs,
+  TerminalTab,
+  Clawd
+} from '../components/terminal';
+import { ToolName, Command, Result } from '../components/claude-code-web/ToolUse';
+import { Slide3 } from './Slide3';
 
 export function Slide5() {
   return (
-    <Slide>
-      <Note>Claude Code Architecture: How user requests flow through the system</Note>
-      <MermaidDiagram>
-{`graph TD
-    A[User Request] --> B{Request Type}
-    B -->|Code Task| C[Claude AI Model]
-    B -->|Terminal Command| D[Bash Tool]
-    B -->|File Operation| E[File Tools]
+    <Slide3>
+      <Note>
+          Step 1: Subagent tabs (Terminal)<br/>
+          Subagent is shown like usual in the main chat
+      </Note>
+      <ClaudeCodeTerminal>
+        <TerminalTabs>
+          <TerminalTab active>Main</TerminalTab>
+          <TerminalTab>a493ccdb - Explore</TerminalTab>
+        </TerminalTabs>
 
-    C --> F{Tool Selection}
-    F -->|Read/Write| E
-    F -->|Execute| D
-    F -->|Search| G[Grep/Glob Tools]
-    F -->|Launch Agent| H[Task Tool]
+        <MainTerminalWindow>
+          <TerminalUserMessage>
+Explore the project and give a brief overview before the main task starts
+          </TerminalUserMessage>
 
-    E --> I[File System]
-    D --> J[Shell Process]
-    G --> I
-    H --> K[Specialized Agent]
+          <TerminalResponse>
+I'll explore the project to give you a brief overview.
+          </TerminalResponse>
 
-    K --> L[Agent Analysis]
-    L --> C
+          <Highlight>
+            <TerminalToolUse>
+              <ToolName>Explore</ToolName>
+              <Command>Explore project structure and purpose</Command>
+              <Result>
+Done (21 tool uses · 46.1k tokens · 60s)
+              </Result>
+            </TerminalToolUse>
+          </Highlight>
 
-    I --> M[Response]
-    J --> M
-    M --> N[User Interface]
+          <TerminalResponse>
+{`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
 
-    style A fill:#7c3aed,stroke:#6d28d9,color:#fff
-    style C fill:#f7f7f7,stroke:#e0e0e0,color:#1f1f1f
-    style N fill:#7c3aed,stroke:#6d28d9,color:#fff
-    style K fill:#f0f0f0,stroke:#e0e0e0,color:#1f1f1f`}
-      </MermaidDiagram>
-    </Slide>
+Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
+          </TerminalResponse>
+        </MainTerminalWindow>
+
+        <TerminalInput />
+      </ClaudeCodeTerminal>
+    </Slide3>
   );
 }

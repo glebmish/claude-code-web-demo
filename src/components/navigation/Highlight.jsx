@@ -11,7 +11,7 @@ export function Highlight({ children }) {
   }, [id, registerHighlight, unregisterHighlight]);
 
   return (
-    <div className="relative z-20">
+    <div className="relative z-20 bg-claude-bg">
       {children}
     </div>
   );

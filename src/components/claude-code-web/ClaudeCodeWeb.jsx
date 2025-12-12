@@ -14,7 +14,7 @@ export function ClaudeCodeWeb({ children }) {
     <div className="flex h-full w-full bg-claude-bg text-claude-text">
       {/* Left Sidebar */}
       <div className="w-80 bg-claude-sidebar border-r border-claude-border flex flex-col">
-        <SidebarHeader />
+        <SidebarHeader newSessionInput={newSessionInput} />
 
         {/* Horizontal selector row */}
         <div className="flex border-b border-claude-border">
@@ -27,8 +27,6 @@ export function ClaudeCodeWeb({ children }) {
             </div>
           )}
         </div>
-
-        {newSessionInput}
 
         {sessions}
       </div>

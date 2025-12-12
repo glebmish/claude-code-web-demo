@@ -108,7 +108,20 @@ export function AgentSection({ color, children }) {
 AgentSection.displayName = 'AgentSection';
 
 export function Colored({ color, children }) {
-  // Calculate if background is light or dark
+  // Color map matching Subsession component
+  const colorNameMap = {
+    green: '#22c55e',   // text-green-500
+    blue: '#3b82f6',    // text-blue-500
+    red: '#ef4444',     // text-red-500
+    yellow: '#eab308',  // text-yellow-500
+    purple: '#a855f7',  // text-purple-500
+    orange: '#f97316',  // text-orange-500
+  };
+
+  // Resolve color name to hex, or use as-is if already hex
+  const resolvedColor = colorNameMap[color] || color;
+
+  // Calculate if background is light or dark to determine readable text color
   const getTextColor = (bgColor) => {
     if (!bgColor) return '#cccccc';
 
@@ -124,13 +137,14 @@ export function Colored({ color, children }) {
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
 
     // Return dark text for light backgrounds, light text for dark backgrounds
-    return luminance > 140 ? '#1f1f1f' : '#cccccc';
+    // Lowered threshold to 120 so green (#22c55e, luminance ~136) gets dark text
+    return luminance > 120 ? '#1f1f1f' : '#cccccc';
   };
 
-  const textColor = getTextColor(color);
+  const textColor = getTextColor(resolvedColor);
 
   return (
-    <span style={{ backgroundColor: color, color: textColor }} className="px-1 rounded">
+    <span style={{ backgroundColor: resolvedColor, color: textColor }} className="px-1 rounded">
       {children}
     </span>
   );

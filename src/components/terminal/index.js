@@ -10,3 +10,4 @@ export {
   TerminalTabs,
   TerminalTab
 } from './TerminalMessage';
+export { Clawd } from './Clawd';

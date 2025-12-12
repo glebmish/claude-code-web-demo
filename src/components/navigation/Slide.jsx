@@ -1,10 +1,8 @@
 import { Children, useEffect } from 'react';
-import { useHighlight } from '../../contexts/HighlightContext';
 import { useNote } from '../../contexts/NoteContext';
 import { Note } from './Note';
 
 export function Slide({ children }) {
-  const { isHighlightActive } = useHighlight();
   const { setNoteContent } = useNote();
 
   // Extract Note component from children
@@ -27,10 +25,8 @@ export function Slide({ children }) {
   return (
     <div className="w-full h-full relative">
       {otherChildren}
-      {/* Dimming overlay - fixed to cover viewport, z-10 to be above normal content but below highlights (z-20) */}
-      {isHighlightActive && (
-        <div className="fixed inset-0 bg-black/60 pointer-events-none z-10" />
-      )}
+      {/* Dimming overlay - always visible since all slides have highlights or terminals */}
+      <div className="fixed inset-0 bg-black/40 pointer-events-none z-10" />
     </div>
   );
 }
