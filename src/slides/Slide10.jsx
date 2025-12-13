@@ -6,22 +6,17 @@ import {
   TerminalResponse,
   TerminalToolUse,
   TerminalInput,
-  TerminalFooter,
-  AgentSection,
-  Colored,
   TerminalTabs,
-  TerminalTab,
-  Clawd
+  TerminalTab
 } from '../components/terminal';
 import { ToolName, Command, Result } from '../components/claude-code-web/ToolUse';
-import { Slide3 } from './Slide3';
 
-export function Slide6() {
+export function Slide10() {
   return (
-    <Slide3>
+    <Slide>
       <Note>
-          Step 1: Subagent tabs (Terminal)<br/>
-          Subagent tab shows full subagent conversation with tool uses
+          Step 2: Direct subagent control (Terminal)<br/>
+          Talk to subagents directly
       </Note>
       <ClaudeCodeTerminal>
         <TerminalTabs>
@@ -71,7 +66,11 @@ Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent,
 Workflow: PR analysis → recipe generation → validation → refinement.`}
           </TerminalResponse>
         </MainTerminalWindow>
+
+        <TerminalInput>
+Take a look at the docs/ folder as well
+        </TerminalInput>
       </ClaudeCodeTerminal>
-    </Slide3>
+    </Slide>
   );
 }

@@ -11,12 +11,12 @@ import { Message, Response } from '../components/claude-code-web/Message';
 import { ToolUse, ToolName, Command, Result } from '../components/claude-code-web/ToolUse';
 import { MainChatTextField } from '../components/claude-code-web/MainChatTextField';
 
-export function Slide3({children}) {
+export function Slide7() {
   return (
     <Slide>
       <Note>
-          Step 1: Subagent tabs (Web)<br/>
-          As subagent is spawned, a tab appears under the session tab. It shows full log of the subagent interactions.
+          Step 2: Direct subagent control (Web)<br/>
+          Talk to subagents directly
       </Note>
       <ClaudeCodeWeb>
         <RepositorySelector>glebmish/rewrite-claude-assisted</RepositorySelector>
@@ -27,14 +27,9 @@ export function Slide3({children}) {
             <Name>Working on rewrite-claude-assisted codebase</Name>
             <Footer>glebmish/rewrite-claude-assisted</Footer>
           </Session>
-          {!children && (
-            <Highlight>
-              <Subsession selected color="green">a493ccdb - <b>Explore</b></Subsession>
-            </Highlight>
-          )}
-          {children && (
+          <Highlight>
             <Subsession selected color="green">a493ccdb - <b>Explore</b></Subsession>
-          )}
+          </Highlight>
         </Sessions>
 
         <MainChat>
@@ -80,9 +75,12 @@ Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent,
 
 Workflow: PR analysis → recipe generation → validation → refinement.`}
           </Response>
+
+          <Highlight>
+            <MainChatTextField>Take a look at the docs/ folder as well</MainChatTextField>
+          </Highlight>
         </MainChat>
       </ClaudeCodeWeb>
-      {children}
     </Slide>
   );
 }

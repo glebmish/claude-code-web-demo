@@ -6,22 +6,18 @@ import {
   TerminalResponse,
   TerminalToolUse,
   TerminalInput,
-  TerminalFooter,
-  AgentSection,
-  Colored,
   TerminalTabs,
   TerminalTab,
-  Clawd
+  Colored
 } from '../components/terminal';
 import { ToolName, Command, Result } from '../components/claude-code-web/ToolUse';
-import { Slide3 } from './Slide3';
 
-export function Slide5() {
+export function Slide12() {
   return (
-    <Slide3>
+    <Slide>
       <Note>
-          Step 1: Subagent tabs (Terminal)<br/>
-          Subagent is shown like usual in the main chat
+          Step 2: Direct subagent control (Terminal)<br/>
+          Messages are relayed to the main chat, tool uses are not
       </Note>
       <ClaudeCodeTerminal>
         <TerminalTabs>
@@ -51,10 +47,18 @@ Done (21 tool uses · 46.1k tokens · 60s)
 
 Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
           </TerminalResponse>
+
+          <TerminalUserMessage>
+<Colored color="green">@a493ccdb</Colored> Take a look at the docs/ folder as well
+          </TerminalUserMessage>
+
+          <TerminalResponse from="a493ccdb" fromColor="green">
+The architecture documentation provides deeper insights into the system design. The workflow is event-driven with clear separation between analysis, generation, and validation phases.
+          </TerminalResponse>
         </MainTerminalWindow>
 
         <TerminalInput />
       </ClaudeCodeTerminal>
-    </Slide3>
+    </Slide>
   );
 }

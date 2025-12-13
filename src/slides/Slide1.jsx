@@ -15,7 +15,7 @@ export function Slide1() {
     <Slide>
       <Note>
           Step 1: Subagent tabs (Web)<br/>
-          Start the session as usual
+          Session starts as usual, user requests a task that can be delegated to subagent
       </Note>
       <ClaudeCodeWeb>
 

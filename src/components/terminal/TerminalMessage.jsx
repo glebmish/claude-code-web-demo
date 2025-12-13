@@ -13,14 +13,48 @@ export function TerminalUserMessage({ children }) {
 
 TerminalUserMessage.displayName = 'Message';
 
-export function TerminalResponse({ children, color }) {
+export function TerminalResponse({ children, color, from, fromColor }) {
   const bulletColor = color || '#cccccc';
+
+  // Color map matching Subsession component
+  const colorNameMap = {
+    green: '#22c55e',
+    blue: '#3b82f6',
+    red: '#ef4444',
+    yellow: '#eab308',
+    purple: '#a855f7',
+    orange: '#f97316',
+  };
+
+  const resolvedFromColor = fromColor ? (colorNameMap[fromColor] || fromColor) : null;
 
   return (
     <div className="mb-3">
       <div className="text-xs font-mono leading-relaxed whitespace-pre-wrap text-[#cccccc]">
-        <span style={{ color: bulletColor }}>• </span>
-        {children}
+        {from ? (
+          <>
+            <div
+              className="w-1.5 h-1.5 rounded-full inline-block mr-1.5"
+              style={{ backgroundColor: resolvedFromColor || '#858585' }}
+            />
+            <span
+              className="px-1 rounded mr-1"
+              style={{
+                backgroundColor: resolvedFromColor || '#858585',
+                color: '#1f1f1f'
+              }}
+            >
+              {from}
+            </span>
+            <span className="mr-1">-</span>
+            {children}
+          </>
+        ) : (
+          <>
+            <span style={{ color: bulletColor }}>• </span>
+            {children}
+          </>
+        )}
       </div>
     </div>
   );

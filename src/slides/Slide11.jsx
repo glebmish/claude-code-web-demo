@@ -6,22 +6,17 @@ import {
   TerminalResponse,
   TerminalToolUse,
   TerminalInput,
-  TerminalFooter,
-  AgentSection,
-  Colored,
   TerminalTabs,
-  TerminalTab,
-  Clawd
+  TerminalTab
 } from '../components/terminal';
 import { ToolName, Command, Result } from '../components/claude-code-web/ToolUse';
-import { Slide3 } from './Slide3';
 
-export function Slide6() {
+export function Slide11() {
   return (
-    <Slide3>
+    <Slide>
       <Note>
-          Step 1: Subagent tabs (Terminal)<br/>
-          Subagent tab shows full subagent conversation with tool uses
+          Step 2: Direct subagent control (Terminal)<br/>
+          Talk to subagents directly
       </Note>
       <ClaudeCodeTerminal>
         <TerminalTabs>
@@ -70,8 +65,34 @@ Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent,
 
 Workflow: PR analysis → recipe generation → validation → refinement.`}
           </TerminalResponse>
+
+          <TerminalUserMessage>
+Take a look at the docs/ folder as well
+          </TerminalUserMessage>
+
+          <TerminalToolUse>
+            <ToolName>Bash</ToolName>
+            <Command>find /home/glebmish/projects/rewrite-claude-assisted/docs -maxdepth 2 -type f -o -name "*.md" | head -20</Command>
+            <Result>
+{`/home/glebmish/projects/rewrite-claude-assisted/docs/ARCHITECTURE.md`}
+            </Result>
+          </TerminalToolUse>
+
+          <TerminalToolUse>
+            <ToolName>Read</ToolName>
+            <Command>/home/glebmish/projects/rewrite-claude-assisted/docs/ARCHITECTURE.md</Command>
+            <Result>
+(Reading file...)
+            </Result>
+          </TerminalToolUse>
+
+          <TerminalResponse>
+The architecture documentation provides deeper insights into the system design. The workflow is event-driven with clear separation between analysis, generation, and validation phases.
+          </TerminalResponse>
         </MainTerminalWindow>
+
+        <TerminalInput />
       </ClaudeCodeTerminal>
-    </Slide3>
+    </Slide>
   );
 }
