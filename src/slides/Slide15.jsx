@@ -20,10 +20,22 @@ export function Slide1() {
             <Name>Analyze test runs with session evaluator</Name>
             <Footer>glebmish/rewrite-claude-assisted</Footer>
           </Session>
-          <Subsession>1-run1-run-metadata</Subsession>
-          <Subsession>2-run1-run-metadata</Subsession>
-          <Subsession selected color="green">3-run1-run-metadata</Subsession>
-          <Subsession>4-run1-run-metadata</Subsession>
+          <Subsession>
+            <Name>1-run1-run-metadata</Name>
+            <Footer>Test run analysis</Footer>
+          </Subsession>
+          <Subsession>
+            <Name>2-run1-run-metadata</Name>
+            <Footer>Test run analysis</Footer>
+          </Subsession>
+          <Subsession selected>
+            <Name color="green">3-run1-run-metadata</Name>
+            <Footer>Test run analysis</Footer>
+          </Subsession>
+          <Subsession>
+            <Name>4-run1-run-metadata</Name>
+            <Footer>Test run analysis</Footer>
+          </Subsession>
           <Session>
             <Name>Analyze workflow fix commits and cleanup</Name>
             <Footer>glebmish/rewrite-claude-assisted</Footer>

@@ -21,7 +21,29 @@ export function Session({ selected, children }) {
   );
 }
 
-export function Name({ children }) {
+export function Name({ children, color }) {
+  // If color is provided, render with bullet (for Subsession)
+  if (color) {
+    const colorMap = {
+      green: 'text-green-500',
+      blue: 'text-blue-500',
+      red: 'text-red-500',
+      yellow: 'text-yellow-500',
+      purple: 'text-purple-500',
+      orange: 'text-orange-500',
+    };
+
+    const dotColorClass = colorMap[color] || 'text-claude-text-dim';
+
+    return (
+      <div className="flex items-center gap-2">
+        <span className={dotColorClass}>•</span>
+        <span>{children}</span>
+      </div>
+    );
+  }
+
+  // Otherwise, just render children (for Session)
   return <>{children}</>;
 }
 

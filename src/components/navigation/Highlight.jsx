@@ -10,8 +10,12 @@ export function Highlight({ children }) {
     return () => unregisterHighlight(id);
   }, [id, registerHighlight, unregisterHighlight]);
 
+  // Check if children includes MainChat to apply flex layout
+  const childArray = Array.isArray(children) ? children : [children];
+  const hasMainChat = childArray.some(child => child?.type?.displayName === 'MainChat');
+
   return (
-    <div className="relative z-20 bg-claude-bg">
+    <div className={`relative z-20 bg-claude-bg ${hasMainChat ? 'flex flex-col flex-1 overflow-hidden' : ''}`}>
       {children}
     </div>
   );

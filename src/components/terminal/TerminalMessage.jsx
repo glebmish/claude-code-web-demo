@@ -14,8 +14,6 @@ export function TerminalUserMessage({ children }) {
 TerminalUserMessage.displayName = 'Message';
 
 export function TerminalResponse({ children, color, from, fromColor }) {
-  const bulletColor = color || '#cccccc';
-
   // Color map matching Subsession component
   const colorNameMap = {
     green: '#22c55e',
@@ -26,6 +24,7 @@ export function TerminalResponse({ children, color, from, fromColor }) {
     orange: '#f97316',
   };
 
+  const bulletColor = color ? (colorNameMap[color] || color) : '#cccccc';
   const resolvedFromColor = fromColor ? (colorNameMap[fromColor] || fromColor) : null;
 
   return (

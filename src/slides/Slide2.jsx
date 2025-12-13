@@ -17,15 +17,16 @@ import {
   TerminalToolUse,
   TerminalInput,
   TerminalTabs,
-  TerminalTab
+  TerminalTab,
+  Clawd
 } from '../components/terminal';
 
 export function Slide2() {
   return (
     <Slide>
       <Note>
-          Step 1: Subagent tabs<br/>
-          Subagent is shown in the main chat
+          Core experience remains unchanged. User starts a session...<br/>
+          ...and main agent intelligently spawns subagent and assigns a task.<br/>
       </Note>
 
       <WebView>
@@ -34,11 +35,12 @@ export function Slide2() {
           <EnvSelect>Default</EnvSelect>
 
           <Sessions>
-            <Session selected>
-              <Name>Working on rewrite-claude-assisted codebase</Name>
-              <Footer>glebmish/rewrite-claude-assisted</Footer>
-            </Session>
-            <Subsession color="green">a493ccdb - <b>Explore</b></Subsession>
+            <Highlight>
+                <Session selected>
+                  <Name>Working on rewrite-claude-assisted codebase</Name>
+                  <Footer>glebmish/rewrite-claude-assisted</Footer>
+                </Session>
+            </Highlight>
           </Sessions>
 
           <MainChat>
@@ -73,10 +75,7 @@ Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent
 
       <TerminalView>
         <ClaudeCodeTerminal>
-          <TerminalTabs>
-            <TerminalTab active>Main</TerminalTab>
-            <TerminalTab>a493ccdb - Explore</TerminalTab>
-          </TerminalTabs>
+          <Clawd />
 
           <MainTerminalWindow>
             <TerminalUserMessage>
