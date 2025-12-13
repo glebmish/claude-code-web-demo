@@ -25,7 +25,7 @@ export function Slide5() {
     <Slide>
       <Note>
           Step 2: Direct subagent control<br/>
-          Subagent responds to direct message
+          Users can talk directly to a subagent
       </Note>
 
       <WebView>
@@ -39,7 +39,10 @@ export function Slide5() {
               <Footer>glebmish/rewrite-claude-assisted</Footer>
             </Session>
             <Highlight>
-              <Subsession selected color="green">a493ccdb - <b>Explore</b></Subsession>
+              <Subsession selected>
+                <Name color="green">a493ccdb - <b>Explore</b></Name>
+                <Footer>Repository structure analysis</Footer>
+              </Subsession>
             </Highlight>
           </Sessions>
 
@@ -88,34 +91,8 @@ Workflow: PR analysis → recipe generation → validation → refinement.`}
             </Response>
 
             <Highlight>
-              <Message from="user">
-                Take a look at the docs/ folder as well
-              </Message>
+              <MainChatTextField>Take a look at the docs/ folder as well</MainChatTextField>
             </Highlight>
-
-            <ToolUse>
-              <ToolName>Bash</ToolName>
-              <Command>find /home/glebmish/projects/rewrite-claude-assisted/docs -maxdepth 2 -type f -o -name "*.md" | head -20</Command>
-              <Result>
-{`/home/glebmish/projects/rewrite-claude-assisted/docs/ARCHITECTURE.md`}
-              </Result>
-            </ToolUse>
-
-            <ToolUse>
-              <ToolName>Read</ToolName>
-              <Command>/home/glebmish/projects/rewrite-claude-assisted/docs/ARCHITECTURE.md</Command>
-              <Result>
-(Reading file...)
-              </Result>
-            </ToolUse>
-
-            <Highlight>
-              <Response>
-The architecture documentation provides deeper insights into the system design. The workflow is event-driven with clear separation between analysis, generation, and validation phases.
-              </Response>
-            </Highlight>
-
-            <MainChatTextField/>
           </MainChat>
         </ClaudeCodeWeb>
       </WebView>
@@ -133,7 +110,7 @@ The architecture documentation provides deeper insights into the system design. 
 Provide a comprehensive overview of what this project does and how it's organized.`}
             </TerminalUserMessage>
 
-            <TerminalResponse>
+            <TerminalResponse color="green">
 I'll explore this project to understand its purpose, structure, and technologies. Let me start by examining the key files and directories.
             </TerminalResponse>
 
@@ -147,7 +124,7 @@ I'll explore this project to understand its purpose, structure, and technologies
               </Result>
             </TerminalToolUse>
 
-            <TerminalResponse>
+            <TerminalResponse color="green">
 Now let me read the main README and key documentation files:
             </TerminalResponse>
 
@@ -159,7 +136,7 @@ Now let me read the main README and key documentation files:
               </Result>
             </TerminalToolUse>
 
-            <TerminalResponse>
+            <TerminalResponse color="green">
 {`Based on my exploration:
 
 This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
@@ -168,33 +145,11 @@ Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent,
 
 Workflow: PR analysis → recipe generation → validation → refinement.`}
             </TerminalResponse>
-
-            <TerminalUserMessage>
-Take a look at the docs/ folder as well
-            </TerminalUserMessage>
-
-            <TerminalToolUse>
-              <ToolName>Bash</ToolName>
-              <Command>find /home/glebmish/projects/rewrite-claude-assisted/docs -maxdepth 2 -type f -o -name "*.md" | head -20</Command>
-              <Result>
-{`/home/glebmish/projects/rewrite-claude-assisted/docs/ARCHITECTURE.md`}
-              </Result>
-            </TerminalToolUse>
-
-            <TerminalToolUse>
-              <ToolName>Read</ToolName>
-              <Command>/home/glebmish/projects/rewrite-claude-assisted/docs/ARCHITECTURE.md</Command>
-              <Result>
-(Reading file...)
-              </Result>
-            </TerminalToolUse>
-
-            <TerminalResponse>
-The architecture documentation provides deeper insights into the system design. The workflow is event-driven with clear separation between analysis, generation, and validation phases.
-            </TerminalResponse>
           </MainTerminalWindow>
 
-          <TerminalInput />
+          <TerminalInput>
+Take a look at the docs/ folder as well
+          </TerminalInput>
         </ClaudeCodeTerminal>
       </TerminalView>
     </Slide>

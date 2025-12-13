@@ -5,7 +5,22 @@ export function ClaudeCodeWeb({ children }) {
   // Extract children by type for proper placement
   const childArray = Array.isArray(children) ? children : [children];
   const sessions = childArray.find(child => child?.type?.displayName === 'Sessions');
-  const mainChat = childArray.find(child => child?.type?.displayName === 'MainChat');
+
+  // Handle MainChat that might be wrapped in Highlight
+  let mainChat = childArray.find(child => child?.type?.displayName === 'MainChat');
+  if (!mainChat) {
+    const highlight = childArray.find(child => child?.type?.displayName === 'Highlight');
+    if (highlight) {
+      const highlightChildren = Array.isArray(highlight.props.children)
+        ? highlight.props.children
+        : [highlight.props.children];
+      const innerMainChat = highlightChildren.find(child => child?.type?.displayName === 'MainChat');
+      if (innerMainChat) {
+        mainChat = highlight; // Use the Highlight wrapper
+      }
+    }
+  }
+
   const repositorySelector = childArray.find(child => child?.type?.displayName === 'RepositorySelector');
   const envSelect = childArray.find(child => child?.type?.displayName === 'EnvSelect');
   const newSessionInput = childArray.find(child => child?.type?.displayName === 'NewSessionInput');

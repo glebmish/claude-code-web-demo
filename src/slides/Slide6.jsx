@@ -17,8 +17,7 @@ import {
   TerminalToolUse,
   TerminalInput,
   TerminalTabs,
-  TerminalTab,
-  Colored
+  TerminalTab
 } from '../components/terminal';
 
 export function Slide6() {
@@ -26,7 +25,7 @@ export function Slide6() {
     <Slide>
       <Note>
           Step 2: Direct subagent control<br/>
-          Messages are relayed to main chat, tool uses are not
+          And subagent respond back
       </Note>
 
       <WebView>
@@ -35,49 +34,88 @@ export function Slide6() {
           <EnvSelect>Default</EnvSelect>
 
           <Sessions>
+            <Session>
+              <Name>Working on rewrite-claude-assisted codebase</Name>
+              <Footer>glebmish/rewrite-claude-assisted</Footer>
+            </Session>
             <Highlight>
-              <Session selected>
-                <Name>Working on rewrite-claude-assisted codebase</Name>
-                <Footer>glebmish/rewrite-claude-assisted</Footer>
-              </Session>
+              <Subsession selected>
+                <Name color="green">a493ccdb - <b>Explore</b></Name>
+                <Footer>Repository structure analysis</Footer>
+              </Subsession>
             </Highlight>
-            <Subsession color="green">a493ccdb - <b>Explore</b></Subsession>
           </Sessions>
 
           <MainChat>
-            <MainChatHeader>Working on rewrite-claude-assisted codebase</MainChatHeader>
+            <MainChatHeader>Exploring rewrite-claude-assisted codebase</MainChatHeader>
 
-            <Message from="user">
-              Explore the project and give a brief overview before the main task starts
+            <Message from="main agent">
+{`Explore this project to understand:
+Provide a comprehensive overview of what this project does and how it's organized.`}
             </Message>
+
             <Response>
-              I'll explore the project to give you a brief overview.
+I'll explore this project to understand its purpose, structure, and technologies. Let me start by examining the key files and directories.
             </Response>
 
             <ToolUse>
-              <ToolName>Explore</ToolName>
-              <Command>Explore project structure and purpose</Command>
+              <ToolName>Bash</ToolName>
+              <Command>find /home/glebmish/projects/rewrite-claude-assisted -maxdepth 2 -type f -name "README*" -o -name "*.md" | head -20</Command>
               <Result>
-                Done (21 tool uses · 46.1k tokens · 60s)
+{`/home/glebmish/projects/rewrite-claude-assisted/CLAUDE.md
+/home/glebmish/projects/rewrite-claude-assisted/README.md
+/home/glebmish/projects/rewrite-claude-assisted/LICENSE.md`}
               </Result>
             </ToolUse>
 
             <Response>
-{`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
+Now let me read the main README and key documentation files:
+            </Response>
 
-Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
+            <ToolUse>
+              <ToolName>Read</ToolName>
+              <Command>/home/glebmish/projects/rewrite-claude-assisted/README.md</Command>
+              <Result>
+(Reading file...)
+              </Result>
+            </ToolUse>
+
+            <Response>
+{`Based on my exploration:
+
+This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
+
+Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
+
+Workflow: PR analysis → recipe generation → validation → refinement.`}
             </Response>
 
             <Highlight>
               <Message from="user">
-                <Colored color="green">@a493ccdb</Colored> Take a look at the docs/ folder as well
+                Take a look at the docs/ folder as well
               </Message>
             </Highlight>
 
+            <ToolUse>
+              <ToolName>Bash</ToolName>
+              <Command>find /home/glebmish/projects/rewrite-claude-assisted/docs -maxdepth 2 -type f -o -name "*.md" | head -20</Command>
+              <Result>
+{`/home/glebmish/projects/rewrite-claude-assisted/docs/ARCHITECTURE.md`}
+              </Result>
+            </ToolUse>
+
+            <ToolUse>
+              <ToolName>Read</ToolName>
+              <Command>/home/glebmish/projects/rewrite-claude-assisted/docs/ARCHITECTURE.md</Command>
+              <Result>
+(Reading file...)
+              </Result>
+            </ToolUse>
+
             <Highlight>
-              <Message from="a493ccdb" fromColor="green">
+              <Response>
 The architecture documentation provides deeper insights into the system design. The workflow is event-driven with clear separation between analysis, generation, and validation phases.
-              </Message>
+              </Response>
             </Highlight>
 
             <MainChatTextField/>
@@ -88,38 +126,73 @@ The architecture documentation provides deeper insights into the system design. 
       <TerminalView>
         <ClaudeCodeTerminal>
           <TerminalTabs>
-            <TerminalTab active>Main</TerminalTab>
-            <TerminalTab>a493ccdb - Explore</TerminalTab>
+            <TerminalTab>Main</TerminalTab>
+            <TerminalTab active>a493ccdb - Explore</TerminalTab>
           </TerminalTabs>
 
           <MainTerminalWindow>
             <TerminalUserMessage>
-Explore the project and give a brief overview before the main task starts
+{`Explore this project to understand:
+Provide a comprehensive overview of what this project does and how it's organized.`}
             </TerminalUserMessage>
 
-            <TerminalResponse>
-I'll explore the project to give you a brief overview.
+            <TerminalResponse color="green">
+I'll explore this project to understand its purpose, structure, and technologies. Let me start by examining the key files and directories.
             </TerminalResponse>
 
             <TerminalToolUse>
-              <ToolName>Explore</ToolName>
-              <Command>Explore project structure and purpose</Command>
+              <ToolName>Bash</ToolName>
+              <Command>find /home/glebmish/projects/rewrite-claude-assisted -maxdepth 2 -type f -name "README*" -o -name "*.md" | head -20</Command>
               <Result>
-Done (21 tool uses · 46.1k tokens · 60s)
+{`/home/glebmish/projects/rewrite-claude-assisted/CLAUDE.md
+/home/glebmish/projects/rewrite-claude-assisted/README.md
+/home/glebmish/projects/rewrite-claude-assisted/LICENSE.md`}
               </Result>
             </TerminalToolUse>
 
-            <TerminalResponse>
-{`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
+            <TerminalResponse color="green">
+Now let me read the main README and key documentation files:
+            </TerminalResponse>
 
-Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
+            <TerminalToolUse>
+              <ToolName>Read</ToolName>
+              <Command>/home/glebmish/projects/rewrite-claude-assisted/README.md</Command>
+              <Result>
+(Reading file...)
+              </Result>
+            </TerminalToolUse>
+
+            <TerminalResponse color="green">
+{`Based on my exploration:
+
+This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
+
+Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
+
+Workflow: PR analysis → recipe generation → validation → refinement.`}
             </TerminalResponse>
 
             <TerminalUserMessage>
-<Colored color="green">@a493ccdb</Colored> Take a look at the docs/ folder as well
+Take a look at the docs/ folder as well
             </TerminalUserMessage>
 
-            <TerminalResponse from="a493ccdb" fromColor="green">
+            <TerminalToolUse>
+              <ToolName>Bash</ToolName>
+              <Command>find /home/glebmish/projects/rewrite-claude-assisted/docs -maxdepth 2 -type f -o -name "*.md" | head -20</Command>
+              <Result>
+{`/home/glebmish/projects/rewrite-claude-assisted/docs/ARCHITECTURE.md`}
+              </Result>
+            </TerminalToolUse>
+
+            <TerminalToolUse>
+              <ToolName>Read</ToolName>
+              <Command>/home/glebmish/projects/rewrite-claude-assisted/docs/ARCHITECTURE.md</Command>
+              <Result>
+(Reading file...)
+              </Result>
+            </TerminalToolUse>
+
+            <TerminalResponse color="green">
 The architecture documentation provides deeper insights into the system design. The workflow is event-driven with clear separation between analysis, generation, and validation phases.
             </TerminalResponse>
           </MainTerminalWindow>

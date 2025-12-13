@@ -15,15 +15,16 @@ import {
   TerminalResponse,
   TerminalToolUse,
   TerminalTabs,
-  TerminalTab
+  TerminalTab,
+  TerminalInput
 } from '../components/terminal';
 
 export function Slide3() {
   return (
     <Slide>
       <Note>
-          Step 1: Subagent tabs<br/>
-          Subagent tab shows full conversation with tool uses
+          Step 1: Showing subagents as tabs inside the main session<br/>
+          Tabs show agent name, type and current task (web-only)
       </Note>
 
       <WebView>
@@ -37,7 +38,10 @@ export function Slide3() {
               <Footer>glebmish/rewrite-claude-assisted</Footer>
             </Session>
             <Highlight>
-              <Subsession selected color="green">a493ccdb - <b>Explore</b></Subsession>
+              <Subsession selected>
+                <Name color="green">a493ccdb - <b>Explore</b></Name>
+                <Footer>Repository structure analysis</Footer>
+              </Subsession>
             </Highlight>
           </Sessions>
 
@@ -91,52 +95,35 @@ Workflow: PR analysis → recipe generation → validation → refinement.`}
       <TerminalView>
         <ClaudeCodeTerminal>
           <TerminalTabs>
-            <TerminalTab>Main</TerminalTab>
-            <TerminalTab active>a493ccdb - Explore</TerminalTab>
+            <TerminalTab active>Main</TerminalTab>
+            <TerminalTab>a493ccdb - Explore</TerminalTab>
           </TerminalTabs>
 
           <MainTerminalWindow>
             <TerminalUserMessage>
-{`Explore this project to understand:
-Provide a comprehensive overview of what this project does and how it's organized.`}
+Explore the project and give a brief overview before the main task starts
             </TerminalUserMessage>
 
             <TerminalResponse>
-I'll explore this project to understand its purpose, structure, and technologies. Let me start by examining the key files and directories.
+I'll explore the project to give you a brief overview.
             </TerminalResponse>
 
             <TerminalToolUse>
-              <ToolName>Bash</ToolName>
-              <Command>find /home/glebmish/projects/rewrite-claude-assisted -maxdepth 2 -type f -name "README*" -o -name "*.md" | head -20</Command>
+              <ToolName>Explore</ToolName>
+              <Command>Explore project structure and purpose</Command>
               <Result>
-{`/home/glebmish/projects/rewrite-claude-assisted/CLAUDE.md
-/home/glebmish/projects/rewrite-claude-assisted/README.md
-/home/glebmish/projects/rewrite-claude-assisted/LICENSE.md`}
+Done (21 tool uses · 46.1k tokens · 60s)
               </Result>
             </TerminalToolUse>
 
             <TerminalResponse>
-Now let me read the main README and key documentation files:
-            </TerminalResponse>
+{`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
 
-            <TerminalToolUse>
-              <ToolName>Read</ToolName>
-              <Command>/home/glebmish/projects/rewrite-claude-assisted/README.md</Command>
-              <Result>
-(Reading file...)
-              </Result>
-            </TerminalToolUse>
-
-            <TerminalResponse>
-{`Based on my exploration:
-
-This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
-
-Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
-
-Workflow: PR analysis → recipe generation → validation → refinement.`}
+Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
             </TerminalResponse>
           </MainTerminalWindow>
+
+          <TerminalInput />
         </ClaudeCodeTerminal>
       </TerminalView>
     </Slide>

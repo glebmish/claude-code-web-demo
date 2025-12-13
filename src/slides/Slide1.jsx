@@ -20,8 +20,8 @@ export function Slide1() {
   return (
     <Slide>
       <Note>
-          Step 1: Subagent tabs<br/>
-          Start the session as usual
+          Core experience remains unchanged. User starts a session...<br/>
+          <br/>
       </Note>
 
       <WebView>
