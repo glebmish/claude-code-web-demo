@@ -1,10 +1,25 @@
 import { useEffect } from 'react';
 
-export function useKeyboardNavigation(currentSlide, totalSlides, setSlide) {
+export function useKeyboardNavigation(currentSlide, totalSlides, setSlide, toggleView, viewMode, hasShownTerminalOnSlide1, forceTerminalExposure) {
   useEffect(() => {
     const handleKeyDown = (e) => {
+      // Handle view toggle with Space key
+      if (e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        toggleView();
+        return;
+      }
+
+      // Handle slide navigation
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         e.preventDefault();
+
+        // Intercept first right-arrow on slide 1 to force terminal view
+        if (currentSlide === 0 && !hasShownTerminalOnSlide1 && viewMode === 'web') {
+          forceTerminalExposure();
+          return; // Don't advance slide
+        }
+
         const nextSlide = Math.min(currentSlide + 1, totalSlides - 1);
         setSlide(nextSlide);
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
@@ -16,5 +31,5 @@ export function useKeyboardNavigation(currentSlide, totalSlides, setSlide) {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSlide, totalSlides, setSlide]);
+  }, [currentSlide, totalSlides, setSlide, toggleView, viewMode, hasShownTerminalOnSlide1, forceTerminalExposure]);
 }

@@ -1,4 +1,14 @@
-import { Slide, Note } from '../components/navigation';
+import { Slide, Note, Highlight, WebView, TerminalView } from '../components/navigation';
+import { ClaudeCodeWeb } from '../components/claude-code-web/ClaudeCodeWeb';
+import { RepositorySelector } from '../components/claude-code-web/RepositorySelector';
+import { EnvSelect } from '../components/claude-code-web/EnvSelect';
+import { Sessions } from '../components/claude-code-web/Sessions';
+import { Session, Name, Footer, Subsession } from '../components/claude-code-web/Session';
+import { MainChat } from '../components/claude-code-web/MainChat';
+import { MainChatHeader } from '../components/claude-code-web/MainChatHeader';
+import { Message, Response } from '../components/claude-code-web/Message';
+import { ToolUse, ToolName, Command, Result } from '../components/claude-code-web/ToolUse';
+import { MainChatTextField } from '../components/claude-code-web/MainChatTextField';
 import {
   ClaudeCodeTerminal,
   MainTerminalWindow,
@@ -6,72 +16,117 @@ import {
   TerminalResponse,
   TerminalToolUse,
   TerminalInput,
-  TerminalFooter,
-  AgentSection,
-  Colored,
   TerminalTabs,
   TerminalTab,
-  Clawd
+  Colored
 } from '../components/terminal';
-import { ToolName, Command, Result } from '../components/claude-code-web/ToolUse';
-import { Slide3 } from './Slide3';
 
 export function Slide6() {
   return (
-    <Slide3>
+    <Slide>
       <Note>
-          Step 1: Subagent tabs (Terminal)<br/>
-          Subagent tab shows full subagent conversation with tool uses
+          Step 2: Direct subagent control<br/>
+          Messages are relayed to main chat, tool uses are not
       </Note>
-      <ClaudeCodeTerminal>
-        <TerminalTabs>
-          <TerminalTab>Main</TerminalTab>
-          <TerminalTab active>a493ccdb - Explore</TerminalTab>
-        </TerminalTabs>
 
-        <MainTerminalWindow>
-          <TerminalUserMessage>
-{`Explore this project to understand:
-Provide a comprehensive overview of what this project does and how it's organized.`}
-          </TerminalUserMessage>
+      <WebView>
+        <ClaudeCodeWeb>
+          <RepositorySelector>glebmish/rewrite-claude-assisted</RepositorySelector>
+          <EnvSelect>Default</EnvSelect>
 
-          <TerminalResponse>
-I'll explore this project to understand its purpose, structure, and technologies. Let me start by examining the key files and directories.
-          </TerminalResponse>
+          <Sessions>
+            <Highlight>
+              <Session selected>
+                <Name>Working on rewrite-claude-assisted codebase</Name>
+                <Footer>glebmish/rewrite-claude-assisted</Footer>
+              </Session>
+            </Highlight>
+            <Subsession color="green">a493ccdb - <b>Explore</b></Subsession>
+          </Sessions>
 
-          <TerminalToolUse>
-            <ToolName>Bash</ToolName>
-            <Command>find /home/glebmish/projects/rewrite-claude-assisted -maxdepth 2 -type f -name "README*" -o -name "*.md" | head -20</Command>
-            <Result>
-{`/home/glebmish/projects/rewrite-claude-assisted/CLAUDE.md
-/home/glebmish/projects/rewrite-claude-assisted/README.md
-/home/glebmish/projects/rewrite-claude-assisted/LICENSE.md`}
-            </Result>
-          </TerminalToolUse>
+          <MainChat>
+            <MainChatHeader>Working on rewrite-claude-assisted codebase</MainChatHeader>
 
-          <TerminalResponse>
-Now let me read the main README and key documentation files:
-          </TerminalResponse>
+            <Message from="user">
+              Explore the project and give a brief overview before the main task starts
+            </Message>
+            <Response>
+              I'll explore the project to give you a brief overview.
+            </Response>
 
-          <TerminalToolUse>
-            <ToolName>Read</ToolName>
-            <Command>/home/glebmish/projects/rewrite-claude-assisted/README.md</Command>
-            <Result>
-(Reading file...)
-            </Result>
-          </TerminalToolUse>
+            <ToolUse>
+              <ToolName>Explore</ToolName>
+              <Command>Explore project structure and purpose</Command>
+              <Result>
+                Done (21 tool uses · 46.1k tokens · 60s)
+              </Result>
+            </ToolUse>
 
-          <TerminalResponse>
-{`Based on my exploration:
+            <Response>
+{`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
 
-This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
+Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
+            </Response>
 
-Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
+            <Highlight>
+              <Message from="user">
+                <Colored color="green">@a493ccdb</Colored> Take a look at the docs/ folder as well
+              </Message>
+            </Highlight>
 
-Workflow: PR analysis → recipe generation → validation → refinement.`}
-          </TerminalResponse>
-        </MainTerminalWindow>
-      </ClaudeCodeTerminal>
-    </Slide3>
+            <Highlight>
+              <Message from="a493ccdb" fromColor="green">
+The architecture documentation provides deeper insights into the system design. The workflow is event-driven with clear separation between analysis, generation, and validation phases.
+              </Message>
+            </Highlight>
+
+            <MainChatTextField/>
+          </MainChat>
+        </ClaudeCodeWeb>
+      </WebView>
+
+      <TerminalView>
+        <ClaudeCodeTerminal>
+          <TerminalTabs>
+            <TerminalTab active>Main</TerminalTab>
+            <TerminalTab>a493ccdb - Explore</TerminalTab>
+          </TerminalTabs>
+
+          <MainTerminalWindow>
+            <TerminalUserMessage>
+Explore the project and give a brief overview before the main task starts
+            </TerminalUserMessage>
+
+            <TerminalResponse>
+I'll explore the project to give you a brief overview.
+            </TerminalResponse>
+
+            <TerminalToolUse>
+              <ToolName>Explore</ToolName>
+              <Command>Explore project structure and purpose</Command>
+              <Result>
+Done (21 tool uses · 46.1k tokens · 60s)
+              </Result>
+            </TerminalToolUse>
+
+            <TerminalResponse>
+{`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
+
+Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
+            </TerminalResponse>
+
+            <TerminalUserMessage>
+<Colored color="green">@a493ccdb</Colored> Take a look at the docs/ folder as well
+            </TerminalUserMessage>
+
+            <TerminalResponse from="a493ccdb" fromColor="green">
+The architecture documentation provides deeper insights into the system design. The workflow is event-driven with clear separation between analysis, generation, and validation phases.
+            </TerminalResponse>
+          </MainTerminalWindow>
+
+          <TerminalInput />
+        </ClaudeCodeTerminal>
+      </TerminalView>
+    </Slide>
   );
 }

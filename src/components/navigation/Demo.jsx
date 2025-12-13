@@ -3,20 +3,30 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useKeyboardNavigation } from '../../utils/useKeyboardNavigation';
 import { HighlightProvider } from '../../contexts/HighlightContext';
 import { NoteProvider, useNote } from '../../contexts/NoteContext';
+import { ViewProvider, useView } from '../../contexts/ViewContext';
 import NavigationButtons from './NavigationButtons';
+import { ViewToggle } from './ViewToggle';
 
 function DemoContent({ children, currentSlide, totalSlides, onSlideChange }) {
   const [highlightKey, setHighlightKey] = useState(0);
   const { noteContent } = useNote();
+  const { toggleView, viewMode, hasShownTerminalOnSlide1, forceTerminalExposure, stopSpacebarAnimation } = useView();
   const slides = Array.isArray(children) ? children : [children];
   const wheelTimeoutRef = useRef(null);
 
-  useKeyboardNavigation(currentSlide, totalSlides, onSlideChange);
+  useKeyboardNavigation(currentSlide, totalSlides, onSlideChange, toggleView, viewMode, hasShownTerminalOnSlide1, forceTerminalExposure);
 
   // Reset highlight context when slide changes
   useEffect(() => {
     setHighlightKey(prev => prev + 1);
   }, [currentSlide]);
+
+  // Stop spacebar animation when leaving slide 1
+  useEffect(() => {
+    if (currentSlide !== 0) {
+      stopSpacebarAnimation();
+    }
+  }, [currentSlide, stopSpacebarAnimation]);
 
   // Mouse wheel navigation with debounce
   useEffect(() => {
@@ -53,9 +63,16 @@ function DemoContent({ children, currentSlide, totalSlides, onSlideChange }) {
   }, [currentSlide, totalSlides, onSlideChange]);
 
   const handleClick = () => {
-    // if (currentSlide < totalSlides - 1) {
-    //   onSlideChange(currentSlide + 1);
-    // }
+    // Intercept first click on slide 1 to force terminal view
+    if (currentSlide === 0 && !hasShownTerminalOnSlide1 && viewMode === 'web') {
+      forceTerminalExposure();
+      return; // Don't advance slide
+    }
+
+    // Normal navigation
+    if (currentSlide < totalSlides - 1) {
+      onSlideChange(currentSlide + 1);
+    }
   };
 
   return (
@@ -65,14 +82,16 @@ function DemoContent({ children, currentSlide, totalSlides, onSlideChange }) {
     >
       {/* Header with note and counter */}
       <div className="relative z-20 w-full bg-claude-sidebar border-b border-claude-border px-6 py-3 flex items-center justify-between flex-shrink-0 pointer-events-none">
-        <div className="flex-1 text-center">
+        <div className="flex-1" />
+        <div className="flex-1 flex justify-center">
           {noteContent && (
-            <p className="text-claude-text-dim text-sm font-medium">
+            <p className="text-claude-text-dim text-sm font-medium text-center">
               {noteContent}
             </p>
           )}
         </div>
-        <div className="ml-4 flex-shrink-0">
+        <div className="flex-1 flex items-center justify-end gap-4 pointer-events-auto">
+          <ViewToggle />
           <span className="text-claude-text-dim text-sm font-medium">
             {currentSlide + 1}/{totalSlides}
           </span>
@@ -134,14 +153,16 @@ export function Demo({ children }) {
   };
 
   return (
-    <NoteProvider>
-      <DemoContent
-        currentSlide={currentSlide}
-        totalSlides={totalSlides}
-        onSlideChange={handleSlideChange}
-      >
-        {children}
-      </DemoContent>
-    </NoteProvider>
+    <ViewProvider>
+      <NoteProvider>
+        <DemoContent
+          currentSlide={currentSlide}
+          totalSlides={totalSlides}
+          onSlideChange={handleSlideChange}
+        >
+          {children}
+        </DemoContent>
+      </NoteProvider>
+    </ViewProvider>
   );
 }

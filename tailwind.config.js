@@ -32,6 +32,29 @@ export default {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['Monaco', 'Courier New', 'monospace'],
       },
+      keyframes: {
+        'spacebar-intro': {
+          '0%': {
+            transform: 'translate(0, 0) scale(1)',
+            opacity: '1'
+          },
+          '30%': {
+            transform: 'translate(calc(-50vw + 4rem), calc(-50vh + 2.875rem)) scale(3)',
+            opacity: '1'
+          },
+          '50%': {
+            transform: 'translate(calc(-50vw + 4rem), calc(-50vh + 2.875rem)) scale(3)',
+            opacity: '1'
+          },
+          '100%': {
+            transform: 'translate(0, 0) scale(1)',
+            opacity: '1'
+          }
+        }
+      },
+      animation: {
+        'spacebar-intro': 'spacebar-intro 2s ease-in-out forwards'
+      }
     },
   },
   plugins: [],

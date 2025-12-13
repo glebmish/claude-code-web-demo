@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useView } from '../../contexts/ViewContext';
 
 const NavigationButtons = ({ currentSlide, totalSlides, onNavigate }) => {
+  const { toggleView, shouldAnimateSpacebar, stopSpacebarAnimation } = useView();
   const isFirstSlide = currentSlide === 0;
   const isLastSlide = currentSlide === totalSlides - 1;
+
+  // Auto-stop animation after intro completes
+  useEffect(() => {
+    if (shouldAnimateSpacebar) {
+      const timer = setTimeout(() => {
+        stopSpacebarAnimation();
+      }, 2000); // 2s animation duration
+      return () => clearTimeout(timer);
+    }
+  }, [shouldAnimateSpacebar, stopSpacebarAnimation]);
 
   const handleNavigation = (direction) => {
     if (direction === 'left' || direction === 'up') {
@@ -75,41 +87,95 @@ const NavigationButtons = ({ currentSlide, totalSlides, onNavigate }) => {
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-40">
-      <div className="flex flex-col gap-0.5">
-        {/* Top row - Up arrow (disabled) */}
-        <div className="flex justify-center">
-          <KeyButton
-            direction="up"
-            disabled={true}
-            onClick={() => {}}
-            title="Not available"
-          />
+    <>
+      {/* Animated spacebar overlay - appears on top of everything */}
+      {shouldAnimateSpacebar && (
+        <div className="fixed inset-0 z-[9999] pointer-events-none">
+          <button
+            onClick={toggleView}
+            title="Toggle view (Space)"
+            className="absolute bottom-8 right-8 w-16 h-7 cursor-pointer select-none pointer-events-auto animate-spacebar-intro"
+          >
+            <div
+              className="absolute inset-0 flex items-center justify-center bg-white rounded-sm border border-gray-800"
+              style={{
+                boxShadow: `
+                  inset 0 0.5px 1px rgba(0, 0, 0, 0.1),
+                  0 2px 0 0 rgba(50, 50, 50, 1),
+                  0 2.5px 0 0 rgba(30, 30, 30, 1),
+                  0 3px 4px 0 rgba(0, 0, 0, 0.2)
+                `,
+              }}
+            >
+              <span className="text-gray-600 text-[10px] font-medium">SPACE</span>
+            </div>
+          </button>
+        </div>
+      )}
+
+      {/* Regular navigation buttons */}
+      <div className="fixed bottom-8 right-8 z-40">
+        <div className="flex flex-col items-end gap-2">
+        {/* Arrow keys */}
+        <div className="flex flex-col gap-0.5">
+          {/* Top row - Up arrow (disabled) */}
+          <div className="flex justify-center">
+            <KeyButton
+              direction="up"
+              disabled={true}
+              onClick={() => {}}
+              title="Not available"
+            />
+          </div>
+
+          {/* Bottom row - Left, Down, Right arrows */}
+          <div className="flex gap-0.5">
+            <KeyButton
+              direction="left"
+              disabled={isFirstSlide}
+              onClick={() => handleNavigation('left')}
+              title="Previous slide (Left arrow)"
+            />
+            <KeyButton
+              direction="down"
+              disabled={true}
+              onClick={() => {}}
+              title="Not available"
+            />
+            <KeyButton
+              direction="right"
+              disabled={isLastSlide}
+              onClick={() => handleNavigation('right')}
+              title="Next slide (Right arrow)"
+            />
+          </div>
         </div>
 
-        {/* Bottom row - Left, Down, Right arrows */}
-        <div className="flex gap-0.5">
-          <KeyButton
-            direction="left"
-            disabled={isFirstSlide}
-            onClick={() => handleNavigation('left')}
-            title="Previous slide (Left arrow)"
-          />
-          <KeyButton
-            direction="down"
-            disabled={true}
-            onClick={() => {}}
-            title="Not available"
-          />
-          <KeyButton
-            direction="right"
-            disabled={isLastSlide}
-            onClick={() => handleNavigation('right')}
-            title="Next slide (Right arrow)"
-          />
-        </div>
+        {/* Space key */}
+        <button
+          onClick={toggleView}
+          title="Toggle view (Space)"
+          className={`relative w-16 h-7 cursor-pointer select-none transition-all duration-100 active:translate-y-[1px] ${
+            shouldAnimateSpacebar ? 'opacity-0' : ''
+          }`}
+        >
+            <div
+              className="absolute inset-0 flex items-center justify-center bg-white rounded-sm border border-gray-800 active:shadow-[inset_0_2px_3px_rgba(0,0,0,0.15)]"
+              style={{
+                boxShadow: `
+                  inset 0 0.5px 1px rgba(0, 0, 0, 0.1),
+                  0 2px 0 0 rgba(50, 50, 50, 1),
+                  0 2.5px 0 0 rgba(30, 30, 30, 1),
+                  0 3px 4px 0 rgba(0, 0, 0, 0.2)
+                `,
+              }}
+            >
+              <span className="text-gray-600 text-[10px] font-medium">SPACE</span>
+            </div>
+        </button>
       </div>
     </div>
+    </>
   );
 };
 

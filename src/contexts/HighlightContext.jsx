@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useView } from './ViewContext';
 
 const HighlightContext = createContext({
   isHighlightActive: false,
@@ -8,6 +9,7 @@ const HighlightContext = createContext({
 });
 
 export function HighlightProvider({ children }) {
+  const { viewMode } = useView();
   const [activeHighlights, setActiveHighlights] = useState(new Set());
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
@@ -28,19 +30,20 @@ export function HighlightProvider({ children }) {
   };
 
   // Manage overlay visibility with delayed hiding to prevent flash during slide transitions
+  // Only show overlay in web view mode
   useEffect(() => {
-    if (activeHighlights.size > 0) {
-      // Show overlay immediately when highlights are active
+    if (viewMode === 'web' && activeHighlights.size > 0) {
+      // Show overlay immediately when highlights are active and in web view
       setIsOverlayVisible(true);
     } else {
-      // Delay hiding overlay when highlights become inactive
+      // Delay hiding overlay when highlights become inactive or view mode changes
       const timer = setTimeout(() => {
         setIsOverlayVisible(false);
       }, 150); // 150ms delay
 
       return () => clearTimeout(timer);
     }
-  }, [activeHighlights.size]);
+  }, [activeHighlights.size, viewMode]);
 
   return (
     <HighlightContext.Provider value={{
