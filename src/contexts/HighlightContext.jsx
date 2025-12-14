@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
 import { useView } from "./ViewContext";
 
 const HighlightContext = createContext({
@@ -13,21 +13,21 @@ export function HighlightProvider({ children }) {
   const [activeHighlights, setActiveHighlights] = useState(new Set());
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
-  const registerHighlight = (id) => {
+  const registerHighlight = useCallback((id) => {
     setActiveHighlights((prev) => {
       const next = new Set(prev);
       next.add(id);
       return next;
     });
-  };
+  }, []);
 
-  const unregisterHighlight = (id) => {
+  const unregisterHighlight = useCallback((id) => {
     setActiveHighlights((prev) => {
       const next = new Set(prev);
       next.delete(id);
       return next;
     });
-  };
+  }, []);
 
   // Manage overlay visibility with delayed hiding to prevent flash during slide transitions
   // Only show overlay in web view mode
@@ -45,15 +45,18 @@ export function HighlightProvider({ children }) {
     }
   }, [activeHighlights.size, viewMode]);
 
+  const value = useMemo(
+    () => ({
+      isHighlightActive: activeHighlights.size > 0,
+      isOverlayVisible,
+      registerHighlight,
+      unregisterHighlight,
+    }),
+    [activeHighlights.size, isOverlayVisible, registerHighlight, unregisterHighlight]
+  );
+
   return (
-    <HighlightContext.Provider
-      value={{
-        isHighlightActive: activeHighlights.size > 0,
-        isOverlayVisible,
-        registerHighlight,
-        unregisterHighlight,
-      }}
-    >
+    <HighlightContext.Provider value={value}>
       {children}
     </HighlightContext.Provider>
   );

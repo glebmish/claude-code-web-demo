@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export function useKeyboardNavigation(currentSlide, totalSlides, setSlide, toggleView, viewMode, hasShownTerminalOnSlide1, forceTerminalExposure, isRootUrl) {
+export function useKeyboardNavigation(currentSlide, totalSlides, setSlide, toggleView, viewMode, hasShownTerminalOnSlide1, forceTerminalExposure, isSlide1) {
   useEffect(() => {
     const handleKeyDown = (e) => {
       // Handle view toggle with Space key
@@ -14,8 +14,8 @@ export function useKeyboardNavigation(currentSlide, totalSlides, setSlide, toggl
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         e.preventDefault();
 
-        // Intercept first right-arrow on root URL to force terminal view
-        if (isRootUrl && !hasShownTerminalOnSlide1 && viewMode === 'web') {
+        // Intercept first right-arrow on Slide1 to force terminal view
+        if (isSlide1 && !hasShownTerminalOnSlide1 && viewMode === 'web') {
           forceTerminalExposure();
           return; // Don't advance slide
         }
@@ -31,5 +31,5 @@ export function useKeyboardNavigation(currentSlide, totalSlides, setSlide, toggl
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSlide, totalSlides, setSlide, toggleView, viewMode, hasShownTerminalOnSlide1, forceTerminalExposure, isRootUrl]);
+  }, [currentSlide, totalSlides, setSlide, toggleView, viewMode, hasShownTerminalOnSlide1, forceTerminalExposure, isSlide1]);
 }

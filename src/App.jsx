@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { Demo } from "./components/navigation/Demo";
 import {
+  Slide0,
   Slide1,
   Slide2,
   Slide3,
@@ -12,6 +13,8 @@ import {
   Slide9,
   Slide10,
   Slide11,
+  Slide12,
+  Slide13,
 } from "./slides";
 
 function App() {
@@ -21,6 +24,7 @@ function App() {
         path="/:slideNumber?"
         element={
           <Demo>
+            <Slide0 />
             <Slide1 />
             <Slide2 />
             <Slide3 />
@@ -32,6 +36,8 @@ function App() {
             <Slide9 />
             <Slide10 />
             <Slide11 />
+            <Slide12 />
+            <Slide13 />
           </Demo>
         }
       />

@@ -20,7 +20,7 @@ export function Slide({ children }) {
   // Push note content up to Demo via context
   useEffect(() => {
     setNoteContent(noteContent);
-  }, [noteContent, setNoteContent]);
+  }, [noteContent, setNoteContent]); // setNoteContent is now stable due to memoized context value
 
   return (
     <div className="w-full h-full relative">

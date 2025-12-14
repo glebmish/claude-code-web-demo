@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useKeyboardNavigation } from "../../utils/useKeyboardNavigation";
 import { HighlightProvider } from "../../contexts/HighlightContext";
@@ -12,7 +12,7 @@ function DemoContent({
   currentSlide,
   totalSlides,
   onSlideChange,
-  isRootUrl,
+  isSlide1,
 }) {
   const [highlightKey, setHighlightKey] = useState(0);
   const { noteContent } = useNote();
@@ -34,7 +34,7 @@ function DemoContent({
     viewMode,
     hasShownTerminalOnSlide1,
     forceTerminalExposure,
-    isRootUrl
+    isSlide1
   );
 
   // Reset highlight context when slide changes
@@ -42,12 +42,12 @@ function DemoContent({
     setHighlightKey((prev) => prev + 1);
   }, [currentSlide]);
 
-  // Stop spacebar animation when leaving root URL
+  // Stop spacebar animation when leaving Slide1
   useEffect(() => {
-    if (!isRootUrl) {
+    if (currentSlide !== 1) {
       stopSpacebarAnimation();
     }
-  }, [isRootUrl, stopSpacebarAnimation]);
+  }, [currentSlide, stopSpacebarAnimation]);
 
   // Mouse wheel navigation with debounce
   useEffect(() => {
@@ -84,8 +84,8 @@ function DemoContent({
   }, [currentSlide, totalSlides, onSlideChange]);
 
   const handleClick = () => {
-    // Intercept first click on root URL to force terminal view
-    if (isRootUrl && !hasShownTerminalOnSlide1 && viewMode === "web") {
+    // Intercept first click on Slide1 to force terminal view
+    if (currentSlide === 1 && !hasShownTerminalOnSlide1 && viewMode === "web") {
       forceTerminalExposure();
       return; // Don't advance slide
     }
@@ -114,7 +114,7 @@ function DemoContent({
         <div className="flex-1 flex items-center justify-end gap-4 pointer-events-auto">
           <ViewToggle />
           <span className="text-claude-text-dim text-sm font-medium">
-            {currentSlide + 1}/{totalSlides}
+            {currentSlide}/{totalSlides - 1}
           </span>
         </div>
       </div>
@@ -145,36 +145,33 @@ export function Demo({ children }) {
   const totalSlides = slides.length;
 
   // Parse current slide from URL
-  // URL numbering matches counter: /1 = slide 0, /2 = slide 1, etc.
+  // URL numbering is 0-based: / = slide 0, /1 = slide 1, /2 = slide 2, etc.
   const getCurrentSlideFromUrl = () => {
     if (!slideNumber) return 0; // Root path is slide 0
     const parsed = parseInt(slideNumber, 10);
     if (isNaN(parsed)) return 0;
-    // Convert from 1-based URL to 0-based index
-    return Math.max(0, Math.min(parsed - 1, totalSlides - 1));
+    // URL is already 0-based, just validate the range
+    return Math.max(0, Math.min(parsed, totalSlides - 1));
   };
 
   const [currentSlide, setCurrentSlide] = useState(getCurrentSlideFromUrl);
 
   // Sync state with URL when URL changes
   useEffect(() => {
-    const urlSlide = getCurrentSlideFromUrl();
-    if (urlSlide !== currentSlide) {
-      setCurrentSlide(urlSlide);
-    }
-  }, [slideNumber]);
+    const urlSlide = !slideNumber ? 0 : Math.max(0, Math.min(parseInt(slideNumber, 10) || 0, totalSlides - 1));
+    setCurrentSlide(urlSlide);
+  }, [slideNumber, totalSlides]);
 
   // Update URL when slide changes
-  const handleSlideChange = (newSlide) => {
+  const handleSlideChange = useCallback((newSlide) => {
     if (typeof newSlide !== "number" || isNaN(newSlide)) {
       console.error("Invalid slide number:", newSlide);
       return;
     }
     const validSlide = Math.max(0, Math.min(newSlide, totalSlides - 1));
-    setCurrentSlide(validSlide);
-    // Use 1-based numbering in URL: slide 0 = /1, slide 1 = /2, etc.
-    navigate(`/${validSlide + 1}`, { replace: true });
-  };
+    // Use 0-based numbering in URL: slide 0 = /0, slide 1 = /1, etc.
+    navigate(`/${validSlide}`, { replace: true });
+  }, [navigate, totalSlides]);
 
   return (
     <ViewProvider>
@@ -183,7 +180,7 @@ export function Demo({ children }) {
           currentSlide={currentSlide}
           totalSlides={totalSlides}
           onSlideChange={handleSlideChange}
-          isRootUrl={!slideNumber}
+          isSlide1={currentSlide === 1}
         >
           {children}
         </DemoContent>

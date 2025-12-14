@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useMemo } from "react";
 
 const NoteContext = createContext({
   noteContent: null,
@@ -8,8 +8,13 @@ const NoteContext = createContext({
 export function NoteProvider({ children }) {
   const [noteContent, setNoteContent] = useState(null);
 
+  const value = useMemo(
+    () => ({ noteContent, setNoteContent }),
+    [noteContent]
+  );
+
   return (
-    <NoteContext.Provider value={{ noteContent, setNoteContent }}>
+    <NoteContext.Provider value={value}>
       {children}
     </NoteContext.Provider>
   );

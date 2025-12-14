@@ -1,3 +1,4 @@
+export { Slide0 } from './Slide0';
 export { Slide1 } from './Slide1';
 export { Slide2 } from './Slide2';
 export { Slide3 } from './Slide3';
@@ -9,3 +10,5 @@ export { Slide8 } from './Slide8';
 export { Slide9 } from './Slide9';
 export { Slide10 } from './Slide10';
 export { Slide11 } from './Slide11';
+export { Slide12 } from './Slide12';
+export { Slide13 } from './Slide13';

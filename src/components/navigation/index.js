@@ -6,3 +6,4 @@ export { MermaidDiagram } from './MermaidDiagram';
 export { FullscreenText } from './FullscreenText';
 export { WebView } from './WebView';
 export { TerminalView } from './TerminalView';
+export { Insight } from './Insight';
