@@ -7,26 +7,26 @@ import { ViewProvider, useView } from '../../contexts/ViewContext';
 import NavigationButtons from './NavigationButtons';
 import { ViewToggle } from './ViewToggle';
 
-function DemoContent({ children, currentSlide, totalSlides, onSlideChange }) {
+function DemoContent({ children, currentSlide, totalSlides, onSlideChange, isRootUrl }) {
   const [highlightKey, setHighlightKey] = useState(0);
   const { noteContent } = useNote();
   const { toggleView, viewMode, hasShownTerminalOnSlide1, forceTerminalExposure, stopSpacebarAnimation } = useView();
   const slides = Array.isArray(children) ? children : [children];
   const wheelTimeoutRef = useRef(null);
 
-  useKeyboardNavigation(currentSlide, totalSlides, onSlideChange, toggleView, viewMode, hasShownTerminalOnSlide1, forceTerminalExposure);
+  useKeyboardNavigation(currentSlide, totalSlides, onSlideChange, toggleView, viewMode, hasShownTerminalOnSlide1, forceTerminalExposure, isRootUrl);
 
   // Reset highlight context when slide changes
   useEffect(() => {
     setHighlightKey(prev => prev + 1);
   }, [currentSlide]);
 
-  // Stop spacebar animation when leaving slide 1
+  // Stop spacebar animation when leaving root URL
   useEffect(() => {
-    if (currentSlide !== 0) {
+    if (!isRootUrl) {
       stopSpacebarAnimation();
     }
-  }, [currentSlide, stopSpacebarAnimation]);
+  }, [isRootUrl, stopSpacebarAnimation]);
 
   // Mouse wheel navigation with debounce
   useEffect(() => {
@@ -63,8 +63,8 @@ function DemoContent({ children, currentSlide, totalSlides, onSlideChange }) {
   }, [currentSlide, totalSlides, onSlideChange]);
 
   const handleClick = () => {
-    // Intercept first click on slide 1 to force terminal view
-    if (currentSlide === 0 && !hasShownTerminalOnSlide1 && viewMode === 'web') {
+    // Intercept first click on root URL to force terminal view
+    if (isRootUrl && !hasShownTerminalOnSlide1 && viewMode === 'web') {
       forceTerminalExposure();
       return; // Don't advance slide
     }
@@ -124,11 +124,13 @@ export function Demo({ children }) {
   const totalSlides = slides.length;
 
   // Parse current slide from URL
+  // URL numbering matches counter: /1 = slide 0, /2 = slide 1, etc.
   const getCurrentSlideFromUrl = () => {
-    if (!slideNumber) return 0;
+    if (!slideNumber) return 0; // Root path is slide 0
     const parsed = parseInt(slideNumber, 10);
     if (isNaN(parsed)) return 0;
-    return Math.max(0, Math.min(parsed, totalSlides - 1));
+    // Convert from 1-based URL to 0-based index
+    return Math.max(0, Math.min(parsed - 1, totalSlides - 1));
   };
 
   const [currentSlide, setCurrentSlide] = useState(getCurrentSlideFromUrl);
@@ -149,7 +151,8 @@ export function Demo({ children }) {
     }
     const validSlide = Math.max(0, Math.min(newSlide, totalSlides - 1));
     setCurrentSlide(validSlide);
-    navigate(validSlide === 0 ? '/' : `/${validSlide}`, { replace: true });
+    // Use 1-based numbering in URL: slide 0 = /1, slide 1 = /2, etc.
+    navigate(`/${validSlide + 1}`, { replace: true });
   };
 
   return (
@@ -159,6 +162,7 @@ export function Demo({ children }) {
           currentSlide={currentSlide}
           totalSlides={totalSlides}
           onSlideChange={handleSlideChange}
+          isRootUrl={!slideNumber}
         >
           {children}
         </DemoContent>

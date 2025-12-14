@@ -8,12 +8,14 @@ import { MainChat } from '../components/claude-code-web/MainChat';
 import { MainChatHeader } from '../components/claude-code-web/MainChatHeader';
 import { Message, Response } from '../components/claude-code-web/Message';
 import { ToolUse, ToolName, Command, Result } from '../components/claude-code-web/ToolUse';
+import { MainChatTextField } from '../components/claude-code-web/MainChatTextField';
 import {
   ClaudeCodeTerminal,
   MainTerminalWindow,
   TerminalUserMessage,
   TerminalResponse,
   TerminalToolUse,
+  TerminalInput,
   TerminalTabs,
   TerminalTab
 } from '../components/terminal';
@@ -22,8 +24,8 @@ export function Slide4() {
   return (
     <Slide>
       <Note>
-          Step 1: Showing subagents as tabs inside the main session<br/>
-          Subchats show full log including tools and intermediate messages
+          Step 2: Direct subagent control<br/>
+          Users can talk directly to a subagent
       </Note>
 
       <WebView>
@@ -36,58 +38,62 @@ export function Slide4() {
               <Name>Working on rewrite-claude-assisted codebase</Name>
               <Footer>glebmish/rewrite-claude-assisted</Footer>
             </Session>
-            <Subsession selected>
-              <Name color="green">a493ccdb - <b>Explore</b></Name>
-              <Footer>Repository structure analysis</Footer>
-            </Subsession>
+            <Highlight>
+              <Subsession selected>
+                <Name color="green">a493ccdb - <b>Explore</b></Name>
+                <Footer>Repository structure analysis</Footer>
+              </Subsession>
+            </Highlight>
           </Sessions>
 
-          <Highlight>
-              <MainChat>
-                <MainChatHeader>Exploring rewrite-claude-assisted codebase</MainChatHeader>
+          <MainChat>
+            <MainChatHeader>Exploring rewrite-claude-assisted codebase</MainChatHeader>
 
-                <Message from="main agent">
-    {`Explore this project to understand:
-    Provide a comprehensive overview of what this project does and how it's organized.`}
-                </Message>
+            <Message from="main agent">
+{`Explore this project to understand:
+Provide a comprehensive overview of what this project does and how it's organized.`}
+            </Message>
 
-                <Response>
-    I'll explore this project to understand its purpose, structure, and technologies. Let me start by examining the key files and directories.
-                </Response>
+            <Response>
+I'll explore this project to understand its purpose, structure, and technologies. Let me start by examining the key files and directories.
+            </Response>
 
-                <ToolUse>
-                  <ToolName>Bash</ToolName>
-                  <Command>find /home/glebmish/projects/rewrite-claude-assisted -maxdepth 2 -type f -name "README*" -o -name "*.md" | head -20</Command>
-                  <Result>
-    {`/home/glebmish/projects/rewrite-claude-assisted/CLAUDE.md
-    /home/glebmish/projects/rewrite-claude-assisted/README.md
-    /home/glebmish/projects/rewrite-claude-assisted/LICENSE.md`}
-                  </Result>
-                </ToolUse>
+            <ToolUse>
+              <ToolName>Bash</ToolName>
+              <Command>find /home/glebmish/projects/rewrite-claude-assisted -maxdepth 2 -type f -name "README*" -o -name "*.md" | head -20</Command>
+              <Result>
+{`/home/glebmish/projects/rewrite-claude-assisted/CLAUDE.md
+/home/glebmish/projects/rewrite-claude-assisted/README.md
+/home/glebmish/projects/rewrite-claude-assisted/LICENSE.md`}
+              </Result>
+            </ToolUse>
 
-                <Response>
-    Now let me read the main README and key documentation files:
-                </Response>
+            <Response>
+Now let me read the main README and key documentation files:
+            </Response>
 
-                <ToolUse>
-                  <ToolName>Read</ToolName>
-                  <Command>/home/glebmish/projects/rewrite-claude-assisted/README.md</Command>
-                  <Result>
-    (Reading file...)
-                  </Result>
-                </ToolUse>
+            <ToolUse>
+              <ToolName>Read</ToolName>
+              <Command>/home/glebmish/projects/rewrite-claude-assisted/README.md</Command>
+              <Result>
+(Reading file...)
+              </Result>
+            </ToolUse>
 
-                <Response>
-    {`Based on my exploration:
+            <Response>
+{`Based on my exploration:
 
-    This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
+This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
 
-    Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
+Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
 
-    Workflow: PR analysis → recipe generation → validation → refinement.`}
-                </Response>
-              </MainChat>
+Workflow: PR analysis → recipe generation → validation → refinement.`}
+            </Response>
+
+            <Highlight>
+              <MainChatTextField>Take a look at the docs/ folder as well</MainChatTextField>
             </Highlight>
+          </MainChat>
         </ClaudeCodeWeb>
       </WebView>
 
@@ -140,6 +146,10 @@ Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent,
 Workflow: PR analysis → recipe generation → validation → refinement.`}
             </TerminalResponse>
           </MainTerminalWindow>
+
+          <TerminalInput>
+Take a look at the docs/ folder as well
+          </TerminalInput>
         </ClaudeCodeTerminal>
       </TerminalView>
     </Slide>

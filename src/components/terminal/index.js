@@ -6,7 +6,9 @@ export {
   TerminalInput,
   TerminalFooter,
   AgentSection,
+  AgentSectionNew,
   Colored,
+  ColoredTerminal,
   TerminalTabs,
   TerminalTab
 } from './TerminalMessage';

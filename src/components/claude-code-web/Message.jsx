@@ -18,7 +18,7 @@ export function Message({ from, fromColor, children }) {
   const paddingClass = backgroundClass ? 'px-4 py-3 rounded-lg' : '';
 
   return (
-    <div className="mb-6">
+    <div className="mb-3">
       <div className={`${backgroundClass} ${paddingClass}`}>
         <div className="text-xs text-claude-text-dim mb-2 font-medium uppercase tracking-wide">
           {fromColor ? (
@@ -39,7 +39,7 @@ Message.displayName = 'Message';
 
 export function Response({ children }) {
   return (
-    <div className="mb-6">
+    <div className="mb-3">
       <div className="text-sm leading-relaxed whitespace-pre-wrap text-claude-text">
         {children}
       </div>
