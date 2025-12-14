@@ -1,8 +1,14 @@
 export function ToolUse({ children }) {
   const childArray = Array.isArray(children) ? children : [children];
-  const toolName = childArray.find(child => child?.type?.displayName === 'ToolName');
-  const command = childArray.find(child => child?.type?.displayName === 'Command');
-  const result = childArray.find(child => child?.type?.displayName === 'Result');
+  const toolName = childArray.find(
+    (child) => child?.type?.displayName === "ToolName"
+  );
+  const command = childArray.find(
+    (child) => child?.type?.displayName === "Command"
+  );
+  const result = childArray.find(
+    (child) => child?.type?.displayName === "Result"
+  );
 
   return (
     <div className="mb-4 bg-claude-tool-bg border border-claude-border rounded overflow-hidden text-sm">
@@ -14,28 +20,22 @@ export function ToolUse({ children }) {
 
       {/* Command section */}
       {command && (
-        <div className="border-b border-claude-border">
-          {command}
-        </div>
+        <div className="border-b border-claude-border">{command}</div>
       )}
 
       {/* Result section */}
-      {result && (
-        <div>
-          {result}
-        </div>
-      )}
+      {result && <div>{result}</div>}
     </div>
   );
 }
 
-ToolUse.displayName = 'ToolUse';
+ToolUse.displayName = "ToolUse";
 
 export function ToolName({ children }) {
   return <span className="font-semibold text-xs">{children}</span>;
 }
 
-ToolName.displayName = 'ToolName';
+ToolName.displayName = "ToolName";
 
 export function Command({ children }) {
   return (
@@ -45,7 +45,7 @@ export function Command({ children }) {
   );
 }
 
-Command.displayName = 'Command';
+Command.displayName = "Command";
 
 export function Result({ children }) {
   return (
@@ -55,4 +55,4 @@ export function Result({ children }) {
   );
 }
 
-Result.displayName = 'Result';
+Result.displayName = "Result";

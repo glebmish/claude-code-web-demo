@@ -2,8 +2,18 @@ export function NewSessionInput({ children }) {
   return (
     <div className="px-4 py-3 border-b border-claude-border">
       <div className="flex items-center gap-2 bg-claude-input-bg border border-claude-border rounded-lg px-3 py-2">
-        <svg className="w-4 h-4 text-claude-text-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+        <svg
+          className="w-4 h-4 text-claude-text-dim"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 4v16m8-8H4"
+          />
         </svg>
         <input
           type="text"
@@ -16,4 +26,4 @@ export function NewSessionInput({ children }) {
   );
 }
 
-NewSessionInput.displayName = 'NewSessionInput';
+NewSessionInput.displayName = "NewSessionInput";

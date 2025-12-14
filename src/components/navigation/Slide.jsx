@@ -1,6 +1,6 @@
-import { Children, useEffect } from 'react';
-import { useNote } from '../../contexts/NoteContext';
-import { Note } from './Note';
+import { Children, useEffect } from "react";
+import { useNote } from "../../contexts/NoteContext";
+import { Note } from "./Note";
 
 export function Slide({ children }) {
   const { setNoteContent } = useNote();

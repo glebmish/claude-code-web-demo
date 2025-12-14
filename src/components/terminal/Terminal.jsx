@@ -1,13 +1,23 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from "react";
 
 export function ClaudeCodeTerminal({ children, scroll }) {
   const childArray = Array.isArray(children) ? children : [children];
 
-  const clawd = childArray.find(child => child?.type?.displayName === 'Clawd');
-  const tabs = childArray.find(child => child?.type?.displayName === 'TerminalTabs');
-  const mainWindow = childArray.find(child => child?.type?.displayName === 'MainTerminalWindow');
-  const input = childArray.find(child => child?.type?.displayName === 'Input');
-  const footer = childArray.find(child => child?.type?.displayName === 'Footer');
+  const clawd = childArray.find(
+    (child) => child?.type?.displayName === "Clawd"
+  );
+  const tabs = childArray.find(
+    (child) => child?.type?.displayName === "TerminalTabs"
+  );
+  const mainWindow = childArray.find(
+    (child) => child?.type?.displayName === "MainTerminalWindow"
+  );
+  const input = childArray.find(
+    (child) => child?.type?.displayName === "Input"
+  );
+  const footer = childArray.find(
+    (child) => child?.type?.displayName === "Footer"
+  );
 
   // Clone mainWindow with clawd and scroll props if they exist
   const enhancedMainWindow = mainWindow
@@ -24,13 +34,13 @@ export function ClaudeCodeTerminal({ children, scroll }) {
   );
 }
 
-ClaudeCodeTerminal.displayName = 'ClaudeCodeTerminal';
+ClaudeCodeTerminal.displayName = "ClaudeCodeTerminal";
 
 export function MainTerminalWindow({ children, clawd, scroll }) {
   // Filter children by displayName
   const childArray = Array.isArray(children) ? children : [children];
-  const messages = childArray.filter(child =>
-    ['Message', 'Response', 'ToolUse'].includes(child?.type?.displayName)
+  const messages = childArray.filter((child) =>
+    ["Message", "Response", "ToolUse"].includes(child?.type?.displayName)
   );
 
   const containerRef = useRef(null);
@@ -48,7 +58,7 @@ export function MainTerminalWindow({ children, clawd, scroll }) {
     }
 
     // Parse percentage string
-    if (scroll.endsWith('%')) {
+    if (scroll.endsWith("%")) {
       const percent = parseFloat(scroll) / 100;
       const maxScroll = container.scrollHeight - container.clientHeight;
       container.scrollTop = maxScroll * percent;
@@ -58,21 +68,17 @@ export function MainTerminalWindow({ children, clawd, scroll }) {
   return (
     <div
       ref={containerRef}
-      className={`flex-1 overflow-y-auto font-mono text-xs text-[#cccccc] bg-[#1e1e1e] flex flex-col ${scroll ? '[&::-webkit-scrollbar]:hidden' : 'justify-end'}`}
-      style={scroll ? { scrollbarWidth: 'none', msOverflowStyle: 'none' } : {}}
+      className={`flex-1 overflow-y-auto font-mono text-xs text-[#cccccc] bg-[#1e1e1e] flex flex-col ${
+        scroll ? "[&::-webkit-scrollbar]:hidden" : "justify-end"
+      }`}
+      style={scroll ? { scrollbarWidth: "none", msOverflowStyle: "none" } : {}}
     >
       <div className={`transform transition-transform`}>
-        {clawd && (
-          <div className="border-b border-[#3e3e3e]">
-            {clawd}
-          </div>
-        )}
-        <div className="p-4">
-          {messages}
-        </div>
+        {clawd && <div className="border-b border-[#3e3e3e]">{clawd}</div>}
+        <div className="p-4">{messages}</div>
       </div>
     </div>
   );
 }
 
-MainTerminalWindow.displayName = 'MainTerminalWindow';
+MainTerminalWindow.displayName = "MainTerminalWindow";

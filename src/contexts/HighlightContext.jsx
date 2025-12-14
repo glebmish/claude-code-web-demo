@@ -1,11 +1,11 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { useView } from './ViewContext';
+import { createContext, useContext, useState, useEffect } from "react";
+import { useView } from "./ViewContext";
 
 const HighlightContext = createContext({
   isHighlightActive: false,
   isOverlayVisible: false,
   registerHighlight: () => {},
-  unregisterHighlight: () => {}
+  unregisterHighlight: () => {},
 });
 
 export function HighlightProvider({ children }) {
@@ -14,7 +14,7 @@ export function HighlightProvider({ children }) {
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
   const registerHighlight = (id) => {
-    setActiveHighlights(prev => {
+    setActiveHighlights((prev) => {
       const next = new Set(prev);
       next.add(id);
       return next;
@@ -22,7 +22,7 @@ export function HighlightProvider({ children }) {
   };
 
   const unregisterHighlight = (id) => {
-    setActiveHighlights(prev => {
+    setActiveHighlights((prev) => {
       const next = new Set(prev);
       next.delete(id);
       return next;
@@ -32,7 +32,7 @@ export function HighlightProvider({ children }) {
   // Manage overlay visibility with delayed hiding to prevent flash during slide transitions
   // Only show overlay in web view mode
   useEffect(() => {
-    if (viewMode === 'web' && activeHighlights.size > 0) {
+    if (viewMode === "web" && activeHighlights.size > 0) {
       // Show overlay immediately when highlights are active and in web view
       setIsOverlayVisible(true);
     } else {
@@ -46,12 +46,14 @@ export function HighlightProvider({ children }) {
   }, [activeHighlights.size, viewMode]);
 
   return (
-    <HighlightContext.Provider value={{
-      isHighlightActive: activeHighlights.size > 0,
-      isOverlayVisible,
-      registerHighlight,
-      unregisterHighlight
-    }}>
+    <HighlightContext.Provider
+      value={{
+        isHighlightActive: activeHighlights.size > 0,
+        isOverlayVisible,
+        registerHighlight,
+        unregisterHighlight,
+      }}
+    >
       {children}
     </HighlightContext.Provider>
   );

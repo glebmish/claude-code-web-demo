@@ -1,8 +1,8 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 const NoteContext = createContext({
   noteContent: null,
-  setNoteContent: () => {}
+  setNoteContent: () => {},
 });
 
 export function NoteProvider({ children }) {

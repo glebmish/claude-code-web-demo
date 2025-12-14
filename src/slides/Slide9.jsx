@@ -1,14 +1,34 @@
-import { Slide, Note, Highlight, WebView, TerminalView } from '../components/navigation';
-import { ClaudeCodeWeb } from '../components/claude-code-web/ClaudeCodeWeb';
-import { RepositorySelector } from '../components/claude-code-web/RepositorySelector';
-import { EnvSelect } from '../components/claude-code-web/EnvSelect';
-import { Sessions } from '../components/claude-code-web/Sessions';
-import { Session, Name, Footer, Subsession, AutocompletePopup, AutocompleteHeader, AutocompleteItem, AutocompleteItemNew } from '../components/claude-code-web/Session';
-import { MainChat } from '../components/claude-code-web/MainChat';
-import { MainChatHeader } from '../components/claude-code-web/MainChatHeader';
-import { Message, Response } from '../components/claude-code-web/Message';
-import { ToolUse, ToolName, Command, Result } from '../components/claude-code-web/ToolUse';
-import { MainChatTextField } from '../components/claude-code-web/MainChatTextField';
+import {
+  Slide,
+  Note,
+  Highlight,
+  WebView,
+  TerminalView,
+} from "../components/navigation";
+import { ClaudeCodeWeb } from "../components/claude-code-web/ClaudeCodeWeb";
+import { RepositorySelector } from "../components/claude-code-web/RepositorySelector";
+import { EnvSelect } from "../components/claude-code-web/EnvSelect";
+import { Sessions } from "../components/claude-code-web/Sessions";
+import {
+  Session,
+  Name,
+  Footer,
+  Subsession,
+  AutocompletePopup,
+  AutocompleteHeader,
+  AutocompleteItem,
+  AutocompleteItemNew,
+} from "../components/claude-code-web/Session";
+import { MainChat } from "../components/claude-code-web/MainChat";
+import { MainChatHeader } from "../components/claude-code-web/MainChatHeader";
+import { Message, Response } from "../components/claude-code-web/Message";
+import {
+  ToolUse,
+  ToolName,
+  Command,
+  Result,
+} from "../components/claude-code-web/ToolUse";
+import { MainChatTextField } from "../components/claude-code-web/MainChatTextField";
 import {
   ClaudeCodeTerminal,
   MainTerminalWindow,
@@ -22,20 +42,23 @@ import {
   ColoredTerminal,
   TerminalFooter,
   AgentSection,
-  AgentSectionNew
-} from '../components/terminal';
+  AgentSectionNew,
+} from "../components/terminal";
 
 export function Slide9() {
   return (
     <Slide>
       <Note>
-          Step 3. Team of agents in the main chat<br/>
-          New subagent can be spawned from the same selection
+        Step 3. Team of agents in the main chat
+        <br />
+        New subagent can be spawned from the same selection
       </Note>
 
       <WebView>
         <ClaudeCodeWeb>
-          <RepositorySelector>glebmish/rewrite-claude-assisted</RepositorySelector>
+          <RepositorySelector>
+            glebmish/rewrite-claude-assisted
+          </RepositorySelector>
           <EnvSelect>Default</EnvSelect>
 
           <Sessions>
@@ -44,27 +67,35 @@ export function Slide9() {
               <Footer>glebmish/rewrite-claude-assisted</Footer>
             </Session>
             <Subsession>
-              <Name color="green">a493ccdb - <b>Explore</b></Name>
+              <Name color="green">
+                a493ccdb - <b>Explore</b>
+              </Name>
               <Footer>Analyzing repository structure</Footer>
             </Subsession>
           </Sessions>
 
           <MainChat>
-            <MainChatHeader>Working on rewrite-claude-assisted codebase</MainChatHeader>
+            <MainChatHeader>
+              Working on rewrite-claude-assisted codebase
+            </MainChatHeader>
 
             <Message from="user">
-              Explore the project and give a brief overview before the main task starts
+              Explore the project and give a brief overview before the main task
+              starts
             </Message>
             <Response>
               I'll explore the project to give you a brief overview.
             </Response>
 
             <Response>
-                <Colored color="green">@a493ccdb (<b>new Explore</b>)</Colored> Explore project structure and purpose
+              <Colored color="green">
+                @a493ccdb (<b>new Explore</b>)
+              </Colored>{" "}
+              Explore project structure and purpose
             </Response>
 
             <Message from="a493ccdb" fromColor="green">
-    {`Based on my exploration:
+              {`Based on my exploration:
 
 This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
 
@@ -74,29 +105,43 @@ Workflow: PR analysis → recipe generation → validation → refinement.`}
             </Message>
 
             <Response>
-{`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
+              {`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
 
 Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
             </Response>
 
             <Message from="user">
-              <Colored color="green">@a493ccdb</Colored> Take a look at the docs/ folder as well
+              <Colored color="green">@a493ccdb</Colored> Take a look at the
+              docs/ folder as well
             </Message>
 
             <Message from="a493ccdb" fromColor="green">
-                The architecture documentation provides deeper insights into the system design. The workflow is event-driven with clear separation between analysis, generation, and validation phases.
+              The architecture documentation provides deeper insights into the
+              system design. The workflow is event-driven with clear separation
+              between analysis, generation, and validation phases.
             </Message>
 
             <Highlight>
-                <MainChatTextField>
-                    @
-                    <AutocompletePopup>
-                      <AutocompleteHeader arrow={true}>New</AutocompleteHeader>
-                      <AutocompleteItem color="green">new <b>Explore (sonnet)</b> <i className="text-gray-500">Codebase exploration</i></AutocompleteItem>
-                      <AutocompleteItem color="blue">new <b>Plan (sonnet)</b> <i className="text-gray-500">Plan the task execution</i></AutocompleteItem>
-                      <AutocompleteItem color="purple" selected>new <b>Architect (opus)</b> <i className="text-gray-500">Work on architecture changes</i></AutocompleteItem>
-                    </AutocompletePopup>
-                </MainChatTextField>
+              <MainChatTextField>
+                @
+                <AutocompletePopup>
+                  <AutocompleteHeader arrow={true}>New</AutocompleteHeader>
+                  <AutocompleteItem color="green">
+                    new <b>Explore (sonnet)</b>{" "}
+                    <i className="text-gray-500">Codebase exploration</i>
+                  </AutocompleteItem>
+                  <AutocompleteItem color="blue">
+                    new <b>Plan (sonnet)</b>{" "}
+                    <i className="text-gray-500">Plan the task execution</i>
+                  </AutocompleteItem>
+                  <AutocompleteItem color="purple" selected>
+                    new <b>Architect (opus)</b>{" "}
+                    <i className="text-gray-500">
+                      Work on architecture changes
+                    </i>
+                  </AutocompleteItem>
+                </AutocompletePopup>
+              </MainChatTextField>
             </Highlight>
           </MainChat>
         </ClaudeCodeWeb>
@@ -111,58 +156,64 @@ Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent
 
           <MainTerminalWindow>
             <TerminalUserMessage>
-Explore the project and give a brief overview before the main task starts
+              Explore the project and give a brief overview before the main task
+              starts
             </TerminalUserMessage>
 
             <TerminalResponse>
-I'll explore the project to give you a brief overview.
+              I'll explore the project to give you a brief overview.
             </TerminalResponse>
 
             <TerminalResponse>
-                <ColoredTerminal color="green">@a493ccdb (<b>new Explore</b>)</ColoredTerminal> Explore project structure and purpose
+              <ColoredTerminal color="green">
+                @a493ccdb (<b>new Explore</b>)
+              </ColoredTerminal>{" "}
+              Explore project structure and purpose
             </TerminalResponse>
 
             <TerminalResponse from="a493ccdb" fromColor="green">
-    {`Based on my exploration:
+              {`Based on my exploration:
 
-    This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
+This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
 
-    Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
+Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
 
-    Workflow: PR analysis → recipe generation → validation → refinement.`}
+Workflow: PR analysis → recipe generation → validation → refinement.`}
             </TerminalResponse>
 
             <TerminalResponse>
-{`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
+              {`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
 
 Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
             </TerminalResponse>
 
             <TerminalUserMessage>
-                <ColoredTerminal color="green">@a493ccdb</ColoredTerminal> Take a look at the docs/ folder as well
+              <ColoredTerminal color="green">@a493ccdb</ColoredTerminal> Take a
+              look at the docs/ folder as well
             </TerminalUserMessage>
 
             <TerminalResponse from="a493ccdb" fromColor="green">
-The architecture documentation provides deeper insights into the system design. The workflow is event-driven with clear separation between analysis, generation, and validation phases.
+              The architecture documentation provides deeper insights into the
+              system design. The workflow is event-driven with clear separation
+              between analysis, generation, and validation phases.
             </TerminalResponse>
           </MainTerminalWindow>
 
-          <TerminalInput>
-              @
-          </TerminalInput>
+          <TerminalInput>@</TerminalInput>
 
           <TerminalFooter>
-            <AgentSection hideDot>
-              ..
-            </AgentSection>
+            <AgentSection hideDot>..</AgentSection>
             <AgentSection color="green">
-              new <b>Explore (sonnet)</b> <i className="text-gray-500">Codebase exploration</i>
+              new <b>Explore (sonnet)</b>{" "}
+              <i className="text-gray-500">Codebase exploration</i>
             </AgentSection>
             <AgentSection color="blue">
-              new <b>Plan (sonnet)</b> <i className="text-gray-500">Plan the task execution</i>
+              new <b>Plan (sonnet)</b>{" "}
+              <i className="text-gray-500">Plan the task execution</i>
             </AgentSection>
             <AgentSection color="purple" selected>
-              new <b>Architect (opus)</b> <i className="text-gray-500">Work on architecture changes</i>
+              new <b>Architect (opus)</b>{" "}
+              <i className="text-gray-500">Work on architecture changes</i>
             </AgentSection>
           </TerminalFooter>
         </ClaudeCodeTerminal>

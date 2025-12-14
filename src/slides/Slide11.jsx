@@ -1,13 +1,24 @@
-import { Slide, Note, Highlight, WebView, TerminalView } from '../components/navigation';
-import { ClaudeCodeWeb } from '../components/claude-code-web/ClaudeCodeWeb';
-import { RepositorySelector } from '../components/claude-code-web/RepositorySelector';
-import { EnvSelect } from '../components/claude-code-web/EnvSelect';
-import { Sessions } from '../components/claude-code-web/Sessions';
-import { Session, Name, Footer, Subsession } from '../components/claude-code-web/Session';
-import { MainChat } from '../components/claude-code-web/MainChat';
-import { MainChatHeader } from '../components/claude-code-web/MainChatHeader';
-import { Message, Response } from '../components/claude-code-web/Message';
-import { MainChatTextField } from '../components/claude-code-web/MainChatTextField';
+import {
+  Slide,
+  Note,
+  Highlight,
+  WebView,
+  TerminalView,
+} from "../components/navigation";
+import { ClaudeCodeWeb } from "../components/claude-code-web/ClaudeCodeWeb";
+import { RepositorySelector } from "../components/claude-code-web/RepositorySelector";
+import { EnvSelect } from "../components/claude-code-web/EnvSelect";
+import { Sessions } from "../components/claude-code-web/Sessions";
+import {
+  Session,
+  Name,
+  Footer,
+  Subsession,
+} from "../components/claude-code-web/Session";
+import { MainChat } from "../components/claude-code-web/MainChat";
+import { MainChatHeader } from "../components/claude-code-web/MainChatHeader";
+import { Message, Response } from "../components/claude-code-web/Message";
+import { MainChatTextField } from "../components/claude-code-web/MainChatTextField";
 import {
   ClaudeCodeTerminal,
   MainTerminalWindow,
@@ -17,20 +28,23 @@ import {
   TerminalTabs,
   TerminalTab,
   Colored,
-  ColoredTerminal
-} from '../components/terminal';
+  ColoredTerminal,
+} from "../components/terminal";
 
 export function Slide11() {
   return (
     <Slide>
       <Note>
-          Step 3. Team of agents in the main chat<br/>
-          Main agent receives new messages and reacts only when addressed
+        Step 3. Team of agents in the main chat
+        <br />
+        Main agent receives new messages and reacts only when addressed
       </Note>
 
       <WebView>
         <ClaudeCodeWeb>
-          <RepositorySelector>glebmish/rewrite-claude-assisted</RepositorySelector>
+          <RepositorySelector>
+            glebmish/rewrite-claude-assisted
+          </RepositorySelector>
           <EnvSelect>Default</EnvSelect>
 
           <Sessions>
@@ -39,55 +53,71 @@ export function Slide11() {
               <Footer>glebmish/rewrite-claude-assisted</Footer>
             </Session>
             <Subsession>
-              <Name color="green">a493ccdb - <b>Explore</b></Name>
+              <Name color="green">
+                a493ccdb - <b>Explore</b>
+              </Name>
               <Footer>Analyzing repository structure</Footer>
             </Subsession>
             <Subsession>
-              <Name color="purple">7b2f9a1e - <b>Architect</b></Name>
+              <Name color="purple">
+                7b2f9a1e - <b>Architect</b>
+              </Name>
               <Footer>Suggesting architecture improvements</Footer>
             </Subsession>
           </Sessions>
 
           <MainChat>
-            <MainChatHeader>Working on rewrite-claude-assisted codebase</MainChatHeader>
+            <MainChatHeader>
+              Working on rewrite-claude-assisted codebase
+            </MainChatHeader>
 
             <Message from="user">
-              Explore the project and give a brief overview before the main task starts
+              Explore the project and give a brief overview before the main task
+              starts
             </Message>
             <Response>
               I'll explore the project to give you a brief overview.
             </Response>
 
             <Response>
-                <Colored color="green">@a493ccdb (<b>new Explore</b>)</Colored> Explore project structure and purpose
+              <Colored color="green">
+                @a493ccdb (<b>new Explore</b>)
+              </Colored>{" "}
+              Explore project structure and purpose
             </Response>
 
             <Message from="a493ccdb" fromColor="green">
-    {`Based on my exploration:
+              {`Based on my exploration:
 
-    This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
+This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
 
-    Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
+Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
 
-    Workflow: PR analysis → recipe generation → validation → refinement.`}
+Workflow: PR analysis → recipe generation → validation → refinement.`}
             </Message>
 
             <Response>
-{`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
+              {`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
 
 Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
             </Response>
 
             <Message from="user">
-              <Colored color="green">@a493ccdb</Colored> Take a look at the docs/ folder as well
+              <Colored color="green">@a493ccdb</Colored> Take a look at the
+              docs/ folder as well
             </Message>
 
             <Message from="a493ccdb" fromColor="green">
-                The architecture documentation provides deeper insights into the system design. The workflow is event-driven with clear separation between analysis, generation, and validation phases.
+              The architecture documentation provides deeper insights into the
+              system design. The workflow is event-driven with clear separation
+              between analysis, generation, and validation phases.
             </Message>
 
             <Message from="user">
-              <Colored color="purple">@7b2f9a1e (<b>new Architect</b>)</Colored> Review the architecture and suggest improvements. Please be brief.
+              <Colored color="purple">
+                @7b2f9a1e (<b>new Architect</b>)
+              </Colored>{" "}
+              Review the architecture and suggest improvements. Please be brief.
             </Message>
 
             <Message from="7b2f9a1e" fromColor="purple">
@@ -95,7 +125,7 @@ Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent
             </Message>
 
             <Message from="7b2f9a1e" fromColor="purple">
-{`Key improvements:
+              {`Key improvements:
 1. Decouple recipe generation from validation - add async queue
 2. Cache vector embeddings to reduce PostgreSQL load
 3. Add circuit breaker for external API calls
@@ -104,16 +134,17 @@ These would improve scalability and reliability.`}
             </Message>
 
             <Highlight>
-                <Message from="user">
-                  Would implementing the async queue affect the current PR analysis workflow?
-                </Message>
+              <Message from="user">
+                Would implementing the async queue affect the current PR
+                analysis workflow?
+              </Message>
 
-                <Response>
-    {`Based on @7b2f9a1e's recommendations, implementing an async queue would actually enhance the workflow. The PR analysis phase would remain synchronous for immediate feedback, but recipe generation and validation could run in parallel, reducing overall processing time while maintaining the event-driven architecture.`}
-                </Response>
+              <Response>
+                {`Based on @7b2f9a1e's recommendations, implementing an async queue would actually enhance the workflow. The PR analysis phase would remain synchronous for immediate feedback, but recipe generation and validation could run in parallel, reducing overall processing time while maintaining the event-driven architecture.`}
+              </Response>
             </Highlight>
 
-            <MainChatTextField/>
+            <MainChatTextField />
           </MainChat>
         </ClaudeCodeWeb>
       </WebView>
@@ -128,51 +159,61 @@ These would improve scalability and reliability.`}
 
           <MainTerminalWindow>
             <TerminalUserMessage>
-Explore the project and give a brief overview before the main task starts
+              Explore the project and give a brief overview before the main task
+              starts
             </TerminalUserMessage>
 
             <TerminalResponse>
-I'll explore the project to give you a brief overview.
+              I'll explore the project to give you a brief overview.
             </TerminalResponse>
 
             <TerminalResponse>
-                <ColoredTerminal color="green">@a493ccdb (<b>new Explore</b>)</ColoredTerminal> Explore project structure and purpose
+              <ColoredTerminal color="green">
+                @a493ccdb (<b>new Explore</b>)
+              </ColoredTerminal>{" "}
+              Explore project structure and purpose
             </TerminalResponse>
 
             <TerminalResponse from="a493ccdb" fromColor="green">
-    {`Based on my exploration:
+              {`Based on my exploration:
 
-    This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
+This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
 
-    Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
+Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
 
-    Workflow: PR analysis → recipe generation → validation → refinement.`}
+Workflow: PR analysis → recipe generation → validation → refinement.`}
             </TerminalResponse>
 
             <TerminalResponse>
-{`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
+              {`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
 
 Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
             </TerminalResponse>
 
             <TerminalUserMessage>
-                <ColoredTerminal color="green">@a493ccdb</ColoredTerminal> Take a look at the docs/ folder as well
+              <ColoredTerminal color="green">@a493ccdb</ColoredTerminal> Take a
+              look at the docs/ folder as well
             </TerminalUserMessage>
 
             <TerminalResponse from="a493ccdb" fromColor="green">
-The architecture documentation provides deeper insights into the system design. The workflow is event-driven with clear separation between analysis, generation, and validation phases.
+              The architecture documentation provides deeper insights into the
+              system design. The workflow is event-driven with clear separation
+              between analysis, generation, and validation phases.
             </TerminalResponse>
 
             <TerminalUserMessage>
-                <ColoredTerminal color="purple">@7b2f9a1e (<b>new Architect</b>)</ColoredTerminal> Review the architecture and suggest improvements. Please be brief.
+              <ColoredTerminal color="purple">
+                @7b2f9a1e (<b>new Architect</b>)
+              </ColoredTerminal>{" "}
+              Review the architecture and suggest improvements. Please be brief.
             </TerminalUserMessage>
 
             <TerminalResponse from="7b2f9a1e" fromColor="purple">
-I'll analyze the architecture and provide concise recommendations.
+              I'll analyze the architecture and provide concise recommendations.
             </TerminalResponse>
 
             <TerminalResponse from="7b2f9a1e" fromColor="purple">
-{`Key improvements:
+              {`Key improvements:
 1. Decouple recipe generation from validation - add async queue
 2. Cache vector embeddings to reduce PostgreSQL load
 3. Add circuit breaker for external API calls
@@ -181,15 +222,16 @@ These would improve scalability and reliability.`}
             </TerminalResponse>
 
             <TerminalUserMessage>
-Would implementing the async queue affect the current PR analysis workflow?
+              Would implementing the async queue affect the current PR analysis
+              workflow?
             </TerminalUserMessage>
 
             <TerminalResponse>
-{`Based on @7b2f9a1e's recommendations, implementing an async queue would actually enhance the workflow. The PR analysis phase would remain synchronous for immediate feedback, but recipe generation and validation could run in parallel, reducing overall processing time while maintaining the event-driven architecture.`}
+              {`Based on @7b2f9a1e's recommendations, implementing an async queue would actually enhance the workflow. The PR analysis phase would remain synchronous for immediate feedback, but recipe generation and validation could run in parallel, reducing overall processing time while maintaining the event-driven architecture.`}
             </TerminalResponse>
           </MainTerminalWindow>
 
-          <TerminalInput/>
+          <TerminalInput />
         </ClaudeCodeTerminal>
       </TerminalView>
     </Slide>

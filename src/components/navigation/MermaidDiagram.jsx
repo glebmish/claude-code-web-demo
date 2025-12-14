@@ -1,22 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
-import mermaid from 'mermaid';
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import { useEffect, useRef, useState } from "react";
+import mermaid from "mermaid";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 // Initialize mermaid once at module level
 let isInitialized = false;
 if (!isInitialized) {
   mermaid.initialize({
     startOnLoad: false,
-    theme: 'base',
+    theme: "base",
     themeVariables: {
-      primaryColor: '#f7f7f7',
-      primaryTextColor: '#1f1f1f',
-      primaryBorderColor: '#e0e0e0',
-      lineColor: '#737373',
-      secondaryColor: '#fafafa',
-      tertiaryColor: '#f0f0f0',
-      fontSize: '24px',
-      fontFamily: 'Inter, system-ui, sans-serif',
+      primaryColor: "#f7f7f7",
+      primaryTextColor: "#1f1f1f",
+      primaryBorderColor: "#e0e0e0",
+      lineColor: "#737373",
+      secondaryColor: "#fafafa",
+      tertiaryColor: "#f0f0f0",
+      fontSize: "24px",
+      fontFamily: "Inter, system-ui, sans-serif",
     },
   });
   isInitialized = true;
@@ -24,16 +24,19 @@ if (!isInitialized) {
 
 export function MermaidDiagram({ children }) {
   const containerRef = useRef(null);
-  const [svg, setSvg] = useState('');
+  const [svg, setSvg] = useState("");
   const idRef = useRef(`mermaid-${Math.random().toString(36).substr(2, 9)}`);
 
   useEffect(() => {
     const renderDiagram = async () => {
       try {
-        const { svg: renderedSvg } = await mermaid.render(idRef.current, children);
+        const { svg: renderedSvg } = await mermaid.render(
+          idRef.current,
+          children
+        );
         setSvg(renderedSvg);
       } catch (error) {
-        console.error('Mermaid rendering error:', error);
+        console.error("Mermaid rendering error:", error);
         setSvg('<div class="text-red-500">Error rendering diagram</div>');
       }
     };
@@ -50,7 +53,7 @@ export function MermaidDiagram({ children }) {
         centerOnInit={true}
         limitToBounds={false}
         wheel={{ step: 0.1 }}
-        doubleClick={{ disabled: false, mode: 'zoomIn', step: 0.5 }}
+        doubleClick={{ disabled: false, mode: "zoomIn", step: 0.5 }}
       >
         {({ zoomIn, zoomOut, resetTransform }) => (
           <>
@@ -87,13 +90,19 @@ export function MermaidDiagram({ children }) {
 
             {/* Diagram Container */}
             <TransformComponent
-              wrapperStyle={{ width: '100%', height: '100%' }}
-              contentStyle={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              wrapperStyle={{ width: "100%", height: "100%" }}
+              contentStyle={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
               <div
                 ref={containerRef}
                 dangerouslySetInnerHTML={{ __html: svg }}
-                style={{ padding: '40px' }}
+                style={{ padding: "40px" }}
               />
             </TransformComponent>
           </>

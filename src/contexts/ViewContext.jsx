@@ -1,27 +1,28 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 const ViewContext = createContext({
-  viewMode: 'web', // 'web' | 'terminal'
+  viewMode: "web", // 'web' | 'terminal'
   setViewMode: () => {},
   toggleView: () => {},
   hasShownTerminalOnSlide1: false,
   forceTerminalExposure: () => {},
   shouldAnimateSpacebar: false,
-  stopSpacebarAnimation: () => {}
+  stopSpacebarAnimation: () => {},
 });
 
 export function ViewProvider({ children }) {
-  const [viewMode, setViewMode] = useState('web');
-  const [hasShownTerminalOnSlide1, setHasShownTerminalOnSlide1] = useState(false);
+  const [viewMode, setViewMode] = useState("web");
+  const [hasShownTerminalOnSlide1, setHasShownTerminalOnSlide1] =
+    useState(false);
   const [shouldAnimateSpacebar, setShouldAnimateSpacebar] = useState(false);
 
   const toggleView = () => {
-    setViewMode(prev => prev === 'web' ? 'terminal' : 'web');
+    setViewMode((prev) => (prev === "web" ? "terminal" : "web"));
     setShouldAnimateSpacebar(false); // Stop animation when user toggles
   };
 
   const forceTerminalExposure = () => {
-    setViewMode('terminal');
+    setViewMode("terminal");
     setHasShownTerminalOnSlide1(true);
     setShouldAnimateSpacebar(true); // Start animation
   };
@@ -31,15 +32,17 @@ export function ViewProvider({ children }) {
   };
 
   return (
-    <ViewContext.Provider value={{
-      viewMode,
-      setViewMode,
-      toggleView,
-      hasShownTerminalOnSlide1,
-      forceTerminalExposure,
-      shouldAnimateSpacebar,
-      stopSpacebarAnimation
-    }}>
+    <ViewContext.Provider
+      value={{
+        viewMode,
+        setViewMode,
+        toggleView,
+        hasShownTerminalOnSlide1,
+        forceTerminalExposure,
+        shouldAnimateSpacebar,
+        stopSpacebarAnimation,
+      }}
+    >
       {children}
     </ViewContext.Provider>
   );

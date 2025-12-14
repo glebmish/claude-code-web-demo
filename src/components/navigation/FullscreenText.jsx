@@ -14,4 +14,4 @@ export function FullscreenText({ children }) {
   );
 }
 
-FullscreenText.displayName = 'FullscreenText';
+FullscreenText.displayName = "FullscreenText";

@@ -9,4 +9,4 @@ export function RepositorySelector({ children }) {
   );
 }
 
-RepositorySelector.displayName = 'RepositorySelector';
+RepositorySelector.displayName = "RepositorySelector";

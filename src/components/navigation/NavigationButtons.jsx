@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
-import { useView } from '../../contexts/ViewContext';
+import React, { useEffect } from "react";
+import { useView } from "../../contexts/ViewContext";
 
 const NavigationButtons = ({ currentSlide, totalSlides, onNavigate }) => {
-  const { toggleView, shouldAnimateSpacebar, stopSpacebarAnimation } = useView();
+  const { toggleView, shouldAnimateSpacebar, stopSpacebarAnimation } =
+    useView();
   const isFirstSlide = currentSlide === 0;
   const isLastSlide = currentSlide === totalSlides - 1;
 
@@ -17,11 +18,11 @@ const NavigationButtons = ({ currentSlide, totalSlides, onNavigate }) => {
   }, [shouldAnimateSpacebar, stopSpacebarAnimation]);
 
   const handleNavigation = (direction) => {
-    if (direction === 'left' || direction === 'up') {
+    if (direction === "left" || direction === "up") {
       if (!isFirstSlide) {
         onNavigate(currentSlide - 1);
       }
-    } else if (direction === 'right' || direction === 'down') {
+    } else if (direction === "right" || direction === "down") {
       if (!isLastSlide) {
         onNavigate(currentSlide + 1);
       }
@@ -39,7 +40,11 @@ const NavigationButtons = ({ currentSlide, totalSlides, onNavigate }) => {
         cursor-pointer
         select-none
         transition-all duration-100
-        ${disabled ? 'opacity-40 cursor-not-allowed' : 'active:translate-y-[1px]'}
+        ${
+          disabled
+            ? "opacity-40 cursor-not-allowed"
+            : "active:translate-y-[1px]"
+        }
       `}
     >
       {/* Key cap - the visible top surface with concave effect */}
@@ -51,7 +56,7 @@ const NavigationButtons = ({ currentSlide, totalSlides, onNavigate }) => {
           bg-white
           rounded-sm
           border border-gray-800
-          ${disabled ? '' : 'active:shadow-[inset_0_2px_3px_rgba(0,0,0,0.15)]'}
+          ${disabled ? "" : "active:shadow-[inset_0_2px_3px_rgba(0,0,0,0.15)]"}
         `}
         style={{
           boxShadow: `
@@ -72,12 +77,12 @@ const NavigationButtons = ({ currentSlide, totalSlides, onNavigate }) => {
       up: "M12 4l-8 8h16l-8-8z",
       down: "M12 20l8-8H4l8 8z",
       left: "M4 12l8-8v16l-8-8z",
-      right: "M20 12l-8 8V4l8 8z"
+      right: "M20 12l-8 8V4l8 8z",
     };
 
     return (
       <svg
-        className={`w-3 h-3 ${disabled ? 'text-gray-400' : 'text-gray-600'}`}
+        className={`w-3 h-3 ${disabled ? "text-gray-400" : "text-gray-600"}`}
         viewBox="0 0 24 24"
         fill="currentColor"
       >
@@ -107,7 +112,9 @@ const NavigationButtons = ({ currentSlide, totalSlides, onNavigate }) => {
                 `,
               }}
             >
-              <span className="text-gray-600 text-[10px] font-medium">SPACE</span>
+              <span className="text-gray-600 text-[10px] font-medium">
+                SPACE
+              </span>
             </div>
           </button>
         </div>
@@ -116,49 +123,49 @@ const NavigationButtons = ({ currentSlide, totalSlides, onNavigate }) => {
       {/* Regular navigation buttons */}
       <div className="fixed bottom-8 right-8 z-40">
         <div className="flex flex-col items-end gap-2">
-        {/* Arrow keys */}
-        <div className="flex flex-col gap-0.5">
-          {/* Top row - Up arrow (disabled) */}
-          <div className="flex justify-center">
-            <KeyButton
-              direction="up"
-              disabled={true}
-              onClick={() => {}}
-              title="Not available"
-            />
+          {/* Arrow keys */}
+          <div className="flex flex-col gap-0.5">
+            {/* Top row - Up arrow (disabled) */}
+            <div className="flex justify-center">
+              <KeyButton
+                direction="up"
+                disabled={true}
+                onClick={() => {}}
+                title="Not available"
+              />
+            </div>
+
+            {/* Bottom row - Left, Down, Right arrows */}
+            <div className="flex gap-0.5">
+              <KeyButton
+                direction="left"
+                disabled={isFirstSlide}
+                onClick={() => handleNavigation("left")}
+                title="Previous slide (Left arrow)"
+              />
+              <KeyButton
+                direction="down"
+                disabled={true}
+                onClick={() => {}}
+                title="Not available"
+              />
+              <KeyButton
+                direction="right"
+                disabled={isLastSlide}
+                onClick={() => handleNavigation("right")}
+                title="Next slide (Right arrow)"
+              />
+            </div>
           </div>
 
-          {/* Bottom row - Left, Down, Right arrows */}
-          <div className="flex gap-0.5">
-            <KeyButton
-              direction="left"
-              disabled={isFirstSlide}
-              onClick={() => handleNavigation('left')}
-              title="Previous slide (Left arrow)"
-            />
-            <KeyButton
-              direction="down"
-              disabled={true}
-              onClick={() => {}}
-              title="Not available"
-            />
-            <KeyButton
-              direction="right"
-              disabled={isLastSlide}
-              onClick={() => handleNavigation('right')}
-              title="Next slide (Right arrow)"
-            />
-          </div>
-        </div>
-
-        {/* Space key */}
-        <button
-          onClick={toggleView}
-          title="Toggle view (Space)"
-          className={`relative w-16 h-7 cursor-pointer select-none transition-all duration-100 active:translate-y-[1px] ${
-            shouldAnimateSpacebar ? 'opacity-0' : ''
-          }`}
-        >
+          {/* Space key */}
+          <button
+            onClick={toggleView}
+            title="Toggle view (Space)"
+            className={`relative w-16 h-7 cursor-pointer select-none transition-all duration-100 active:translate-y-[1px] ${
+              shouldAnimateSpacebar ? "opacity-0" : ""
+            }`}
+          >
             <div
               className="absolute inset-0 flex items-center justify-center bg-white rounded-sm border border-gray-800 active:shadow-[inset_0_2px_3px_rgba(0,0,0,0.15)]"
               style={{
@@ -170,11 +177,13 @@ const NavigationButtons = ({ currentSlide, totalSlides, onNavigate }) => {
                 `,
               }}
             >
-              <span className="text-gray-600 text-[10px] font-medium">SPACE</span>
+              <span className="text-gray-600 text-[10px] font-medium">
+                SPACE
+              </span>
             </div>
-        </button>
+          </button>
+        </div>
       </div>
-    </div>
     </>
   );
 };

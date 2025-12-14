@@ -1,5 +1,5 @@
-import { useEffect, useId } from 'react';
-import { useHighlight } from '../../contexts/HighlightContext';
+import { useEffect, useId } from "react";
+import { useHighlight } from "../../contexts/HighlightContext";
 
 export function Highlight({ children }) {
   const id = useId();
@@ -12,13 +12,19 @@ export function Highlight({ children }) {
 
   // Check if children includes MainChat to apply flex layout
   const childArray = Array.isArray(children) ? children : [children];
-  const hasMainChat = childArray.some(child => child?.type?.displayName === 'MainChat');
+  const hasMainChat = childArray.some(
+    (child) => child?.type?.displayName === "MainChat"
+  );
 
   return (
-    <div className={`relative z-20 bg-claude-bg ${hasMainChat ? 'flex flex-col flex-1 overflow-hidden' : ''}`}>
+    <div
+      className={`relative z-20 bg-claude-bg ${
+        hasMainChat ? "flex flex-col flex-1 overflow-hidden" : ""
+      }`}
+    >
       {children}
     </div>
   );
 }
 
-Highlight.displayName = 'Highlight';
+Highlight.displayName = "Highlight";

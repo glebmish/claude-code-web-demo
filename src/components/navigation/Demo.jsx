@@ -1,24 +1,45 @@
-import { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useKeyboardNavigation } from '../../utils/useKeyboardNavigation';
-import { HighlightProvider } from '../../contexts/HighlightContext';
-import { NoteProvider, useNote } from '../../contexts/NoteContext';
-import { ViewProvider, useView } from '../../contexts/ViewContext';
-import NavigationButtons from './NavigationButtons';
-import { ViewToggle } from './ViewToggle';
+import { useState, useEffect, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useKeyboardNavigation } from "../../utils/useKeyboardNavigation";
+import { HighlightProvider } from "../../contexts/HighlightContext";
+import { NoteProvider, useNote } from "../../contexts/NoteContext";
+import { ViewProvider, useView } from "../../contexts/ViewContext";
+import NavigationButtons from "./NavigationButtons";
+import { ViewToggle } from "./ViewToggle";
 
-function DemoContent({ children, currentSlide, totalSlides, onSlideChange, isRootUrl }) {
+function DemoContent({
+  children,
+  currentSlide,
+  totalSlides,
+  onSlideChange,
+  isRootUrl,
+}) {
   const [highlightKey, setHighlightKey] = useState(0);
   const { noteContent } = useNote();
-  const { toggleView, viewMode, hasShownTerminalOnSlide1, forceTerminalExposure, stopSpacebarAnimation } = useView();
+  const {
+    toggleView,
+    viewMode,
+    hasShownTerminalOnSlide1,
+    forceTerminalExposure,
+    stopSpacebarAnimation,
+  } = useView();
   const slides = Array.isArray(children) ? children : [children];
   const wheelTimeoutRef = useRef(null);
 
-  useKeyboardNavigation(currentSlide, totalSlides, onSlideChange, toggleView, viewMode, hasShownTerminalOnSlide1, forceTerminalExposure, isRootUrl);
+  useKeyboardNavigation(
+    currentSlide,
+    totalSlides,
+    onSlideChange,
+    toggleView,
+    viewMode,
+    hasShownTerminalOnSlide1,
+    forceTerminalExposure,
+    isRootUrl
+  );
 
   // Reset highlight context when slide changes
   useEffect(() => {
-    setHighlightKey(prev => prev + 1);
+    setHighlightKey((prev) => prev + 1);
   }, [currentSlide]);
 
   // Stop spacebar animation when leaving root URL
@@ -52,10 +73,10 @@ function DemoContent({ children, currentSlide, totalSlides, onSlideChange, isRoo
       }, 50);
     };
 
-    window.addEventListener('wheel', handleWheel, { passive: true });
+    window.addEventListener("wheel", handleWheel, { passive: true });
 
     return () => {
-      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener("wheel", handleWheel);
       if (wheelTimeoutRef.current) {
         clearTimeout(wheelTimeoutRef.current);
       }
@@ -64,7 +85,7 @@ function DemoContent({ children, currentSlide, totalSlides, onSlideChange, isRoo
 
   const handleClick = () => {
     // Intercept first click on root URL to force terminal view
-    if (isRootUrl && !hasShownTerminalOnSlide1 && viewMode === 'web') {
+    if (isRootUrl && !hasShownTerminalOnSlide1 && viewMode === "web") {
       forceTerminalExposure();
       return; // Don't advance slide
     }
@@ -145,8 +166,8 @@ export function Demo({ children }) {
 
   // Update URL when slide changes
   const handleSlideChange = (newSlide) => {
-    if (typeof newSlide !== 'number' || isNaN(newSlide)) {
-      console.error('Invalid slide number:', newSlide);
+    if (typeof newSlide !== "number" || isNaN(newSlide)) {
+      console.error("Invalid slide number:", newSlide);
       return;
     }
     const validSlide = Math.max(0, Math.min(newSlide, totalSlides - 1));
