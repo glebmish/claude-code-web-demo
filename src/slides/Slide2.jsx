@@ -4,38 +4,33 @@ import {
   Highlight,
   WebView,
   TerminalView,
-} from "../components/navigation";
-import { ClaudeCodeWeb } from "../components/claude-code-web/ClaudeCodeWeb";
-import { RepositorySelector } from "../components/claude-code-web/RepositorySelector";
-import { EnvSelect } from "../components/claude-code-web/EnvSelect";
-import { Sessions } from "../components/claude-code-web/Sessions";
-import {
+  ClaudeCodeWeb,
+  RepositorySelector,
+  EnvSelect,
+  Sessions,
   Session,
   Name,
   Footer,
   Subsession,
-} from "../components/claude-code-web/Session";
-import { MainChat } from "../components/claude-code-web/MainChat";
-import { MainChatHeader } from "../components/claude-code-web/MainChatHeader";
-import { Message, Response } from "../components/claude-code-web/Message";
-import {
+  MainChat,
+  MainChatHeader,
+  Message,
+  Response,
   ToolUse,
   ToolName,
   Command,
   Result,
-} from "../components/claude-code-web/ToolUse";
-import { MainChatTextField } from "../components/claude-code-web/MainChatTextField";
-import {
+  MainChatTextField,
   ClaudeCodeTerminal,
   MainTerminalWindow,
   TerminalUserMessage,
   TerminalResponse,
   TerminalToolUse,
+  TerminalInput,
   TerminalTabs,
   TerminalTab,
-  TerminalInput,
   Clawd,
-} from "../components/terminal";
+} from "../components";
 
 export function Slide2() {
   return (
@@ -43,7 +38,7 @@ export function Slide2() {
       <Note>
         Step 1. Show subagent logs
         <br />
-        Tab shows agent name, type and current task (web-only)
+        Tab shows agent name and type (+ current task for web)
       </Note>
 
       <WebView>

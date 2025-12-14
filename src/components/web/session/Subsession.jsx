@@ -1,4 +1,3 @@
-// Individual subsession item - standalone component similar to Session
 export function Subsession({ children, selected }) {
   // Extract Name and Footer from children
   const childArray = Array.isArray(children) ? children : [children];

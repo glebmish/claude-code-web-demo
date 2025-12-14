@@ -1,5 +1,5 @@
-import { SidebarHeader } from "./SidebarHeader";
-import { RepositorySelector } from "./RepositorySelector";
+import { SidebarHeader } from "./layout/SidebarHeader";
+import { RepositorySelector } from "./controls/RepositorySelector";
 
 export function ClaudeCodeWeb({ children }) {
   // Extract children by type for proper placement

@@ -1,4 +1,9 @@
-import { Slide, Note, FullscreenText, Insight } from "../components/navigation";
+import {
+  Slide,
+  Note,
+  FullscreenText,
+  Insight,
+} from "../components";
 
 export function Slide13() {
   return (

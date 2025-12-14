@@ -4,22 +4,19 @@ import {
   Highlight,
   WebView,
   TerminalView,
-} from "../components/navigation";
-import { ClaudeCodeWeb } from "../components/claude-code-web/ClaudeCodeWeb";
-import { RepositorySelector } from "../components/claude-code-web/RepositorySelector";
-import { EnvSelect } from "../components/claude-code-web/EnvSelect";
-import { Sessions } from "../components/claude-code-web/Sessions";
-import {
+  ClaudeCodeWeb,
+  RepositorySelector,
+  EnvSelect,
+  Sessions,
   Session,
   Name,
   Footer,
   Subsession,
-} from "../components/claude-code-web/Session";
-import { MainChat } from "../components/claude-code-web/MainChat";
-import { MainChatHeader } from "../components/claude-code-web/MainChatHeader";
-import { Message, Response } from "../components/claude-code-web/Message";
-import { MainChatTextField } from "../components/claude-code-web/MainChatTextField";
-import {
+  MainChat,
+  MainChatHeader,
+  Message,
+  Response,
+  MainChatTextField,
   ClaudeCodeTerminal,
   MainTerminalWindow,
   TerminalUserMessage,
@@ -29,7 +26,7 @@ import {
   TerminalTab,
   Colored,
   ColoredTerminal,
-} from "../components/terminal";
+} from "../components";
 
 export function Slide10() {
   return (

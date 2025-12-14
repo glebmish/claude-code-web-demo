@@ -5,22 +5,23 @@ import {
   WebView,
   Highlight,
   Note,
-} from "../components/navigation";
-import { ClaudeCodeWeb } from "../components/claude-code-web/ClaudeCodeWeb";
-import { RepositorySelector } from "../components/claude-code-web/RepositorySelector";
-import { EnvSelect } from "../components/claude-code-web/EnvSelect";
-import { Sessions } from "../components/claude-code-web/Sessions";
-import { Session, Name, Footer } from "../components/claude-code-web/Session";
-import { MainChat } from "../components/claude-code-web/MainChat";
-import { MainChatHeader } from "../components/claude-code-web/MainChatHeader";
-import { Message, Response } from "../components/claude-code-web/Message";
-import {
+  ClaudeCodeWeb,
+  RepositorySelector,
+  EnvSelect,
+  Sessions,
+  Session,
+  Name,
+  Footer,
+  MainChat,
+  MainChatHeader,
+  Message,
+  Response,
   ToolUse,
   ToolName,
   Command,
   Result,
-} from "../components/claude-code-web/ToolUse";
-import { MainChatTextField } from "../components/claude-code-web/MainChatTextField";
+  MainChatTextField,
+} from "../components";
 
 export function Slide0() {
   return (
@@ -89,7 +90,7 @@ Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent
         </Insight>
         <Insight>
           Claude Code now is a single agent that uses subagents as tools.
-          There's a limited visiblity into subagents.
+          There's a limited visibility into subagents.
         </Insight>
       </FullscreenText>
     </Slide>

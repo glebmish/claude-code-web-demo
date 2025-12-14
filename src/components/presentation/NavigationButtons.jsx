@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useView } from "../../contexts/ViewContext";
 
-const NavigationButtons = ({ currentSlide, totalSlides, onNavigate }) => {
+export function NavigationButtons({ currentSlide, totalSlides, onNavigate }) {
   const { toggleView, shouldAnimateSpacebar, stopSpacebarAnimation } =
     useView();
   const isFirstSlide = currentSlide === 0;
@@ -186,6 +186,4 @@ const NavigationButtons = ({ currentSlide, totalSlides, onNavigate }) => {
       </div>
     </>
   );
-};
-
-export default NavigationButtons;
+}

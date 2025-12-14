@@ -4,6 +4,6 @@ export { Note } from './Note';
 export { Highlight } from './Highlight';
 export { MermaidDiagram } from './MermaidDiagram';
 export { FullscreenText } from './FullscreenText';
-export { WebView } from './WebView';
-export { TerminalView } from './TerminalView';
 export { Insight } from './Insight';
+export { ViewToggle } from './ViewToggle';
+export { NavigationButtons } from './NavigationButtons';

@@ -1,4 +1,4 @@
-import { Colored } from "../terminal";
+import { Colored } from '../../common';
 
 export function Message({ from, fromColor, children }) {
   const isUser = from === "user";
@@ -32,15 +32,3 @@ export function Message({ from, fromColor, children }) {
 }
 
 Message.displayName = "Message";
-
-export function Response({ children }) {
-  return (
-    <div className="mb-3">
-      <div className="text-sm leading-relaxed whitespace-pre-wrap text-claude-text">
-        {children}
-      </div>
-    </div>
-  );
-}
-
-Response.displayName = "Response";

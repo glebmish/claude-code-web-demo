@@ -4,7 +4,7 @@ import { useKeyboardNavigation } from "../../utils/useKeyboardNavigation";
 import { HighlightProvider } from "../../contexts/HighlightContext";
 import { NoteProvider, useNote } from "../../contexts/NoteContext";
 import { ViewProvider, useView } from "../../contexts/ViewContext";
-import NavigationButtons from "./NavigationButtons";
+import { NavigationButtons } from "./NavigationButtons";
 import { ViewToggle } from "./ViewToggle";
 
 function DemoContent({

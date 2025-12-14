@@ -1,15 +1,14 @@
-export { ClaudeCodeTerminal, MainTerminalWindow } from './Terminal';
-export {
-  TerminalUserMessage,
-  TerminalResponse,
-  TerminalToolUse,
-  TerminalInput,
-  TerminalFooter,
-  AgentSection,
-  AgentSectionNew,
-  Colored,
-  ColoredTerminal,
-  TerminalTabs,
-  TerminalTab
-} from './TerminalMessage';
-export { Clawd } from './Clawd';
+// Main component
+export { ClaudeCodeTerminal } from './ClaudeCodeTerminal';
+
+// Layout components
+export { MainTerminalWindow, TerminalTabs, TerminalTab, TerminalInput, TerminalFooter } from './layout';
+
+// Message components
+export { TerminalUserMessage, TerminalResponse } from './message';
+
+// Tool components
+export { TerminalToolUse } from './tool';
+
+// Branding components
+export { Clawd, AgentSection, AgentSectionNew, ColoredTerminal } from './branding';

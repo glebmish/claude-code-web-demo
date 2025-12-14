@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Demo } from "./components/navigation/Demo";
+import { Demo } from "./components";
 import {
   Slide0,
   Slide1,
