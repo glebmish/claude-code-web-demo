@@ -29,7 +29,7 @@ export function Slide9() {
   return (
     <Slide>
       <Note>
-          Step 3: Team of agents in the main chat<br/>
+          Step 3. Team of agents in the main chat<br/>
           New subagent can be spawned from the same selection
       </Note>
 
@@ -45,7 +45,7 @@ export function Slide9() {
             </Session>
             <Subsession>
               <Name color="green">a493ccdb - <b>Explore</b></Name>
-              <Footer><i className="text-gray-500">Repository structure analysis</i></Footer>
+              <Footer>Analyzing repository structure</Footer>
             </Subsession>
           </Sessions>
 
@@ -66,11 +66,11 @@ export function Slide9() {
             <Message from="a493ccdb" fromColor="green">
     {`Based on my exploration:
 
-    This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
+This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
 
-    Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
+Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
 
-    Workflow: PR analysis → recipe generation → validation → refinement.`}
+Workflow: PR analysis → recipe generation → validation → refinement.`}
             </Message>
 
             <Response>

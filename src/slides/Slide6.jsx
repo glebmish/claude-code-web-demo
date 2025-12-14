@@ -26,7 +26,7 @@ export function Slide6() {
   return (
     <Slide>
       <Note>
-          Step 2: Direct subagent control<br/>
+          Step 2. Direct subagent control<br/>
           Subagent messages are relayed to the main chat, tools are not
       </Note>
 
@@ -44,7 +44,7 @@ export function Slide6() {
             </Highlight>
             <Subsession>
               <Name color="green">a493ccdb - <b>Explore</b></Name>
-              <Footer>Repository structure analysis</Footer>
+              <Footer>Analyzing repository structure</Footer>
             </Subsession>
           </Sessions>
 
@@ -76,9 +76,7 @@ Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent
               <Message from="user">
                 <Colored color="green">@a493ccdb</Colored> Take a look at the docs/ folder as well
               </Message>
-            </Highlight>
 
-            <Highlight>
               <Message from="a493ccdb" fromColor="green">
 The architecture documentation provides deeper insights into the system design. The workflow is event-driven with clear separation between analysis, generation, and validation phases.
               </Message>

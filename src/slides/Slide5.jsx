@@ -24,8 +24,8 @@ export function Slide5() {
   return (
     <Slide>
       <Note>
-          Step 2: Direct subagent control<br/>
-          And subagent respond back
+          Step 2. Direct subagent control<br/>
+          Subagent responds back
       </Note>
 
       <WebView>
@@ -38,16 +38,14 @@ export function Slide5() {
               <Name>Working on rewrite-claude-assisted codebase</Name>
               <Footer>glebmish/rewrite-claude-assisted</Footer>
             </Session>
-            <Highlight>
-              <Subsession selected>
-                <Name color="green">a493ccdb - <b>Explore</b></Name>
-                <Footer>Repository structure analysis</Footer>
-              </Subsession>
-            </Highlight>
+            <Subsession selected>
+              <Name color="green">a493ccdb - <b>Explore</b></Name>
+              <Footer>Analyzing repository structure</Footer>
+            </Subsession>
           </Sessions>
 
           <MainChat>
-            <MainChatHeader>Exploring rewrite-claude-assisted codebase</MainChatHeader>
+            <MainChatHeader>Analyzing repository structure</MainChatHeader>
 
             <Message from="main agent">
 {`Explore this project to understand:

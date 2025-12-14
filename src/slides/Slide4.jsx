@@ -24,8 +24,8 @@ export function Slide4() {
   return (
     <Slide>
       <Note>
-          Step 2: Direct subagent control<br/>
-          Users can talk directly to a subagent
+          Step 2. Direct subagent control<br/>
+          User can talk directly to a subagent
       </Note>
 
       <WebView>
@@ -41,13 +41,13 @@ export function Slide4() {
             <Highlight>
               <Subsession selected>
                 <Name color="green">a493ccdb - <b>Explore</b></Name>
-                <Footer>Repository structure analysis</Footer>
+                <Footer>Analyzing repository structure</Footer>
               </Subsession>
             </Highlight>
           </Sessions>
 
           <MainChat>
-            <MainChatHeader>Exploring rewrite-claude-assisted codebase</MainChatHeader>
+            <MainChatHeader>Analyzing repository structure</MainChatHeader>
 
             <Message from="main agent">
 {`Explore this project to understand:

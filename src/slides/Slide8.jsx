@@ -29,8 +29,8 @@ export function Slide8() {
   return (
     <Slide>
       <Note>
-          Step 3: Team of agents in the main chat<br/>
-          Subagents can be @-mentioned following the messenger metaphor
+          Step 3. Team of agents in the main chat<br/>
+          Subagent can be @-mentioned following the messenger metaphor
       </Note>
 
       <WebView>
@@ -45,7 +45,7 @@ export function Slide8() {
             </Session>
             <Subsession>
               <Name color="green">a493ccdb - <b>Explore</b></Name>
-              <Footer><i className="text-gray-500">Repository structure analysis</i></Footer>
+              <Footer>Analyzing repository structure</Footer>
             </Subsession>
           </Sessions>
 
@@ -66,11 +66,11 @@ export function Slide8() {
             <Message from="a493ccdb" fromColor="green">
     {`Based on my exploration:
 
-    This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
+This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
 
-    Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
+Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
 
-    Workflow: PR analysis → recipe generation → validation → refinement.`}
+Workflow: PR analysis → recipe generation → validation → refinement.`}
             </Message>
 
             <Response>
@@ -92,7 +92,7 @@ Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent
                     @
                     <AutocompletePopup>
                       <AutocompleteHeader arrow={false}>Select Agent</AutocompleteHeader>
-                      <AutocompleteItem color="green" selected>@a493ccdb - <b>Explore</b> <i className="text-gray-500">Repository structure analysis</i></AutocompleteItem>
+                      <AutocompleteItem color="green" selected>@a493ccdb - <b>Explore</b> <i className="text-gray-500">Analyzing repository structure</i></AutocompleteItem>
                       <AutocompleteItemNew />
                     </AutocompletePopup>
                 </MainChatTextField>
@@ -124,11 +124,11 @@ I'll explore the project to give you a brief overview.
             <TerminalResponse from="a493ccdb" fromColor="green">
     {`Based on my exploration:
 
-    This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
+This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
 
-    Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
+Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
 
-    Workflow: PR analysis → recipe generation → validation → refinement.`}
+Workflow: PR analysis → recipe generation → validation → refinement.`}
             </TerminalResponse>
 
             <TerminalResponse>
@@ -152,7 +152,7 @@ The architecture documentation provides deeper insights into the system design. 
 
           <TerminalFooter>
             <AgentSection color="green" selected>
-              @a493ccdb - Explore <i className="text-gray-500">Repository structure analysis</i>
+              @a493ccdb - Explore <i className="text-gray-500">Analyzing repository structure</i>
             </AgentSection>
             <AgentSectionNew />
           </TerminalFooter>

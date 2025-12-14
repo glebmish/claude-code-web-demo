@@ -24,7 +24,7 @@ export function Slide10() {
   return (
     <Slide>
       <Note>
-          Step 3: Team of agents in the main chat<br/>
+          Step 3. Team of agents in the main chat<br/>
           Subagent processes the request and responds to the main chat
       </Note>
 
@@ -40,11 +40,11 @@ export function Slide10() {
             </Session>
             <Subsession>
               <Name color="green">a493ccdb - <b>Explore</b></Name>
-              <Footer><i className="text-gray-500">Repository structure analysis</i></Footer>
+              <Footer>Analyzing repository structure</Footer>
             </Subsession>
             <Subsession>
               <Name color="purple">7b2f9a1e - <b>Architect</b></Name>
-              <Footer><i className="text-gray-500">Architecture changes</i></Footer>
+              <Footer>Suggesting architecture improvements</Footer>
             </Subsession>
           </Sessions>
 

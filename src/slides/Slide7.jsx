@@ -26,8 +26,8 @@ export function Slide7() {
   return (
     <Slide>
       <Note>
-          Step 3: Team of agents in the main chat<br/>
-          Main chat as a collaboration with a team of agents
+          Step 3. Team of agents in the main chat<br/>
+          Main chat shows collaboration with a team of agents
       </Note>
 
       <WebView>
@@ -42,7 +42,7 @@ export function Slide7() {
             </Session>
             <Subsession>
               <Name color="green">a493ccdb - <b>Explore</b></Name>
-              <Footer>Repository structure analysis</Footer>
+              <Footer>Analyzing repository structure</Footer>
             </Subsession>
           </Sessions>
 
@@ -64,17 +64,17 @@ export function Slide7() {
                 <Message from="a493ccdb" fromColor="green">
         {`Based on my exploration:
 
-        This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
+This is an AI-powered OpenRewrite Recipe Assistant that generates code refactoring recipes from Pull Requests.
 
-        Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
+Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (PostgreSQL + pgvector), validation scripts.
 
-        Workflow: PR analysis → recipe generation → validation → refinement.`}
+Workflow: PR analysis → recipe generation → validation → refinement.`}
                 </Message>
 
                 <Response>
     {`The project is an AI-powered OpenRewrite Recipe Assistant. It uses Claude to automatically generate code refactoring recipes from Pull Request examples.
 
-    Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
+Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent, MCP Server (Python + PostgreSQL + pgvector), and validation scripts.`}
                 </Response>
 
                 <MainChatTextField>

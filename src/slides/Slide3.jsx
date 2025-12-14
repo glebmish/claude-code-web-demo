@@ -22,8 +22,8 @@ export function Slide3() {
   return (
     <Slide>
       <Note>
-          Step 1: Showing subagents as tabs inside the main session<br/>
-          Subchats show full log including tools and intermediate messages
+          Step 1. Show subagent logs<br/>
+          Subagent chat shows full log with tools and intermediate messages
       </Note>
 
       <WebView>
@@ -38,19 +38,19 @@ export function Slide3() {
             </Session>
             <Subsession selected>
               <Name color="green">a493ccdb - <b>Explore</b></Name>
-              <Footer>Repository structure analysis</Footer>
+              <Footer>Analyzing repository structure</Footer>
             </Subsession>
           </Sessions>
 
-          <Highlight>
-              <MainChat>
-                <MainChatHeader>Exploring rewrite-claude-assisted codebase</MainChatHeader>
+          <MainChat>
+            <MainChatHeader>Analyzing repository structure</MainChatHeader>
 
-                <Message from="main agent">
-    {`Explore this project to understand:
-    Provide a comprehensive overview of what this project does and how it's organized.`}
-                </Message>
+            <Message from="main agent">
+{`Explore this project to understand the layout and what the project does.
+Provide a comprehensive overview of what this project does and how it's organized.`}
+            </Message>
 
+            <Highlight>
                 <Response>
     I'll explore this project to understand its purpose, structure, and technologies. Let me start by examining the key files and directories.
                 </Response>
@@ -86,8 +86,8 @@ Key components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent,
 
 Workflow: PR analysis → recipe generation → validation → refinement.`}
                 </Response>
-              </MainChat>
             </Highlight>
+          </MainChat>
         </ClaudeCodeWeb>
       </WebView>
 
@@ -113,8 +113,8 @@ I'll explore this project to understand its purpose, structure, and technologies
               <Command>find /home/glebmish/projects/rewrite-claude-assisted -maxdepth 2 -type f -name "README*" -o -name "*.md" | head -20</Command>
               <Result>
 {`/home/glebmish/projects/rewrite-claude-assisted/CLAUDE.md
-/home/glebmish/projects/rewrite-claude-assisted/README.md
-/home/glebmish/projects/rewrite-claude-assisted/LICENSE.md`}
+  /home/glebmish/projects/rewrite-claude-assisted/README.md
+   /home/glebmish/projects/rewrite-claude-assisted/LICENSE.md`}
               </Result>
             </TerminalToolUse>
 
