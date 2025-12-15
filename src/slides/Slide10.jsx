@@ -142,7 +142,7 @@ These would improve scalability and reliability.`}
       <TerminalView>
         <ClaudeCodeTerminal>
           <TerminalTabs>
-            <TerminalTab active>Main</TerminalTab>
+            <TerminalTab selected>Main</TerminalTab>
             <TerminalTab>a493ccdb - Explore</TerminalTab>
             <TerminalTab>7b2f9a1e - Architect</TerminalTab>
           </TerminalTabs>

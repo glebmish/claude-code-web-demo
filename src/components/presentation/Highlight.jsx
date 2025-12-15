@@ -1,5 +1,6 @@
 import { useEffect, useId } from "react";
 import { useHighlight } from "../../contexts/HighlightContext";
+import { toChildArray } from "../common";
 
 export function Highlight({ children }) {
   const id = useId();
@@ -11,7 +12,7 @@ export function Highlight({ children }) {
   }, [id, registerHighlight, unregisterHighlight]);
 
   // Check if children includes MainChat to apply flex layout
-  const childArray = Array.isArray(children) ? children : [children];
+  const childArray = toChildArray(children);
   const hasMainChat = childArray.some(
     (child) => child?.type?.displayName === "MainChat"
   );

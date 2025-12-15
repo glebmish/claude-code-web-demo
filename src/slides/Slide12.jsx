@@ -23,9 +23,8 @@ export function Slide12() {
   return (
     <Slide>
       <Note>
-        Step 4...
-        <br />
-        <br />
+        Step 4...<br />
+        Build it together 😉<br />
       </Note>
 
       <WebView>

@@ -1,11 +1,8 @@
-export function MainChatTextField({ children }) {
-  // Extract autocomplete from children
-  const childArray = Array.isArray(children) ? children : [children];
-  const autocomplete = childArray.find(
-    (child) => child?.type?.displayName === "AutocompletePopup"
-  );
+import { toChildArray, findChildByDisplayName } from "../../common";
 
-  // Get all content except autocomplete
+export function MainChatTextField({ children }) {
+  const childArray = toChildArray(children);
+  const autocomplete = findChildByDisplayName(children, "AutocompletePopup");
   const content = childArray.filter(
     (child) => child?.type?.displayName !== "AutocompletePopup"
   );

@@ -1,21 +1,11 @@
-export function ClaudeCodeTerminal({ children, scroll }) {
-  const childArray = Array.isArray(children) ? children : [children];
+import { findChildByDisplayName } from "../common";
 
-  const clawd = childArray.find(
-    (child) => child?.type?.displayName === "Clawd"
-  );
-  const tabs = childArray.find(
-    (child) => child?.type?.displayName === "TerminalTabs"
-  );
-  const mainWindow = childArray.find(
-    (child) => child?.type?.displayName === "MainTerminalWindow"
-  );
-  const input = childArray.find(
-    (child) => child?.type?.displayName === "Input"
-  );
-  const footer = childArray.find(
-    (child) => child?.type?.displayName === "Footer"
-  );
+export function ClaudeCodeTerminal({ children, scroll }) {
+  const clawd = findChildByDisplayName(children, "Clawd");
+  const tabs = findChildByDisplayName(children, "TerminalTabs");
+  const mainWindow = findChildByDisplayName(children, "MainTerminalWindow");
+  const input = findChildByDisplayName(children, "Input");
+  const footer = findChildByDisplayName(children, "Footer");
 
   // Clone mainWindow with clawd and scroll props if they exist
   const enhancedMainWindow = mainWindow
@@ -23,7 +13,7 @@ export function ClaudeCodeTerminal({ children, scroll }) {
     : mainWindow;
 
   return (
-    <div className="absolute top-[10%] left-[10%] z-30 w-[700px] h-[450px] bg-[#1e1e1e] border border-[#3e3e3e] rounded-lg shadow-2xl overflow-hidden flex flex-col">
+    <div className="absolute top-[10%] left-[10%] z-30 w-[700px] h-[450px] bg-terminal-bg border border-terminal-border rounded-lg shadow-2xl overflow-hidden flex flex-col">
       {tabs}
       {enhancedMainWindow}
       {input}

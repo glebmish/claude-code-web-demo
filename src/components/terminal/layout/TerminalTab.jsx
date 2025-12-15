@@ -1,7 +1,9 @@
-export function TerminalTab({ active, children }) {
-  const textColor = active ? "#1f1f1f" : "#858585";
-  const slashColor = active ? "#cccccc" : "#858585";
-  const bgColor = active ? "#cccccc" : "transparent";
+import { TERMINAL_COLORS } from "../../common";
+
+export function TerminalTab({ selected, children }) {
+  const textColor = selected ? TERMINAL_COLORS.background : TERMINAL_COLORS.textMuted;
+  const slashColor = selected ? TERMINAL_COLORS.text : TERMINAL_COLORS.textMuted;
+  const bgColor = selected ? TERMINAL_COLORS.text : "transparent";
 
   return (
     <div className="font-mono text-xs px-3 py-1 relative flex items-center">

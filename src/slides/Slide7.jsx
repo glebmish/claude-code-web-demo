@@ -12,23 +12,15 @@ import {
   Name,
   Footer,
   Subsession,
-  AutocompletePopup,
-  AutocompleteHeader,
-  AutocompleteItem,
   MainChat,
   MainChatHeader,
   Message,
   Response,
-  ToolUse,
-  ToolName,
-  Command,
-  Result,
   MainChatTextField,
   ClaudeCodeTerminal,
   MainTerminalWindow,
   TerminalUserMessage,
   TerminalResponse,
-  TerminalToolUse,
   TerminalInput,
   TerminalTabs,
   TerminalTab,
@@ -114,7 +106,7 @@ Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent
       <TerminalView>
         <ClaudeCodeTerminal scroll="0%">
           <TerminalTabs>
-            <TerminalTab active>Main</TerminalTab>
+            <TerminalTab selected>Main</TerminalTab>
             <TerminalTab>a493ccdb - Explore</TerminalTab>
           </TerminalTabs>
 

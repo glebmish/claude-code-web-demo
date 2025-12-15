@@ -1,27 +1,18 @@
 import { SidebarHeader } from "./layout/SidebarHeader";
 import { RepositorySelector } from "./controls/RepositorySelector";
+import { toChildArray, findChildByDisplayName } from "../common";
 
 export function ClaudeCodeWeb({ children }) {
-  // Extract children by type for proper placement
-  const childArray = Array.isArray(children) ? children : [children];
-  const sessions = childArray.find(
-    (child) => child?.type?.displayName === "Sessions"
-  );
+  const sessions = findChildByDisplayName(children, "Sessions");
 
   // Handle MainChat that might be wrapped in Highlight
-  let mainChat = childArray.find(
-    (child) => child?.type?.displayName === "MainChat"
-  );
+  let mainChat = findChildByDisplayName(children, "MainChat");
   if (!mainChat) {
-    const highlight = childArray.find(
-      (child) => child?.type?.displayName === "Highlight"
-    );
+    const highlight = findChildByDisplayName(children, "Highlight");
     if (highlight) {
-      const highlightChildren = Array.isArray(highlight.props.children)
-        ? highlight.props.children
-        : [highlight.props.children];
-      const innerMainChat = highlightChildren.find(
-        (child) => child?.type?.displayName === "MainChat"
+      const innerMainChat = findChildByDisplayName(
+        highlight.props.children,
+        "MainChat"
       );
       if (innerMainChat) {
         mainChat = highlight; // Use the Highlight wrapper
@@ -29,15 +20,9 @@ export function ClaudeCodeWeb({ children }) {
     }
   }
 
-  const repositorySelector = childArray.find(
-    (child) => child?.type?.displayName === "RepositorySelector"
-  );
-  const envSelect = childArray.find(
-    (child) => child?.type?.displayName === "EnvSelect"
-  );
-  const newSessionInput = childArray.find(
-    (child) => child?.type?.displayName === "NewSessionInput"
-  );
+  const repositorySelector = findChildByDisplayName(children, "RepositorySelector");
+  const envSelect = findChildByDisplayName(children, "EnvSelect");
+  const newSessionInput = findChildByDisplayName(children, "NewSessionInput");
 
   return (
     <div className="flex h-full w-full bg-claude-bg text-claude-text">

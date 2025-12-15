@@ -35,8 +35,7 @@ export function MermaidDiagram({ children }) {
           children
         );
         setSvg(renderedSvg);
-      } catch (error) {
-        console.error("Mermaid rendering error:", error);
+      } catch {
         setSvg('<div class="text-red-500">Error rendering diagram</div>');
       }
     };

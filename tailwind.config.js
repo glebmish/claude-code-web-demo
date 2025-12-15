@@ -21,12 +21,15 @@ export default {
         'claude-message-user': '#f0f0f0',      // User message background
         'claude-message-unknown': '#e8e8e8',    // Unknown sender background
         // Terminal colors (dark theme)
-        'terminal-user-message': '#2d2d30',  // Terminal user message background
-        'terminal-border': '#3e3e3e',        // Terminal border color
-        'terminal-bg-tool': '#252526',       // Terminal tool use background
-        'terminal-prefix': '#4FC1FF',        // Terminal prefix color (cyan)
-        'terminal-string': '#CE9178',        // Terminal string color (orange)
-        'terminal-success': '#4EC9B0',       // Terminal success color (green)
+        'terminal-text': '#cccccc',           // Terminal primary text
+        'terminal-text-muted': '#858585',     // Terminal muted/secondary text
+        'terminal-bg': '#1e1e1e',             // Terminal background
+        'terminal-border': '#3e3e3e',         // Terminal border color
+        'terminal-accent': '#4FC1FF',         // Terminal accent (cyan/blue)
+        'terminal-user-message': '#2d2d30',   // Terminal user message background
+        'terminal-bg-tool': '#252526',        // Terminal tool use background
+        'terminal-string': '#CE9178',         // Terminal string color (orange)
+        'terminal-success': '#4EC9B0',        // Terminal success color (green)
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

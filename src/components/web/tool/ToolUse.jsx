@@ -1,14 +1,9 @@
+import { findChildByDisplayName } from "../../common";
+
 export function ToolUse({ children }) {
-  const childArray = Array.isArray(children) ? children : [children];
-  const toolName = childArray.find(
-    (child) => child?.type?.displayName === "ToolName"
-  );
-  const command = childArray.find(
-    (child) => child?.type?.displayName === "Command"
-  );
-  const result = childArray.find(
-    (child) => child?.type?.displayName === "Result"
-  );
+  const toolName = findChildByDisplayName(children, "ToolName");
+  const command = findChildByDisplayName(children, "Command");
+  const result = findChildByDisplayName(children, "Result");
 
   return (
     <div className="mb-4 bg-claude-tool-bg border border-claude-border rounded overflow-hidden text-sm">

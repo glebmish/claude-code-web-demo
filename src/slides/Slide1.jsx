@@ -11,7 +11,6 @@ import {
   Session,
   Name,
   Footer,
-  Subsession,
   MainChat,
   MainChatHeader,
   Message,
@@ -27,8 +26,6 @@ import {
   TerminalResponse,
   TerminalToolUse,
   TerminalInput,
-  TerminalTabs,
-  TerminalTab,
   Clawd,
 } from "../components";
 

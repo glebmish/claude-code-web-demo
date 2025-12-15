@@ -1,10 +1,8 @@
+import { findChildByDisplayName } from "../../common";
+
 export function Subsession({ children, selected }) {
-  // Extract Name and Footer from children
-  const childArray = Array.isArray(children) ? children : [children];
-  const name = childArray.find((child) => child?.type?.displayName === "Name");
-  const footer = childArray.find(
-    (child) => child?.type?.displayName === "Footer"
-  );
+  const name = findChildByDisplayName(children, "Name");
+  const footer = findChildByDisplayName(children, "Footer");
 
   return (
     <div

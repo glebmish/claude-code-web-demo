@@ -145,7 +145,7 @@ Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent
       <TerminalView>
         <ClaudeCodeTerminal>
           <TerminalTabs>
-            <TerminalTab active>Main</TerminalTab>
+            <TerminalTab selected>Main</TerminalTab>
             <TerminalTab>a493ccdb - Explore</TerminalTab>
           </TerminalTabs>
 

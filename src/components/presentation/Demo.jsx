@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useKeyboardNavigation } from "../../utils/useKeyboardNavigation";
 import { HighlightProvider } from "../../contexts/HighlightContext";
@@ -6,6 +6,7 @@ import { NoteProvider, useNote } from "../../contexts/NoteContext";
 import { ViewProvider, useView } from "../../contexts/ViewContext";
 import { NavigationButtons } from "./NavigationButtons";
 import { ViewToggle } from "./ViewToggle";
+import { toChildArray } from "../common";
 
 function DemoContent({
   children,
@@ -23,8 +24,7 @@ function DemoContent({
     forceTerminalExposure,
     stopSpacebarAnimation,
   } = useView();
-  const slides = Array.isArray(children) ? children : [children];
-  const wheelTimeoutRef = useRef(null);
+  const slides = toChildArray(children);
 
   useKeyboardNavigation(
     currentSlide,
@@ -49,41 +49,12 @@ function DemoContent({
     }
   }, [currentSlide, stopSpacebarAnimation]);
 
-  // Mouse wheel navigation with debounce
-  useEffect(() => {
-    const handleWheel = (e) => {
-      // Clear previous timeout
-      if (wheelTimeoutRef.current) {
-        clearTimeout(wheelTimeoutRef.current);
-      }
-
-      // Debounce the wheel event
-      wheelTimeoutRef.current = setTimeout(() => {
-        if (e.deltaY > 0) {
-          // Scrolling down - next slide
-          if (currentSlide < totalSlides - 1) {
-            onSlideChange(currentSlide + 1);
-          }
-        } else if (e.deltaY < 0) {
-          // Scrolling up - previous slide
-          if (currentSlide > 0) {
-            onSlideChange(currentSlide - 1);
-          }
-        }
-      }, 50);
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: true });
-
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      if (wheelTimeoutRef.current) {
-        clearTimeout(wheelTimeoutRef.current);
-      }
-    };
-  }, [currentSlide, totalSlides, onSlideChange]);
+  const isLastSlide = currentSlide === totalSlides - 1;
 
   const handleClick = () => {
+    // Don't handle clicks on last slide - allow text selection
+    if (isLastSlide) return;
+
     // Intercept first click on Slide1 to force terminal view
     if (currentSlide === 1 && !hasShownTerminalOnSlide1 && viewMode === "web") {
       forceTerminalExposure();
@@ -98,7 +69,9 @@ function DemoContent({
 
   return (
     <div
-      className="w-screen h-screen overflow-hidden cursor-pointer flex flex-col"
+      className={`w-screen h-screen overflow-hidden flex flex-col ${
+        isLastSlide ? "" : "cursor-pointer"
+      }`}
       onClick={handleClick}
     >
       {/* Header with note and counter */}
@@ -165,7 +138,6 @@ export function Demo({ children }) {
   // Update URL when slide changes
   const handleSlideChange = useCallback((newSlide) => {
     if (typeof newSlide !== "number" || isNaN(newSlide)) {
-      console.error("Invalid slide number:", newSlide);
       return;
     }
     const validSlide = Math.max(0, Math.min(newSlide, totalSlides - 1));

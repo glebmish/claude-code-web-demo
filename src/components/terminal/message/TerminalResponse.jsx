@@ -1,28 +1,28 @@
-import { COLOR_MAP, getTextColor } from '../../common';
+import { COLOR_MAP, getTextColor, TERMINAL_COLORS } from '../../common';
 
 export function TerminalResponse({ children, color, from, fromColor }) {
-  const bulletColor = color ? COLOR_MAP[color] || color : "#cccccc";
+  const bulletColor = color ? COLOR_MAP[color] || color : TERMINAL_COLORS.text;
   const resolvedFromColor = fromColor
     ? COLOR_MAP[fromColor] || fromColor
     : null;
 
   const textColor = from
-    ? getTextColor(resolvedFromColor || "#858585")
-    : "#cccccc";
+    ? getTextColor(resolvedFromColor || TERMINAL_COLORS.textMuted)
+    : TERMINAL_COLORS.text;
 
   return (
     <div className="mb-3">
-      <div className="text-xs font-mono leading-relaxed whitespace-pre-wrap text-[#cccccc]">
+      <div className="text-xs font-mono leading-relaxed whitespace-pre-wrap text-terminal-text">
         {from ? (
           <>
             <div
               className="w-1.5 h-1.5 rounded-full inline-block mr-1.5"
-              style={{ backgroundColor: resolvedFromColor || "#858585" }}
+              style={{ backgroundColor: resolvedFromColor || TERMINAL_COLORS.textMuted }}
             />
             <span
               className="px-1 mr-1"
               style={{
-                backgroundColor: resolvedFromColor || "#858585",
+                backgroundColor: resolvedFromColor || TERMINAL_COLORS.textMuted,
                 color: textColor,
               }}
             >

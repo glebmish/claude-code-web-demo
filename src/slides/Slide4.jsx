@@ -124,7 +124,7 @@ Workflow: PR analysis → recipe generation → validation → refinement.`}
         <ClaudeCodeTerminal>
           <TerminalTabs>
             <TerminalTab>Main</TerminalTab>
-            <TerminalTab active>a493ccdb - Explore</TerminalTab>
+            <TerminalTab selected>a493ccdb - Explore</TerminalTab>
           </TerminalTabs>
 
           <MainTerminalWindow>

@@ -63,3 +63,15 @@ export const TAILWIND_COLOR_MAP = {
   purple: "text-purple-500",
   orange: "text-orange-500",
 };
+
+/**
+ * Terminal color palette constants.
+ * Used for consistent styling across terminal components.
+ */
+export const TERMINAL_COLORS = {
+  text: "#cccccc",
+  textMuted: "#858585",
+  background: "#1e1e1e",
+  border: "#3e3e3e",
+  accent: "#4FC1FF",
+};

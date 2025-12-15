@@ -1,40 +1,39 @@
-import { useRef, useEffect } from "react";
+import React, { useRef } from "react";
+import {
+  findChildByDisplayName,
+  filterChildrenByDisplayNames,
+  findChildByDisplayNameInWrapper,
+  useScrollPosition,
+} from "../../common";
 
 export function MainChat({ children, scroll }) {
-  const childArray = Array.isArray(children) ? children : [children];
-  const header = childArray.find(
-    (child) => child?.type?.displayName === "MainChatHeader"
-  );
-  const textField = childArray.find(
-    (child) => child?.type?.displayName === "MainChatTextField"
-  );
-  const messages = childArray.filter((child) =>
-    ["Message", "Response", "ToolUse", "Highlight"].includes(
-      child?.type?.displayName
-    )
-  );
+  const header = findChildByDisplayName(children, "MainChatHeader");
+
+  // Find MainChatTextField, even if wrapped in Highlight
+  const { element: textFieldElement, wrapper: textFieldWrapper } =
+    findChildByDisplayNameInWrapper(children, "MainChatTextField");
+
+  // Get messages, but exclude Highlight that wraps MainChatTextField
+  const messages = filterChildrenByDisplayNames(children, [
+    "Message",
+    "Response",
+    "ToolUse",
+    "Highlight",
+  ]).filter((child) => {
+    // Exclude the Highlight that wraps MainChatTextField
+    if (child?.type?.displayName === "Highlight" && textFieldWrapper === child) {
+      return false;
+    }
+    return true;
+  });
+
+  // Render textField with its wrapper if present
+  const textField = textFieldWrapper
+    ? React.cloneElement(textFieldWrapper, {}, textFieldElement)
+    : textFieldElement;
 
   const containerRef = useRef(null);
-
-  // Apply scroll position when scroll prop changes or messages update
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const container = containerRef.current;
-
-    // Default to bottom if no scroll prop
-    if (!scroll) {
-      container.scrollTop = container.scrollHeight;
-      return;
-    }
-
-    // Parse percentage string
-    if (scroll.endsWith("%")) {
-      const percent = parseFloat(scroll) / 100;
-      const maxScroll = container.scrollHeight - container.clientHeight;
-      container.scrollTop = maxScroll * percent;
-    }
-  }, [scroll, messages]);
+  useScrollPosition(containerRef, scroll, [messages]);
 
   return (
     <>
