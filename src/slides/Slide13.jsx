@@ -15,9 +15,9 @@ export function Slide13() {
 
       <FullscreenText showInsights align="left" strongBlur layout="vertical">
         <div className="leading-tight">
-          <div>Let's build!</div>
-          <div className="text-5xl mt-2">Staff Software Engineer @ Apple</div>
-          <div className="text-2xl font-normal text-gray-300 mt-1">
+          <div className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl">Let's build!</div>
+          <div className="text-xl sm:text-2xl md:text-3xl lg:text-5xl mt-1 sm:mt-1.5 lg:mt-2">Staff Software Engineer @ Apple</div>
+          <div className="text-sm sm:text-base md:text-lg lg:text-2xl font-normal text-gray-300 mt-0.5 sm:mt-0.5 lg:mt-1">
             Previously interviewed with Anthropic for Platform Engineering (May) - spent 6 months since building with Claude Code and agentic AI
           </div>
         </div>
@@ -27,7 +27,7 @@ export function Slide13() {
           Email: gleb.mishchenko.96@gmail.com<br/>
           Resume: <a href="https://docs.google.com/document/d/1pBMRi60E6WFOVibtIuYz7T7jldDgPTfcYkofwRzbJ10/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-blue-400 underline hover:text-blue-300">Google Docs</a><br/>
         </Insight>
-        <div className="grid grid-cols-2 gap-4 w-full">
+        <div className="flex flex-col gap-3 sm:gap-4 lg:grid lg:grid-cols-2 w-full">
           <Insight>
             <b>Open Source: Deterministic Refactoring with Claude Code</b><br/>
             Multi-agent system that generates OpenRewrite recipes from PR examples and validates with real metrics:<br/>

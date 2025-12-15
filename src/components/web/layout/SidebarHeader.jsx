@@ -7,8 +7,8 @@ export function SidebarHeader({ newSessionInput }) {
     : "placeholder-claude-text-dim";
 
   return (
-    <div className="p-4 border-b border-claude-border">
-      <h1 className="text-base font-semibold mb-4">Claude Code</h1>
+    <div className="p-2 sm:p-3 md:p-4 border-b border-claude-border">
+      <h1 className="text-sm sm:text-base font-semibold mb-2 sm:mb-3 md:mb-4">Claude Code</h1>
       <div className="relative">
         <textarea
           placeholder={placeholder}

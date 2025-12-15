@@ -6,7 +6,7 @@ export function TerminalToolUse({ children }) {
   const result = findChildByDisplayName(children, "Result");
 
   return (
-    <div className="mb-3 text-xs font-mono">
+    <div className="mb-2 sm:mb-2.5 md:mb-3 text-xs font-mono">
       {/* Tool header with command */}
       <div className="text-terminal-text-muted">
         <span>┌─ </span>
@@ -25,7 +25,7 @@ export function TerminalToolUse({ children }) {
       {/* Result section */}
       {result && (
         <div className="pl-0">
-          <pre className="text-xs font-mono overflow-x-auto text-terminal-text-muted max-h-48 overflow-y-auto whitespace-pre-wrap">
+          <pre className="text-xs font-mono overflow-x-auto text-terminal-text-muted max-h-32 sm:max-h-40 md:max-h-48 overflow-y-auto whitespace-pre-wrap">
             <span className="text-terminal-text-muted">│ </span>
             <code>{result?.props?.children}</code>
           </pre>

@@ -40,14 +40,14 @@ export function MainChat({ children, scroll }) {
       {header}
       <div
         ref={containerRef}
-        className={`flex-1 px-6 py-4 flex flex-col overflow-y-auto ${
+        className={`flex-1 px-3 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 flex flex-col overflow-y-auto ${
           scroll ? "[&::-webkit-scrollbar]:hidden" : "justify-end"
         }`}
         style={
           scroll ? { scrollbarWidth: "none", msOverflowStyle: "none" } : {}
         }
       >
-        <div className="flex flex-col gap-4">{Children.toArray(messages)}</div>
+        <div className="flex flex-col gap-2 sm:gap-3 md:gap-4">{Children.toArray(messages)}</div>
       </div>
       {textField}
     </>

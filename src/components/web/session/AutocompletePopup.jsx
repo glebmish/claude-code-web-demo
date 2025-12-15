@@ -10,9 +10,9 @@ export function AutocompletePopup({ children, isOpen = true }) {
   );
 
   return (
-    <div className="absolute bottom-full left-0 mb-2 w-104 bg-white border border-claude-border rounded-lg shadow-lg z-50 overflow-hidden">
+    <div className="absolute bottom-full left-0 mb-2 w-full max-w-[90vw] sm:max-w-md md:w-104 bg-white border border-claude-border rounded-lg shadow-lg z-50 overflow-hidden">
       {header}
-      <div className="py-1 max-h-64 overflow-y-auto">{items}</div>
+      <div className="py-0.5 sm:py-1 max-h-48 sm:max-h-56 md:max-h-64 overflow-y-auto">{items}</div>
     </div>
   );
 }

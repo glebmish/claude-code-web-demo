@@ -6,7 +6,7 @@ export function TerminalTab({ selected, children }) {
   const bgColor = selected ? TERMINAL_COLORS.text : "transparent";
 
   return (
-    <div className="font-mono text-xs px-3 py-1 relative flex items-center">
+    <div className="font-mono text-xs px-2 py-1 sm:px-2.5 md:px-3 relative flex items-center">
       <span style={{ color: slashColor }}>╱</span>
       <span
         className="px-1"

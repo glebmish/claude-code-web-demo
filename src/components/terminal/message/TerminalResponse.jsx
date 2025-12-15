@@ -11,7 +11,7 @@ export function TerminalResponse({ children, color, from, fromColor }) {
     : TERMINAL_COLORS.text;
 
   return (
-    <div className="mb-3">
+    <div className="mb-2 sm:mb-2.5 md:mb-3">
       <div className="text-xs font-mono leading-relaxed whitespace-pre-wrap text-terminal-text">
         {from ? (
           <>

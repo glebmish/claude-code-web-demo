@@ -118,18 +118,18 @@ function DemoContent({
       onTouchEnd={onTouchEnd}
     >
       {/* Header with note and counter */}
-      <div className="relative z-20 w-full bg-claude-sidebar border-b border-claude-border px-6 py-3 flex items-center justify-between flex-shrink-0 pointer-events-none">
+      <div className="relative z-20 w-full bg-claude-sidebar border-b border-claude-border px-3 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 flex items-center justify-between flex-shrink-0 pointer-events-none">
         <div className="flex-1" />
         <div className="flex-1 flex justify-center">
           {noteContent && (
-            <p className="text-claude-text-dim text-sm font-medium text-center">
+            <p className="text-claude-text-dim text-xs sm:text-sm font-medium text-center truncate max-w-full px-1">
               {noteContent}
             </p>
           )}
         </div>
         <div className="flex-1 flex items-center justify-end gap-4 pointer-events-auto">
           <ViewToggle />
-          <span className="text-claude-text-dim text-sm font-medium">
+          <span className="text-claude-text-dim text-xs sm:text-sm font-medium whitespace-nowrap">
             {currentSlide}/{totalSlides - 1}
           </span>
         </div>

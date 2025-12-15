@@ -15,15 +15,15 @@ export function Message({ from, fromColor, children }) {
   // If isAssistant, backgroundClass remains empty (no background)
 
   // Add padding and rounding when there's a background
-  const paddingClass = backgroundClass ? "px-4 py-3 rounded-lg" : "";
+  const paddingClass = backgroundClass ? "px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 rounded-lg" : "";
 
   return (
-    <div className="mb-3">
+    <div className="mb-2 sm:mb-2.5 md:mb-3">
       <div className={`${backgroundClass} ${paddingClass}`}>
-        <div className="text-xs text-claude-text-dim mb-2 font-medium uppercase tracking-wide">
+        <div className="text-[10px] sm:text-xs text-claude-text-dim mb-1 sm:mb-1.5 md:mb-2 font-medium uppercase tracking-wide">
           {fromColor ? <Colored color={fromColor}>{from}</Colored> : from}
         </div>
-        <div className="text-sm leading-relaxed whitespace-pre-wrap text-claude-text">
+        <div className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap text-claude-text">
           {children}
         </div>
       </div>

@@ -11,8 +11,8 @@ export function MainChatTextField({ children }) {
   const hasContent = content && content.length > 0 && content.some((c) => c);
 
   return (
-    <div className="border-t border-claude-border px-6 py-4 bg-claude-bg">
-      <div className="flex items-end gap-3 relative">
+    <div className="border-t border-claude-border px-3 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 bg-claude-bg">
+      <div className="flex items-end gap-2 sm:gap-3 relative">
         {autocomplete}
         <div className="flex-1 bg-claude-input-bg border border-claude-border rounded-lg overflow-hidden">
           <div className="w-full px-4 py-3 text-sm min-h-[44px] flex items-center whitespace-pre-wrap">
@@ -39,7 +39,7 @@ export function MainChatTextField({ children }) {
           </svg>
         </button>
       </div>
-      <div className="flex items-center gap-4 mt-3 text-xs text-claude-text-dim">
+      <div className="flex items-center gap-2 sm:gap-3 md:gap-4 mt-2 sm:mt-2.5 md:mt-3 text-[10px] sm:text-xs text-claude-text-dim">
         <button className="flex items-center gap-1 hover:text-claude-text transition-colors">
           <span>claude/explore-repository</span>
         </button>

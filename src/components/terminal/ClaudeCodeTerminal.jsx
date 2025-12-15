@@ -13,7 +13,7 @@ export function ClaudeCodeTerminal({ children, scroll }) {
     : mainWindow;
 
   return (
-    <div className="absolute z-30 bg-terminal-bg border border-terminal-border rounded-lg shadow-2xl overflow-hidden flex flex-col w-[90vw] h-[60vh] top-[5%] left-1/2 -translate-x-1/2 sm:w-[85vw] sm:h-[65vh] md:w-[80vw] md:h-[70vh] lg:w-[700px] lg:h-[450px] lg:top-[10%] lg:left-[10%] lg:translate-x-0">
+    <div className="absolute z-30 bg-terminal-bg border border-terminal-border rounded-lg shadow-2xl overflow-hidden flex flex-col w-[95vw] h-[70vh] sm:w-[90vw] sm:h-[65vh] md:w-[85vw] md:h-[70vh] lg:w-[700px] lg:h-[450px] top-[5%] left-1/2 -translate-x-1/2 lg:top-[10%] lg:left-[10%] lg:translate-x-0">
       {tabs}
       {enhancedMainWindow}
       {input}

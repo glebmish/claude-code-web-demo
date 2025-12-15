@@ -21,7 +21,7 @@ export function MainTerminalWindow({ children, clawd, scroll }) {
     >
       <div className={`transform transition-transform`}>
         {clawd && <div className="border-b border-terminal-border">{clawd}</div>}
-        <div className="p-4">{messages}</div>
+        <div className="p-2 sm:p-3 md:p-4">{messages}</div>
       </div>
     </div>
   );
