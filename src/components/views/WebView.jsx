@@ -4,7 +4,7 @@ export function WebView({ children }) {
   const { viewMode } = useView();
 
   return (
-    <div className={`h-full ${viewMode === "terminal" ? "blur-sm" : ""}`}>
+    <div className={`min-h-full lg:h-full ${viewMode === "terminal" ? "blur-sm" : ""}`}>
       {children}
     </div>
   );

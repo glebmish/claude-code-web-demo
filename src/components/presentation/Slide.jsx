@@ -23,7 +23,7 @@ export function Slide({ children }) {
   }, [noteContent, setNoteContent]); // setNoteContent is now stable due to memoized context value
 
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full min-h-full lg:h-full relative">
       {otherChildren}
       {/* Dimming overlay - always visible since all slides have highlights or terminals */}
       <div className="fixed inset-0 bg-black/40 pointer-events-none z-10" />

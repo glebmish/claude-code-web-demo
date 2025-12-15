@@ -25,9 +25,9 @@ export function ClaudeCodeWeb({ children }) {
   const newSessionInput = findChildByDisplayName(children, "NewSessionInput");
 
   return (
-    <div className="flex h-full w-full bg-claude-bg text-claude-text">
+    <div className="flex flex-col lg:flex-row min-h-full lg:h-full w-full bg-claude-bg text-claude-text">
       {/* Left Sidebar */}
-      <div className="w-80 bg-claude-sidebar border-r border-claude-border flex flex-col">
+      <div className="w-full lg:w-80 bg-claude-sidebar border-b lg:border-b-0 lg:border-r border-claude-border flex flex-col">
         <SidebarHeader newSessionInput={newSessionInput} />
 
         {/* Horizontal selector row */}
@@ -46,7 +46,7 @@ export function ClaudeCodeWeb({ children }) {
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col overflow-hidden">{mainChat}</div>
+      <div className="flex-1 flex flex-col overflow-visible lg:overflow-hidden min-h-0">{mainChat}</div>
     </div>
   );
 }

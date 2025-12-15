@@ -36,7 +36,7 @@ export function NavigationButtons({ currentSlide, totalSlides, onNavigate }) {
       title={title}
       className={`
         relative
-        w-7 h-7
+        w-9 h-9 sm:w-7 sm:h-7
         cursor-pointer
         select-none
         transition-all duration-100
@@ -99,7 +99,7 @@ export function NavigationButtons({ currentSlide, totalSlides, onNavigate }) {
           <button
             onClick={toggleView}
             title="Toggle view (Space)"
-            className="absolute bottom-8 right-8 w-16 h-7 cursor-pointer select-none pointer-events-auto animate-spacebar-intro"
+            className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 w-20 h-9 sm:w-16 sm:h-7 cursor-pointer select-none pointer-events-auto animate-spacebar-intro"
           >
             <div
               className="absolute inset-0 flex items-center justify-center bg-white rounded-sm border border-gray-800"
@@ -121,7 +121,7 @@ export function NavigationButtons({ currentSlide, totalSlides, onNavigate }) {
       )}
 
       {/* Regular navigation buttons */}
-      <div className="fixed bottom-8 right-8 z-40">
+      <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-40">
         <div className="flex flex-col items-end gap-2">
           {/* Arrow keys */}
           <div className="flex flex-col gap-0.5">
@@ -162,7 +162,7 @@ export function NavigationButtons({ currentSlide, totalSlides, onNavigate }) {
           <button
             onClick={toggleView}
             title="Toggle view (Space)"
-            className={`relative w-16 h-7 cursor-pointer select-none transition-all duration-100 active:translate-y-[1px] ${
+            className={`relative w-20 h-9 sm:w-16 sm:h-7 cursor-pointer select-none transition-all duration-100 active:translate-y-[1px] ${
               shouldAnimateSpacebar ? "opacity-0" : ""
             }`}
           >

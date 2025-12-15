@@ -16,6 +16,8 @@ function DemoContent({
   isSlide1,
 }) {
   const [highlightKey, setHighlightKey] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
   const { noteContent } = useNote();
   const {
     toggleView,
@@ -25,6 +27,9 @@ function DemoContent({
     stopSpacebarAnimation,
   } = useView();
   const slides = toChildArray(children);
+
+  // Minimum swipe distance (in px) to trigger navigation
+  const minSwipeDistance = 50;
 
   useKeyboardNavigation(
     currentSlide,
@@ -51,6 +56,41 @@ function DemoContent({
 
   const isLastSlide = currentSlide === totalSlides - 1;
 
+  const onTouchStart = (e) => {
+    // Only handle swipe navigation on desktop (lg breakpoint)
+    if (window.innerWidth >= 1024) {
+      setTouchEnd(null);
+      setTouchStart(e.targetTouches[0].clientX);
+    }
+  };
+
+  const onTouchMove = (e) => {
+    // Only handle swipe navigation on desktop (lg breakpoint)
+    if (window.innerWidth >= 1024) {
+      setTouchEnd(e.targetTouches[0].clientX);
+    }
+  };
+
+  const onTouchEnd = () => {
+    // Only handle swipe navigation on desktop (lg breakpoint)
+    if (window.innerWidth < 1024) return;
+
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    // Left swipe = next slide
+    if (isLeftSwipe && currentSlide < totalSlides - 1) {
+      onSlideChange(currentSlide + 1);
+    }
+    // Right swipe = previous slide
+    if (isRightSwipe && currentSlide > 0) {
+      onSlideChange(currentSlide - 1);
+    }
+  };
+
   const handleClick = () => {
     // Don't handle clicks on last slide - allow text selection
     if (isLastSlide) return;
@@ -69,10 +109,13 @@ function DemoContent({
 
   return (
     <div
-      className={`w-screen h-screen overflow-hidden flex flex-col ${
+      className={`w-screen min-h-screen lg:h-screen overflow-auto lg:overflow-hidden flex flex-col ${
         isLastSlide ? "" : "cursor-pointer"
       }`}
       onClick={handleClick}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
     >
       {/* Header with note and counter */}
       <div className="relative z-20 w-full bg-claude-sidebar border-b border-claude-border px-6 py-3 flex items-center justify-between flex-shrink-0 pointer-events-none">
@@ -93,7 +136,7 @@ function DemoContent({
       </div>
 
       {/* Slide content area */}
-      <div className="flex-1 relative overflow-hidden">
+      <div className="flex-1 relative min-h-0 overflow-visible lg:overflow-hidden">
         <HighlightProvider key={highlightKey}>
           {slides[currentSlide]}
         </HighlightProvider>
