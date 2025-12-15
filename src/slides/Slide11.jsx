@@ -118,10 +118,6 @@ Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent
             </Message>
 
             <Message from="7b2f9a1e" fromColor="purple">
-              I'll analyze the architecture and provide concise recommendations.
-            </Message>
-
-            <Message from="7b2f9a1e" fromColor="purple">
               {`Key improvements:
 1. Decouple recipe generation from validation - add async queue
 2. Cache vector embeddings to reduce PostgreSQL load
@@ -204,10 +200,6 @@ Main components: /rewrite-assist command, Expert Agent (Sonnet), Validator Agent
               </ColoredTerminal>{" "}
               Review the architecture and suggest improvements. Please be brief.
             </TerminalUserMessage>
-
-            <TerminalResponse from="7b2f9a1e" fromColor="purple">
-              I'll analyze the architecture and provide concise recommendations.
-            </TerminalResponse>
 
             <TerminalResponse from="7b2f9a1e" fromColor="purple">
               {`Key improvements:
