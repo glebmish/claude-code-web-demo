@@ -11,3 +11,5 @@ export function Note({ children }) {
     </div>
   );
 }
+
+Note.displayName = "Note";

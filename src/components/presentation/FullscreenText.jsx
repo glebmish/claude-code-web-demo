@@ -1,3 +1,5 @@
+import { Children } from "react";
+
 export function FullscreenText({ children, showInsights = false, align = "center", strongBlur = false, layout = "vertical" }) {
   const alignmentClass = align === "left" ? "items-start justify-start pt-16 pl-16" : "items-center justify-center";
   const textAlignClass = align === "left" ? "text-left" : "text-center";
@@ -26,7 +28,7 @@ export function FullscreenText({ children, showInsights = false, align = "center
 
         {showInsights && children.length > 1 && (
           <div className={insightsLayoutClass}>
-            {children.slice(1)}
+            {Children.toArray(children).slice(1)}
           </div>
         )}
       </div>

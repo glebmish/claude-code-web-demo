@@ -2,7 +2,6 @@ import { createContext, useContext, useState } from "react";
 
 const ViewContext = createContext({
   viewMode: "web", // 'web' | 'terminal'
-  setViewMode: () => {},
   toggleView: () => {},
   hasShownTerminalOnSlide1: false,
   forceTerminalExposure: () => {},
@@ -35,7 +34,6 @@ export function ViewProvider({ children }) {
     <ViewContext.Provider
       value={{
         viewMode,
-        setViewMode,
         toggleView,
         hasShownTerminalOnSlide1,
         forceTerminalExposure,

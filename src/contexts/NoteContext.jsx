@@ -10,7 +10,7 @@ export function NoteProvider({ children }) {
 
   const value = useMemo(
     () => ({ noteContent, setNoteContent }),
-    [noteContent]
+    [noteContent, setNoteContent]
   );
 
   return (

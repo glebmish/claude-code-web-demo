@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { Children, useRef } from "react";
 import {
   findChildByDisplayName,
   filterChildrenByDisplayNames,
@@ -47,7 +47,7 @@ export function MainChat({ children, scroll }) {
           scroll ? { scrollbarWidth: "none", msOverflowStyle: "none" } : {}
         }
       >
-        <div className="flex flex-col gap-4">{messages}</div>
+        <div className="flex flex-col gap-4">{Children.toArray(messages)}</div>
       </div>
       {textField}
     </>

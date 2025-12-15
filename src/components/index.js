@@ -13,7 +13,7 @@
 export { ToolName, Command, Result, Colored, COLOR_MAP, TAILWIND_COLOR_MAP, resolveColor, getTextColor } from './common';
 
 // Presentation components
-export { Demo, Slide, Note, Highlight, MermaidDiagram, FullscreenText, Insight, ViewToggle, NavigationButtons } from './presentation';
+export { Demo, Slide, Note, Highlight, FullscreenText, Insight, ViewToggle, NavigationButtons } from './presentation';
 
 // View containers
 export { WebView, TerminalView } from './views';
