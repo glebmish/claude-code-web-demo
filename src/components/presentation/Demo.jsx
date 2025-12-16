@@ -18,6 +18,8 @@ function DemoContent({
   const [highlightKey, setHighlightKey] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
+  const [touchStartY, setTouchStartY] = useState(null);
+  const [touchEndY, setTouchEndY] = useState(null);
   const { noteContent } = useNote();
   const {
     toggleView,
@@ -54,32 +56,84 @@ function DemoContent({
     }
   }, [currentSlide, stopSpacebarAnimation]);
 
+  // Scroll to top when slide changes or in terminal mode
+  useEffect(() => {
+    const scrollToTop = () => {
+      // Scroll both window and main container to ensure it works
+      window.scrollTo(0, 0);
+      const mainContainer = document.querySelector('[class*="w-screen"][class*="h-screen"]');
+      if (mainContainer) {
+        mainContainer.scrollTop = 0;
+        mainContainer.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      // Also scroll body
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    };
+
+    // Immediate scroll
+    scrollToTop();
+
+    // Delayed scroll to catch any async rendering
+    const timer = setTimeout(scrollToTop, 50);
+
+    return () => clearTimeout(timer);
+  }, [currentSlide]);
+
+  // Scroll to top when switching to terminal mode
+  useEffect(() => {
+    if (viewMode === "terminal") {
+      window.scrollTo(0, 0);
+      const mainContainer = document.querySelector('[class*="w-screen"][class*="h-screen"]');
+      if (mainContainer) {
+        mainContainer.scrollTop = 0;
+        mainContainer.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  }, [viewMode]);
+
   const isLastSlide = currentSlide === totalSlides - 1;
 
   const onTouchStart = (e) => {
-    // Only handle swipe navigation on desktop (lg breakpoint)
-    if (window.innerWidth >= 1024) {
-      setTouchEnd(null);
-      setTouchStart(e.targetTouches[0].clientX);
-    }
+    // Enable swipe navigation on all screen sizes
+    setTouchEnd(null);
+    setTouchEndY(null);
+    setTouchStart(e.targetTouches[0].clientX);
+    setTouchStartY(e.targetTouches[0].clientY);
   };
 
   const onTouchMove = (e) => {
-    // Only handle swipe navigation on desktop (lg breakpoint)
-    if (window.innerWidth >= 1024) {
-      setTouchEnd(e.targetTouches[0].clientX);
+    // Track touch movement
+    setTouchEnd(e.targetTouches[0].clientX);
+    setTouchEndY(e.targetTouches[0].clientY);
+
+    // If we have both start and current positions, determine swipe direction
+    if (touchStart !== null && touchStartY !== null) {
+      const xDiff = Math.abs(e.targetTouches[0].clientX - touchStart);
+      const yDiff = Math.abs(e.targetTouches[0].clientY - touchStartY);
+
+      // If horizontal swipe is more pronounced than vertical, prevent default scroll
+      if (xDiff > yDiff && xDiff > 10) {
+        e.preventDefault();
+      }
     }
   };
 
   const onTouchEnd = () => {
-    // Only handle swipe navigation on desktop (lg breakpoint)
-    if (window.innerWidth < 1024) return;
+    if (!touchStart || !touchEnd || !touchStartY || !touchEndY) return;
 
-    if (!touchStart || !touchEnd) return;
+    const xDistance = touchStart - touchEnd;
+    const yDistance = touchStartY - touchEndY;
 
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
+    // Determine if swipe is more horizontal than vertical
+    const isHorizontalSwipe = Math.abs(xDistance) > Math.abs(yDistance);
+
+    if (!isHorizontalSwipe) return; // Ignore vertical swipes
+
+    const isLeftSwipe = xDistance > minSwipeDistance;
+    const isRightSwipe = xDistance < -minSwipeDistance;
 
     // Left swipe = next slide
     if (isLeftSwipe && currentSlide < totalSlides - 1) {
@@ -112,26 +166,52 @@ function DemoContent({
       className={`w-screen min-h-screen lg:h-screen overflow-auto lg:overflow-hidden flex flex-col ${
         isLastSlide ? "" : "cursor-pointer"
       }`}
+      style={{ touchAction: 'pan-y' }}
       onClick={handleClick}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
-      {/* Header with note and counter */}
-      <div className="relative z-20 w-full bg-claude-sidebar border-b border-claude-border px-3 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 flex items-center justify-between flex-shrink-0 pointer-events-none">
-        <div className="flex-1" />
-        <div className="flex-1 flex justify-center">
+      {/* Header with controls and note */}
+      <div className="relative z-20 w-full bg-claude-sidebar border-b border-claude-border px-3 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 flex-shrink-0">
+        {/* Mobile layout (< lg): Stacked */}
+        <div className="flex flex-col gap-2 lg:hidden">
+          {/* Top row: ViewToggle and Counter */}
+          <div className="flex items-center justify-between pointer-events-none">
+            <div className="pointer-events-auto">
+              <ViewToggle />
+            </div>
+            <span className="text-claude-text-dim text-xs sm:text-sm font-medium whitespace-nowrap">
+              {currentSlide}/{totalSlides - 1}
+            </span>
+          </div>
+
+          {/* Bottom row: Note */}
           {noteContent && (
-            <p className="text-claude-text-dim text-xs sm:text-sm font-medium text-center truncate max-w-full px-1">
-              {noteContent}
-            </p>
+            <div className="flex-1 min-w-0">
+              <p className="text-claude-text-dim text-xs sm:text-sm font-medium text-left">
+                {noteContent}
+              </p>
+            </div>
           )}
         </div>
-        <div className="flex-1 flex items-center justify-end gap-4 pointer-events-auto">
-          <ViewToggle />
-          <span className="text-claude-text-dim text-xs sm:text-sm font-medium whitespace-nowrap">
-            {currentSlide}/{totalSlides - 1}
-          </span>
+
+        {/* Desktop layout (>= lg): Original horizontal layout */}
+        <div className="hidden lg:flex items-center justify-between pointer-events-none">
+          <div className="flex-1" />
+          <div className="flex-1 flex justify-center">
+            {noteContent && (
+              <p className="text-claude-text-dim text-sm font-medium text-center">
+                {noteContent}
+              </p>
+            )}
+          </div>
+          <div className="flex-1 flex items-center justify-end gap-4 pointer-events-auto">
+            <ViewToggle />
+            <span className="text-claude-text-dim text-sm font-medium whitespace-nowrap">
+              {currentSlide}/{totalSlides - 1}
+            </span>
+          </div>
         </div>
       </div>
 
@@ -142,8 +222,8 @@ function DemoContent({
         </HighlightProvider>
       </div>
 
-      {/* Navigation Buttons */}
-      <div className="pointer-events-auto" onClick={(e) => e.stopPropagation()}>
+      {/* Navigation Buttons - Desktop only */}
+      <div className="hidden lg:block pointer-events-auto">
         <NavigationButtons
           currentSlide={currentSlide}
           totalSlides={totalSlides}

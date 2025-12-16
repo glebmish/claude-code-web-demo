@@ -4,7 +4,8 @@ import { toChildArray } from "../common";
 
 export function Highlight({ children }) {
   const id = useId();
-  const { registerHighlight, unregisterHighlight } = useHighlight();
+  const { registerHighlight, unregisterHighlight, activeHighlights } = useHighlight();
+  const isActive = activeHighlights?.has(id) || false;
 
   useEffect(() => {
     registerHighlight(id);
@@ -20,8 +21,9 @@ export function Highlight({ children }) {
   return (
     <div
       className={`relative z-20 bg-claude-bg ${
-        hasMainChat ? "flex flex-col flex-1 overflow-hidden" : ""
+        hasMainChat ? "flex flex-col flex-1 overflow-visible lg:overflow-hidden" : ""
       }`}
+      data-highlighted={isActive ? "true" : "false"}
     >
       {children}
     </div>

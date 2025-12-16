@@ -31,7 +31,10 @@ export function NavigationButtons({ currentSlide, totalSlides, onNavigate }) {
 
   const KeyButton = ({ direction, disabled, onClick, title }) => (
     <button
-      onClick={onClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick(e);
+      }}
       disabled={disabled}
       title={title}
       className={`
@@ -97,7 +100,15 @@ export function NavigationButtons({ currentSlide, totalSlides, onNavigate }) {
       {shouldAnimateSpacebar && (
         <div className="fixed inset-0 z-[9999] pointer-events-none">
           <button
-            onClick={toggleView}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleView();
+            }}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
             title="Toggle view (Space)"
             className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 w-20 h-9 sm:w-16 sm:h-7 cursor-pointer select-none pointer-events-auto animate-spacebar-intro"
           >
@@ -160,7 +171,15 @@ export function NavigationButtons({ currentSlide, totalSlides, onNavigate }) {
 
           {/* Space key */}
           <button
-            onClick={toggleView}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleView();
+            }}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
             title="Toggle view (Space)"
             className={`relative w-20 h-9 sm:w-16 sm:h-7 cursor-pointer select-none transition-all duration-100 active:translate-y-[1px] ${
               shouldAnimateSpacebar ? "opacity-0" : ""

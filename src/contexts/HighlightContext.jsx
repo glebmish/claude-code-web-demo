@@ -6,6 +6,7 @@ const HighlightContext = createContext({
   isOverlayVisible: false,
   registerHighlight: () => {},
   unregisterHighlight: () => {},
+  activeHighlights: new Set(),
 });
 
 export function HighlightProvider({ children }) {
@@ -32,6 +33,8 @@ export function HighlightProvider({ children }) {
   // Manage overlay visibility with delayed hiding to prevent flash during slide transitions
   // Only show overlay in web view mode
   useEffect(() => {
+    if (!activeHighlights) return;
+
     if (viewMode === "web" && activeHighlights.size > 0) {
       // Show overlay immediately when highlights are active and in web view
       setIsOverlayVisible(true);
@@ -43,16 +46,17 @@ export function HighlightProvider({ children }) {
 
       return () => clearTimeout(timer);
     }
-  }, [activeHighlights.size, viewMode]);
+  }, [activeHighlights?.size, viewMode]);
 
   const value = useMemo(
     () => ({
-      isHighlightActive: activeHighlights.size > 0,
+      isHighlightActive: activeHighlights?.size > 0,
       isOverlayVisible,
       registerHighlight,
       unregisterHighlight,
+      activeHighlights: activeHighlights || new Set(),
     }),
-    [activeHighlights.size, isOverlayVisible, registerHighlight, unregisterHighlight]
+    [activeHighlights, isOverlayVisible, registerHighlight, unregisterHighlight]
   );
 
   return (

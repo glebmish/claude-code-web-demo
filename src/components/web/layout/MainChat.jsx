@@ -1,10 +1,13 @@
-import React, { Children, useRef } from "react";
+import React, { Children, useRef, useEffect } from "react";
 import {
   findChildByDisplayName,
   filterChildrenByDisplayNames,
   findChildByDisplayNameInWrapper,
   useScrollPosition,
 } from "../../common";
+import { useHighlight } from "../../../contexts/HighlightContext";
+import { useView } from "../../../contexts/ViewContext";
+import { scrollToHighlight } from "../../../utils/scrollToHighlight";
 
 export function MainChat({ children, scroll }) {
   const header = findChildByDisplayName(children, "MainChatHeader");
@@ -33,6 +36,30 @@ export function MainChat({ children, scroll }) {
     : textFieldElement;
 
   const containerRef = useRef(null);
+  const { activeHighlights } = useHighlight();
+  const { viewMode } = useView();
+
+  // Scroll to highlight when highlights change (Web view only)
+  useEffect(() => {
+    // Only scroll to highlight in web mode
+    if (viewMode !== "web") return;
+
+    if (activeHighlights && activeHighlights.size > 0) {
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        // On mobile (< 1024px), scroll the main page container
+        // On desktop, scroll the MainChat container
+        const isMobile = window.innerWidth < 1024;
+        const scrollContainer = isMobile
+          ? document.querySelector('[class*="w-screen"][class*="h-screen"]')
+          : containerRef.current;
+
+        scrollToHighlight(scrollContainer, activeHighlights);
+      }, 100);
+    }
+  }, [activeHighlights, viewMode]);
+
+  // Original scroll logic (for presentations with explicit scroll prop)
   useScrollPosition(containerRef, scroll, [messages]);
 
   return (
