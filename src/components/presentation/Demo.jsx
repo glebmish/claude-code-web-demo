@@ -109,6 +109,9 @@ function DemoContent({
     setTouchEnd(e.targetTouches[0].clientX);
     setTouchEndY(e.targetTouches[0].clientY);
 
+    // On last slide, don't interfere with text selection (mobile only)
+    if (isLastSlide) return;
+
     // If we have both start and current positions, determine swipe direction
     if (touchStart !== null && touchStartY !== null) {
       const xDiff = Math.abs(e.targetTouches[0].clientX - touchStart);
@@ -166,14 +169,14 @@ function DemoContent({
       className={`w-screen min-h-screen lg:h-screen overflow-auto lg:overflow-hidden flex flex-col ${
         isLastSlide ? "" : "cursor-pointer"
       }`}
-      style={{ touchAction: 'pan-y' }}
+      style={{ touchAction: isLastSlide ? 'auto' : 'pan-y' }}
       onClick={handleClick}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
       {/* Header with controls and note */}
-      <div className="relative z-20 w-full bg-claude-sidebar border-b border-claude-border px-3 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 flex-shrink-0">
+      <div className="sticky lg:relative top-0 z-20 w-full bg-claude-sidebar border-b border-claude-border px-3 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 flex-shrink-0">
         {/* Mobile layout (< lg): Stacked */}
         <div className="flex flex-col gap-2 lg:hidden">
           {/* Top row: ViewToggle and Counter */}
