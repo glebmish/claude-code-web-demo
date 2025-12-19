@@ -60,14 +60,13 @@ function DemoContent({
   // Scroll to top when slide changes or in terminal mode
   useEffect(() => {
     const scrollToTop = () => {
-      // Scroll both window and main container to ensure it works
-      window.scrollTo(0, 0);
-      const mainContainer = document.querySelector('[class*="w-screen"][class*="h-screen"]');
-      if (mainContainer) {
-        mainContainer.scrollTop = 0;
-        mainContainer.scrollTo({ top: 0, behavior: 'instant' });
+      // Scroll the content area (which now handles scrolling on mobile)
+      const contentArea = document.querySelector('[class*="flex-1"][class*="overflow-auto"]');
+      if (contentArea) {
+        contentArea.scrollTop = 0;
       }
-      // Also scroll body
+      // Also scroll window/body as fallback
+      window.scrollTo(0, 0);
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     };
@@ -84,12 +83,11 @@ function DemoContent({
   // Scroll to top when switching to terminal mode
   useEffect(() => {
     if (viewMode === "terminal") {
-      window.scrollTo(0, 0);
-      const mainContainer = document.querySelector('[class*="w-screen"][class*="h-screen"]');
-      if (mainContainer) {
-        mainContainer.scrollTop = 0;
-        mainContainer.scrollTo({ top: 0, behavior: 'instant' });
+      const contentArea = document.querySelector('[class*="flex-1"][class*="overflow-auto"]');
+      if (contentArea) {
+        contentArea.scrollTop = 0;
       }
+      window.scrollTo(0, 0);
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
@@ -176,7 +174,7 @@ function DemoContent({
 
   return (
     <div
-      className={`w-screen min-h-screen lg:h-screen overflow-auto lg:overflow-hidden flex flex-col ${
+      className={`w-screen h-dvh lg:h-screen overflow-hidden flex flex-col ${
         isLastSlide ? "" : "cursor-pointer"
       }`}
       style={{ touchAction: isLastSlide ? 'auto' : 'pan-y' }}
@@ -186,7 +184,7 @@ function DemoContent({
       onTouchEnd={onTouchEnd}
     >
       {/* Header with controls and note */}
-      <div className="sticky lg:relative top-0 z-20 w-full bg-claude-sidebar border-b border-claude-border px-3 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 flex-shrink-0">
+      <div className="z-20 w-full bg-claude-sidebar border-b border-claude-border px-3 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 flex-shrink-0">
         {/* Mobile layout (< lg): Stacked */}
         <div className="flex flex-col gap-2 lg:hidden">
           {/* Top row: ViewToggle and Counter */}
@@ -229,7 +227,7 @@ function DemoContent({
       </div>
 
       {/* Slide content area */}
-      <div className="flex-1 relative min-h-0 overflow-visible lg:overflow-hidden">
+      <div className="flex-1 relative min-h-0 overflow-auto lg:overflow-hidden">
         <HighlightProvider key={highlightKey}>
           {slides[currentSlide]}
         </HighlightProvider>
