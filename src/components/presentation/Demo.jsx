@@ -109,7 +109,7 @@ function DemoContent({
     setTouchEnd(e.targetTouches[0].clientX);
     setTouchEndY(e.targetTouches[0].clientY);
 
-    // On last slide, don't interfere with text selection (mobile only)
+    // On last slide, don't call preventDefault to allow text selection (mobile only)
     if (isLastSlide) return;
 
     // If we have both start and current positions, determine swipe direction
@@ -126,6 +126,14 @@ function DemoContent({
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd || !touchStartY || !touchEndY) return;
+
+    // On last slide, skip navigation if user is selecting text (mobile only)
+    if (isLastSlide) {
+      const selection = window.getSelection();
+      if (selection && selection.toString().length > 0) {
+        return;
+      }
+    }
 
     const xDistance = touchStart - touchEnd;
     const yDistance = touchStartY - touchEndY;
