@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useKeyboardNavigation } from "../../utils/useKeyboardNavigation";
 import { HighlightProvider } from "../../contexts/HighlightContext";
@@ -20,6 +20,7 @@ function DemoContent({
   const [touchEnd, setTouchEnd] = useState(null);
   const [touchStartY, setTouchStartY] = useState(null);
   const [touchEndY, setTouchEndY] = useState(null);
+  const selectionAtTouchStart = useRef("");
   const { noteContent } = useNote();
   const {
     toggleView,
@@ -97,17 +98,21 @@ function DemoContent({
   const isLastSlide = currentSlide === totalSlides - 1;
 
   const onTouchStart = (e) => {
-    // Enable swipe navigation on all screen sizes
     setTouchEnd(null);
     setTouchEndY(null);
     setTouchStart(e.targetTouches[0].clientX);
     setTouchStartY(e.targetTouches[0].clientY);
+    // Track selection to detect text selection vs swipe on last slide
+    const selection = window.getSelection();
+    selectionAtTouchStart.current = selection ? selection.toString() : "";
   };
 
   const onTouchMove = (e) => {
-    // Track touch movement
     setTouchEnd(e.targetTouches[0].clientX);
     setTouchEndY(e.targetTouches[0].clientY);
+
+    // On last slide, don't prevent default - allow native text selection
+    if (isLastSlide) return;
 
     // If we have both start and current positions, determine swipe direction
     if (touchStart !== null && touchStartY !== null) {
@@ -123,6 +128,14 @@ function DemoContent({
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd || !touchStartY || !touchEndY) return;
+
+    // On last slide, skip navigation if user was selecting text (selection changed)
+    if (isLastSlide) {
+      const currentSelection = window.getSelection()?.toString() || "";
+      if (currentSelection !== selectionAtTouchStart.current) {
+        return;
+      }
+    }
 
     const xDistance = touchStart - touchEnd;
     const yDistance = touchStartY - touchEndY;
@@ -166,14 +179,14 @@ function DemoContent({
       className={`w-screen min-h-screen lg:h-screen overflow-auto lg:overflow-hidden flex flex-col ${
         isLastSlide ? "" : "cursor-pointer"
       }`}
-      style={{ touchAction: 'pan-y' }}
+      style={{ touchAction: isLastSlide ? 'auto' : 'pan-y' }}
       onClick={handleClick}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
       {/* Header with controls and note */}
-      <div className="relative z-20 w-full bg-claude-sidebar border-b border-claude-border px-3 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 flex-shrink-0">
+      <div className="sticky lg:relative top-0 z-20 w-full bg-claude-sidebar border-b border-claude-border px-3 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 flex-shrink-0">
         {/* Mobile layout (< lg): Stacked */}
         <div className="flex flex-col gap-2 lg:hidden">
           {/* Top row: ViewToggle and Counter */}
