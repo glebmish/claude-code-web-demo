@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useKeyboardNavigation } from "../../utils/useKeyboardNavigation";
 import { HighlightProvider } from "../../contexts/HighlightContext";
@@ -20,6 +20,7 @@ function DemoContent({
   const [touchEnd, setTouchEnd] = useState(null);
   const [touchStartY, setTouchStartY] = useState(null);
   const [touchEndY, setTouchEndY] = useState(null);
+  const selectionAtTouchStart = useRef("");
   const { noteContent } = useNote();
   const {
     toggleView,
@@ -97,21 +98,21 @@ function DemoContent({
   const isLastSlide = currentSlide === totalSlides - 1;
 
   const onTouchStart = (e) => {
-    // On last slide, don't handle touch for swipe - allow native text selection
-    if (isLastSlide) return;
-
     setTouchEnd(null);
     setTouchEndY(null);
     setTouchStart(e.targetTouches[0].clientX);
     setTouchStartY(e.targetTouches[0].clientY);
+    // Track selection to detect text selection vs swipe on last slide
+    const selection = window.getSelection();
+    selectionAtTouchStart.current = selection ? selection.toString() : "";
   };
 
   const onTouchMove = (e) => {
-    // On last slide, don't handle touch - allow native text selection
-    if (isLastSlide) return;
-
     setTouchEnd(e.targetTouches[0].clientX);
     setTouchEndY(e.targetTouches[0].clientY);
+
+    // On last slide, don't prevent default - allow native text selection
+    if (isLastSlide) return;
 
     // If we have both start and current positions, determine swipe direction
     if (touchStart !== null && touchStartY !== null) {
@@ -127,6 +128,14 @@ function DemoContent({
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd || !touchStartY || !touchEndY) return;
+
+    // On last slide, skip navigation if user was selecting text (selection changed)
+    if (isLastSlide) {
+      const currentSelection = window.getSelection()?.toString() || "";
+      if (currentSelection !== selectionAtTouchStart.current) {
+        return;
+      }
+    }
 
     const xDistance = touchStart - touchEnd;
     const yDistance = touchStartY - touchEndY;
