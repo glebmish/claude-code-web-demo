@@ -97,7 +97,9 @@ function DemoContent({
   const isLastSlide = currentSlide === totalSlides - 1;
 
   const onTouchStart = (e) => {
-    // Enable swipe navigation on all screen sizes
+    // On last slide, don't handle touch for swipe - allow native text selection
+    if (isLastSlide) return;
+
     setTouchEnd(null);
     setTouchEndY(null);
     setTouchStart(e.targetTouches[0].clientX);
@@ -105,12 +107,11 @@ function DemoContent({
   };
 
   const onTouchMove = (e) => {
-    // Track touch movement
+    // On last slide, don't handle touch - allow native text selection
+    if (isLastSlide) return;
+
     setTouchEnd(e.targetTouches[0].clientX);
     setTouchEndY(e.targetTouches[0].clientY);
-
-    // On last slide, don't call preventDefault to allow text selection (mobile only)
-    if (isLastSlide) return;
 
     // If we have both start and current positions, determine swipe direction
     if (touchStart !== null && touchStartY !== null) {
@@ -126,14 +127,6 @@ function DemoContent({
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd || !touchStartY || !touchEndY) return;
-
-    // On last slide, skip navigation if user is selecting text (mobile only)
-    if (isLastSlide) {
-      const selection = window.getSelection();
-      if (selection && selection.toString().length > 0) {
-        return;
-      }
-    }
 
     const xDistance = touchStart - touchEnd;
     const yDistance = touchStartY - touchEndY;
