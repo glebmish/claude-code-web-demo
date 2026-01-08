@@ -13,8 +13,6 @@ import {
   Slide9,
   Slide10,
   Slide11,
-  Slide12,
-  Slide13,
 } from "./slides";
 
 function App() {
@@ -36,8 +34,6 @@ function App() {
             <Slide9 />
             <Slide10 />
             <Slide11 />
-            <Slide12 />
-            <Slide13 />
           </Demo>
         }
       />
